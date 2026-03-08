@@ -1,8 +1,9 @@
 import { useState, useMemo } from "react";
-import { Search, Star, Terminal } from "lucide-react";
+import { Search, Star, Terminal, Clock } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { tools, categories, ToolCategory } from "@/data/tools";
 import { useFavorites } from "@/hooks/useFavorites";
+import { useRecentTools } from "@/hooks/useRecentTools";
 import ToolCard from "@/components/ToolCard";
 import { cn } from "@/lib/utils";
 
