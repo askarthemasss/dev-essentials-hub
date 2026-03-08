@@ -12,6 +12,9 @@ import {
   Network, Scan, Usb, Radio, CircleDot,
   ShieldCheck, ShieldAlert, ShieldQuestion, KeySquare, CheckCircle,
   Keyboard, Smile, TableProperties, GitBranch, Regex, Settings, Brackets,
+  Contrast, Braces, Lock, FileX, StretchHorizontal, Scissors, FileCode as FileCodeAlt,
+  GitCompare, TimerReset, LinkIcon, Hexagon, Database, Container, ServerCog,
+  Filter, Waypoints, Webhook, TestTube, Bug, Workflow,
 } from "lucide-react";
 
 export type ToolCategory =
