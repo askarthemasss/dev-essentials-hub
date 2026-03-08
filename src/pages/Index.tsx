@@ -105,6 +105,26 @@ const Index = () => {
         </div>
       </div>
 
+      {/* Most used tools - dashboard */}
+      {mostUsedTools.length > 0 && activeCategory === "All" && !search && (
+        <section className="mx-auto max-w-6xl px-4 pt-4">
+          <div className="flex items-center gap-1.5 mb-2">
+            <Flame className="h-3.5 w-3.5 text-primary" />
+            <h2 className="font-mono text-xs font-medium text-foreground">Most Used</h2>
+          </div>
+          <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
+            {mostUsedTools.map((tool) => (
+              <ToolCard
+                key={tool!.id}
+                tool={tool!}
+                isFavorite={isFavorite(tool!.id)}
+                onToggleFavorite={toggle}
+              />
+            ))}
+          </div>
+        </section>
+      )}
+
       {/* Recent tools - compact */}
       {recentTools.length > 0 && activeCategory === "All" && !search && (
         <section className="mx-auto max-w-6xl px-4 pt-4">

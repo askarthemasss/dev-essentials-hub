@@ -149,7 +149,10 @@ const ToolPage: React.FC = () => {
   );
 
   useEffect(() => {
-    if (toolId) addRecentTool(toolId);
+    if (toolId) {
+      addRecentTool(toolId);
+      addMostUsedTool(toolId);
+    }
   }, [toolId]);
 
   if (!tool || !toolId) return <Navigate to="/" replace />;
