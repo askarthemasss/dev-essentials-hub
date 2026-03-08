@@ -137,6 +137,11 @@ const ToolPage: React.FC = () => {
   const { toolId } = useParams<{ toolId: string }>();
   const tool = tools.find((t) => t.id === toolId);
 
+  useSEO(
+    tool ? `${tool.name} — DevToolbox` : "DevToolbox",
+    tool ? `${tool.description}. Free online developer tool — no signup required.` : ""
+  );
+
   useEffect(() => {
     if (toolId) addRecentTool(toolId);
   }, [toolId]);
