@@ -3,6 +3,7 @@ import { useParams, Navigate } from "react-router-dom";
 import { tools } from "@/data/tools";
 import ToolLayout from "@/components/ToolLayout";
 import { addRecentTool } from "@/hooks/useRecentTools";
+import { useSEO } from "@/hooks/useSEO";
 
 // Lazy load all tool components
 const toolComponents: Record<string, React.LazyExoticComponent<React.FC>> = {
