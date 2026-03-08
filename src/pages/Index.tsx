@@ -47,7 +47,7 @@ const Index = () => {
             <Input
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              placeholder="Search 104 tools…"
+              placeholder={`Search ${tools.length} tools…`}
               className="pl-9 bg-secondary border-border font-mono text-sm"
             />
           </div>
