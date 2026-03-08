@@ -116,6 +116,10 @@ const ToolPage: React.FC = () => {
   const { toolId } = useParams<{ toolId: string }>();
   const tool = tools.find((t) => t.id === toolId);
 
+  useEffect(() => {
+    if (toolId) addRecentTool(toolId);
+  }, [toolId]);
+
   if (!tool || !toolId) return <Navigate to="/" replace />;
 
   const Component = toolComponents[toolId];
