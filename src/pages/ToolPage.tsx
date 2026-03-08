@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useParams, Navigate } from "react-router-dom";
 import { tools } from "@/data/tools";
 import ToolLayout from "@/components/ToolLayout";
+import { addRecentTool } from "@/hooks/useRecentTools";
 
 // Lazy load all tool components
 const toolComponents: Record<string, React.LazyExoticComponent<React.FC>> = {
