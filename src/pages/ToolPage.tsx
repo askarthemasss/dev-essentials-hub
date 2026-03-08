@@ -3,6 +3,7 @@ import { useParams, Navigate } from "react-router-dom";
 import { tools } from "@/data/tools";
 import ToolLayout from "@/components/ToolLayout";
 import { addRecentTool } from "@/hooks/useRecentTools";
+import { addMostUsedTool } from "@/hooks/useMostUsedTools";
 import { useSEO } from "@/hooks/useSEO";
 
 // Lazy load all tool components
@@ -148,7 +149,10 @@ const ToolPage: React.FC = () => {
   );
 
   useEffect(() => {
-    if (toolId) addRecentTool(toolId);
+    if (toolId) {
+      addRecentTool(toolId);
+      addMostUsedTool(toolId);
+    }
   }, [toolId]);
 
   if (!tool || !toolId) return <Navigate to="/" replace />;

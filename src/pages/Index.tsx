@@ -1,9 +1,10 @@
 import { useState, useMemo } from "react";
-import { Search, Star, Terminal, Clock } from "lucide-react";
+import { Search, Star, Terminal, Clock, Flame } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { tools, categories, ToolCategory } from "@/data/tools";
 import { useFavorites } from "@/hooks/useFavorites";
 import { useRecentTools } from "@/hooks/useRecentTools";
+import { useMostUsedTools } from "@/hooks/useMostUsedTools";
 import { useSEO } from "@/hooks/useSEO";
 import ToolCard from "@/components/ToolCard";
 import { cn } from "@/lib/utils";
@@ -14,7 +15,9 @@ const Index = () => {
   const [activeCategory, setActiveCategory] = useState<ToolCategory | "All" | "Favorites">("All");
   const { toggle, isFavorite, count } = useFavorites();
   const { recent } = useRecentTools();
+  const { mostUsed } = useMostUsedTools();
   const recentTools = useMemo(() => recent.map((id) => tools.find((t) => t.id === id)).filter(Boolean), [recent]);
+  const mostUsedTools = useMemo(() => mostUsed.map((id) => tools.find((t) => t.id === id)).filter(Boolean), [mostUsed]);
 
   const filtered = useMemo(() => {
     let list = tools;
@@ -101,6 +104,26 @@ const Index = () => {
           ))}
         </div>
       </div>
+
+      {/* Most used tools - dashboard */}
+      {mostUsedTools.length > 0 && activeCategory === "All" && !search && (
+        <section className="mx-auto max-w-6xl px-4 pt-4">
+          <div className="flex items-center gap-1.5 mb-2">
+            <Flame className="h-3.5 w-3.5 text-primary" />
+            <h2 className="font-mono text-xs font-medium text-foreground">Most Used</h2>
+          </div>
+          <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
+            {mostUsedTools.map((tool) => (
+              <ToolCard
+                key={tool!.id}
+                tool={tool!}
+                isFavorite={isFavorite(tool!.id)}
+                onToggleFavorite={toggle}
+              />
+            ))}
+          </div>
+        </section>
+      )}
 
       {/* Recent tools - compact */}
       {recentTools.length > 0 && activeCategory === "All" && !search && (
