@@ -37,82 +37,79 @@ const Index = () => {
 
   return (
     <div className="dark min-h-screen bg-background">
-      {/* Top bar */}
-      <header className="sticky top-0 z-50 border-b border-border bg-card/80 backdrop-blur-md">
-        <div className="mx-auto flex max-w-7xl items-center gap-4 px-4 py-3">
+      {/* Compact header */}
+      <header className="sticky top-0 z-50 border-b border-border bg-card/90 backdrop-blur-md">
+        <div className="mx-auto flex max-w-6xl items-center gap-3 px-4 py-2.5">
           <div className="flex items-center gap-2">
-            <Terminal className="h-6 w-6 text-primary" />
-            <span className="font-mono text-lg font-bold text-foreground">DevToolbox</span>
+            <Terminal className="h-5 w-5 text-primary" />
+            <span className="font-mono text-base font-bold text-foreground hidden sm:inline">DevToolbox</span>
           </div>
-          <div className="relative flex-1 max-w-md">
-            <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+          <div className="relative flex-1 max-w-sm">
+            <Search className="absolute left-2.5 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-muted-foreground" />
             <Input
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder={`Search ${tools.length} tools…`}
-              className="pl-9 bg-secondary border-border font-mono text-sm"
+              className="h-8 pl-8 bg-secondary border-border font-mono text-xs"
             />
           </div>
-          <kbd className="hidden sm:inline-flex items-center gap-1 rounded border border-border bg-secondary px-2 py-1 text-[10px] font-mono text-muted-foreground">
-            <span>⌘</span>K
+          <kbd className="hidden md:inline-flex items-center gap-0.5 rounded border border-border bg-secondary px-1.5 py-0.5 text-[9px] font-mono text-muted-foreground">
+            ⌘K
           </kbd>
           <button
             onClick={() => setActiveCategory(activeCategory === "Favorites" ? "All" : "Favorites")}
             className={cn(
-              "flex items-center gap-1.5 rounded-md px-3 py-1.5 text-sm font-medium transition-colors",
+              "flex items-center gap-1 rounded px-2 py-1 text-xs font-medium transition-colors",
               activeCategory === "Favorites"
                 ? "bg-primary text-primary-foreground"
                 : "text-muted-foreground hover:text-foreground"
             )}
           >
-            <Star className="h-4 w-4" fill={activeCategory === "Favorites" ? "currentColor" : "none"} />
-            {count}
+            <Star className="h-3.5 w-3.5" fill={activeCategory === "Favorites" ? "currentColor" : "none"} />
+            <span className="hidden sm:inline">{count}</span>
           </button>
         </div>
       </header>
 
-      {/* Category bar */}
+      {/* Inline category filter */}
       <div className="border-b border-border bg-card/50">
-        <div className="mx-auto flex max-w-7xl gap-1 overflow-x-auto px-4 py-2 scrollbar-hide">
+        <div className="mx-auto flex max-w-6xl gap-1 overflow-x-auto px-4 py-1.5 scrollbar-hide">
           <button
             onClick={() => setActiveCategory("All")}
             className={cn(
-              "shrink-0 rounded-full px-3 py-1 text-xs font-medium transition-colors",
+              "shrink-0 rounded-full px-2.5 py-0.5 text-[11px] font-medium transition-colors",
               activeCategory === "All"
                 ? "bg-primary text-primary-foreground"
                 : "bg-secondary text-secondary-foreground hover:bg-secondary/80"
             )}
           >
-            All ({tools.length})
+            All
           </button>
-          {categories.map((cat) => {
-            const catCount = tools.filter((t) => t.category === cat).length;
-            return (
-              <button
-                key={cat}
-                onClick={() => setActiveCategory(cat)}
-                className={cn(
-                  "shrink-0 rounded-full px-3 py-1 text-xs font-medium transition-colors",
-                  activeCategory === cat
-                    ? "bg-primary text-primary-foreground"
-                    : "bg-secondary text-secondary-foreground hover:bg-secondary/80"
-                )}
-              >
-                {cat} ({catCount})
-              </button>
-            );
-          })}
+          {categories.map((cat) => (
+            <button
+              key={cat}
+              onClick={() => setActiveCategory(cat)}
+              className={cn(
+                "shrink-0 rounded-full px-2.5 py-0.5 text-[11px] font-medium transition-colors",
+                activeCategory === cat
+                  ? "bg-primary text-primary-foreground"
+                  : "bg-secondary text-secondary-foreground hover:bg-secondary/80"
+              )}
+            >
+              {cat.split("/")[0]}
+            </button>
+          ))}
         </div>
       </div>
 
-      {/* Recent tools */}
+      {/* Recent tools - compact */}
       {recentTools.length > 0 && activeCategory === "All" && !search && (
-        <section className="mx-auto max-w-7xl px-4 pt-6">
-          <div className="flex items-center gap-2 mb-3">
-            <Clock className="h-4 w-4 text-muted-foreground" />
-            <h2 className="font-mono text-sm font-medium text-muted-foreground">Recently Used</h2>
+        <section className="mx-auto max-w-6xl px-4 pt-4">
+          <div className="flex items-center gap-1.5 mb-2">
+            <Clock className="h-3.5 w-3.5 text-muted-foreground" />
+            <h2 className="font-mono text-xs font-medium text-muted-foreground">Recent</h2>
           </div>
-          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
+          <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
             {recentTools.map((tool) => (
               <ToolCard
                 key={tool!.id}
@@ -125,15 +122,15 @@ const Index = () => {
         </section>
       )}
 
-      {/* Tool grid */}
-      <main className="mx-auto max-w-7xl px-4 py-6">
+      {/* Tool grid - dense layout */}
+      <main className="mx-auto max-w-6xl px-4 py-4">
         {filtered.length === 0 ? (
-          <div className="flex flex-col items-center justify-center py-20 text-muted-foreground">
-            <Search className="h-10 w-10 mb-3" />
-            <p className="font-mono text-sm">No tools found</p>
+          <div className="flex flex-col items-center justify-center py-16 text-muted-foreground">
+            <Search className="h-8 w-8 mb-2" />
+            <p className="font-mono text-xs">No tools found</p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+          <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
             {filtered.map((tool) => (
               <ToolCard
                 key={tool.id}
