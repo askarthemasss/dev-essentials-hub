@@ -15,7 +15,9 @@ const Index = () => {
   const [activeCategory, setActiveCategory] = useState<ToolCategory | "All" | "Favorites">("All");
   const { toggle, isFavorite, count } = useFavorites();
   const { recent } = useRecentTools();
+  const { mostUsed } = useMostUsedTools();
   const recentTools = useMemo(() => recent.map((id) => tools.find((t) => t.id === id)).filter(Boolean), [recent]);
+  const mostUsedTools = useMemo(() => mostUsed.map((id) => tools.find((t) => t.id === id)).filter(Boolean), [mostUsed]);
 
   const filtered = useMemo(() => {
     let list = tools;
