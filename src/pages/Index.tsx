@@ -103,6 +103,26 @@ const Index = () => {
         </div>
       </div>
 
+      {/* Recent tools */}
+      {recentTools.length > 0 && activeCategory === "All" && !search && (
+        <section className="mx-auto max-w-7xl px-4 pt-6">
+          <div className="flex items-center gap-2 mb-3">
+            <Clock className="h-4 w-4 text-muted-foreground" />
+            <h2 className="font-mono text-sm font-medium text-muted-foreground">Recently Used</h2>
+          </div>
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
+            {recentTools.map((tool) => (
+              <ToolCard
+                key={tool!.id}
+                tool={tool!}
+                isFavorite={isFavorite(tool!.id)}
+                onToggleFavorite={toggle}
+              />
+            ))}
+          </div>
+        </section>
+      )}
+
       {/* Tool grid */}
       <main className="mx-auto max-w-7xl px-4 py-6">
         {filtered.length === 0 ? (
