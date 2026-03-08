@@ -1,8 +1,9 @@
 import { useState, useMemo } from "react";
-import { Search, Star, Terminal } from "lucide-react";
+import { Search, Star, Terminal, Clock } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { tools, categories, ToolCategory } from "@/data/tools";
 import { useFavorites } from "@/hooks/useFavorites";
+import { useRecentTools } from "@/hooks/useRecentTools";
 import ToolCard from "@/components/ToolCard";
 import { cn } from "@/lib/utils";
 
@@ -10,6 +11,8 @@ const Index = () => {
   const [search, setSearch] = useState("");
   const [activeCategory, setActiveCategory] = useState<ToolCategory | "All" | "Favorites">("All");
   const { toggle, isFavorite, count } = useFavorites();
+  const { recent } = useRecentTools();
+  const recentTools = useMemo(() => recent.map((id) => tools.find((t) => t.id === id)).filter(Boolean), [recent]);
 
   const filtered = useMemo(() => {
     let list = tools;
@@ -99,6 +102,26 @@ const Index = () => {
           })}
         </div>
       </div>
+
+      {/* Recent tools */}
+      {recentTools.length > 0 && activeCategory === "All" && !search && (
+        <section className="mx-auto max-w-7xl px-4 pt-6">
+          <div className="flex items-center gap-2 mb-3">
+            <Clock className="h-4 w-4 text-muted-foreground" />
+            <h2 className="font-mono text-sm font-medium text-muted-foreground">Recently Used</h2>
+          </div>
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
+            {recentTools.map((tool) => (
+              <ToolCard
+                key={tool!.id}
+                tool={tool!}
+                isFavorite={isFavorite(tool!.id)}
+                onToggleFavorite={toggle}
+              />
+            ))}
+          </div>
+        </section>
+      )}
 
       {/* Tool grid */}
       <main className="mx-auto max-w-7xl px-4 py-6">

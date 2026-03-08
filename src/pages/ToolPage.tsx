@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useParams, Navigate } from "react-router-dom";
 import { tools } from "@/data/tools";
 import ToolLayout from "@/components/ToolLayout";
+import { addRecentTool } from "@/hooks/useRecentTools";
 
 // Lazy load all tool components
 const toolComponents: Record<string, React.LazyExoticComponent<React.FC>> = {
@@ -114,6 +115,10 @@ const toolComponents: Record<string, React.LazyExoticComponent<React.FC>> = {
 const ToolPage: React.FC = () => {
   const { toolId } = useParams<{ toolId: string }>();
   const tool = tools.find((t) => t.id === toolId);
+
+  useEffect(() => {
+    if (toolId) addRecentTool(toolId);
+  }, [toolId]);
 
   if (!tool || !toolId) return <Navigate to="/" replace />;
 
