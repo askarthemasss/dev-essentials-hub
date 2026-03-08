@@ -131,6 +131,11 @@ const toolComponents: Record<string, React.LazyExoticComponent<React.FC>> = {
   "nginx-config": React.lazy(() => import("@/components/tools/NginxConfigTool")),
   "json-to-ts": React.lazy(() => import("@/components/tools/JsonToTsTool")),
   "env-generator": React.lazy(() => import("@/components/tools/EnvGeneratorTool")),
+  "tailwind-converter": React.lazy(() => import("@/components/tools/TailwindConverterTool")),
+  "graphql-schema": React.lazy(() => import("@/components/tools/GraphqlSchemaTool")),
+  "api-mock": React.lazy(() => import("@/components/tools/ApiMockTool")),
+  "dockerfile-gen": React.lazy(() => import("@/components/tools/DockerfileTool")),
+  "toml-ini": React.lazy(() => import("@/components/tools/TomlIniTool")),
 };
 
 const ToolPage: React.FC = () => {

@@ -195,4 +195,9 @@ export const tools: Tool[] = [
   { id: "nginx-config", name: "Nginx Config Generator", description: "Generate Nginx server configurations", category: "Generators", icon: ServerCog },
   { id: "json-to-ts", name: "JSON to TypeScript", description: "Convert JSON to TypeScript interfaces", category: "Converters", icon: Braces },
   { id: "env-generator", name: ".env File Generator", description: "Generate .env files from templates", category: "Generators", icon: FileText },
+  { id: "tailwind-converter", name: "Tailwind Class Converter", description: "Convert CSS to Tailwind classes and vice versa", category: "CSS Tools", icon: Paintbrush },
+  { id: "graphql-schema", name: "GraphQL Schema Builder", description: "Build GraphQL schemas visually", category: "Generators", icon: Waypoints },
+  { id: "api-mock", name: "API Mock Generator", description: "Generate mock API responses from schemas", category: "Generators", icon: Webhook },
+  { id: "dockerfile-gen", name: "Dockerfile Generator", description: "Generate Dockerfiles for any stack", category: "Generators", icon: Container },
+  { id: "toml-ini", name: "TOML ↔ INI Converter", description: "Convert between TOML and INI formats", category: "Converters", icon: ArrowLeftRight },
 ];
