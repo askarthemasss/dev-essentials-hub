@@ -48,6 +48,9 @@ const Index = () => {
               className="pl-9 bg-secondary border-border font-mono text-sm"
             />
           </div>
+          <kbd className="hidden sm:inline-flex items-center gap-1 rounded border border-border bg-secondary px-2 py-1 text-[10px] font-mono text-muted-foreground">
+            <span>⌘</span>K
+          </kbd>
           <button
             onClick={() => setActiveCategory(activeCategory === "Favorites" ? "All" : "Favorites")}
             className={cn(

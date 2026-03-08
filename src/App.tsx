@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import ToolPage from "./pages/ToolPage";
 import NotFound from "./pages/NotFound";
+import CommandPalette from "./components/CommandPalette";
 
 const queryClient = new QueryClient();
 
