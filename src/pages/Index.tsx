@@ -4,10 +4,12 @@ import { Input } from "@/components/ui/input";
 import { tools, categories, ToolCategory } from "@/data/tools";
 import { useFavorites } from "@/hooks/useFavorites";
 import { useRecentTools } from "@/hooks/useRecentTools";
+import { useSEO } from "@/hooks/useSEO";
 import ToolCard from "@/components/ToolCard";
 import { cn } from "@/lib/utils";
 
 const Index = () => {
+  useSEO("DevToolbox — 124+ Free Online Developer Tools", "Free collection of 124+ browser-based developer tools. JSON formatter, Base64, UUID, regex tester, color picker, JWT decoder, and more.");
   const [search, setSearch] = useState("");
   const [activeCategory, setActiveCategory] = useState<ToolCategory | "All" | "Favorites">("All");
   const { toggle, isFavorite, count } = useFavorites();
