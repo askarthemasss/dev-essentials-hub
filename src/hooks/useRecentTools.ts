@@ -12,15 +12,20 @@ function loadRecent(): string[] {
   }
 }
 
+/** Standalone function to record a tool visit (call from anywhere) */
+export function addRecentTool(id: string) {
+  const prev = loadRecent();
+  const next = [id, ...prev.filter((x) => x !== id)].slice(0, MAX_RECENT);
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
+}
+
+/** Hook that provides reactive recent-tools state */
 export function useRecentTools() {
   const [recent, setRecent] = useState<string[]>(loadRecent);
 
   const addRecent = useCallback((id: string) => {
-    setRecent((prev) => {
-      const next = [id, ...prev.filter((x) => x !== id)].slice(0, MAX_RECENT);
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
-      return next;
-    });
+    addRecentTool(id);
+    setRecent(loadRecent());
   }, []);
 
   return { recent, addRecent };
