@@ -1,30 +1,28 @@
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import ToolPage from "./pages/ToolPage";
 import NotFound from "./pages/NotFound";
 import CommandPalette from "./components/CommandPalette";
-
-const queryClient = new QueryClient();
+import ErrorBoundary from "./components/ErrorBoundary";
 
 const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <CommandPalette />
+  <TooltipProvider>
+    <Toaster />
+    <Sonner />
+    <BrowserRouter>
+      <CommandPalette />
+      <ErrorBoundary>
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/tool/:toolId" element={<ToolPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
-      </BrowserRouter>
-    </TooltipProvider>
-  </QueryClientProvider>
+      </ErrorBoundary>
+    </BrowserRouter>
+  </TooltipProvider>
 );
 
 export default App;

@@ -10,7 +10,11 @@ import ToolCard from "@/components/ToolCard";
 import { cn } from "@/lib/utils";
 
 const Index = () => {
-  useSEO("DevToolbox — 124+ Free Online Developer Tools", "Free collection of 124+ browser-based developer tools. JSON formatter, Base64, UUID, regex tester, color picker, JWT decoder, and more.");
+  useSEO(
+    `DevToolbox — ${tools.length} Free Online Developer Tools`,
+    `Free collection of ${tools.length} browser-based developer tools. JSON formatter, Base64, UUID, regex tester, color picker, JWT decoder, and more.`,
+    "/"
+  );
   const [search, setSearch] = useState("");
   const [activeCategory, setActiveCategory] = useState<ToolCategory | "All" | "Favorites">("All");
   const { toggle, isFavorite, count } = useFavorites();
@@ -39,19 +43,21 @@ const Index = () => {
   }, [search, activeCategory, isFavorite]);
 
   return (
-    <div className="dark min-h-screen bg-background">
+    <div className="min-h-screen bg-background">
+      <h1 className="sr-only">DevToolbox — {tools.length} free developer tools</h1>
       {/* Compact header */}
       <header className="sticky top-0 z-50 border-b border-border bg-card/90 backdrop-blur-md">
         <div className="mx-auto flex max-w-6xl items-center gap-3 px-4 py-2.5">
           <div className="flex items-center gap-2">
-            <Terminal className="h-5 w-5 text-primary" />
+            <Terminal className="h-5 w-5 text-primary" aria-hidden="true" />
             <span className="font-mono text-base font-bold text-foreground hidden sm:inline">DevToolbox</span>
           </div>
           <div className="relative flex-1 max-w-sm">
-            <Search className="absolute left-2.5 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-muted-foreground" />
+            <Search className="absolute left-2.5 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-muted-foreground" aria-hidden="true" />
             <Input
               value={search}
               onChange={(e) => setSearch(e.target.value)}
+              aria-label={`Search ${tools.length} developer tools`}
               placeholder={`Search ${tools.length} tools…`}
               className="h-8 pl-8 bg-secondary border-border font-mono text-xs"
             />
@@ -61,6 +67,8 @@ const Index = () => {
           </kbd>
           <button
             onClick={() => setActiveCategory(activeCategory === "Favorites" ? "All" : "Favorites")}
+            aria-label={`Show favorites (${count})`}
+            aria-pressed={activeCategory === "Favorites"}
             className={cn(
               "flex items-center gap-1 rounded px-2 py-1 text-xs font-medium transition-colors",
               activeCategory === "Favorites"
@@ -79,6 +87,7 @@ const Index = () => {
         <div className="mx-auto flex max-w-6xl gap-1 overflow-x-auto px-4 py-1.5 scrollbar-hide">
           <button
             onClick={() => setActiveCategory("All")}
+            aria-pressed={activeCategory === "All"}
             className={cn(
               "shrink-0 rounded-full px-2.5 py-0.5 text-[11px] font-medium transition-colors",
               activeCategory === "All"
@@ -92,6 +101,7 @@ const Index = () => {
             <button
               key={cat}
               onClick={() => setActiveCategory(cat)}
+              aria-pressed={activeCategory === cat}
               className={cn(
                 "shrink-0 rounded-full px-2.5 py-0.5 text-[11px] font-medium transition-colors",
                 activeCategory === cat

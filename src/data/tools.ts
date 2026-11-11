@@ -15,6 +15,7 @@ import {
   Contrast, Braces, Lock, FileX, StretchHorizontal, Scissors, FileCode as FileCodeAlt,
   GitCompare, TimerReset, LinkIcon, Hexagon, Database, Container, ServerCog,
   Filter, Waypoints, Webhook, TestTube, Bug, Workflow,
+  type LucideIcon,
 } from "lucide-react";
 
 export type ToolCategory =
@@ -36,7 +37,7 @@ export interface Tool {
   name: string;
   description: string;
   category: ToolCategory;
-  icon: any;
+  icon: LucideIcon;
 }
 
 export const categories: ToolCategory[] = [
@@ -75,7 +76,7 @@ export const tools: Tool[] = [
   { id: "password-generator", name: "Password Generator", description: "Generate secure passwords", category: "Generators", icon: KeyRound },
   { id: "lorem-ipsum", name: "Lorem Ipsum Generator", description: "Generate placeholder text", category: "Generators", icon: TextCursorInput },
   { id: "random-number", name: "Random Number Generator", description: "Generate random numbers in range", category: "Generators", icon: Dice5 },
-  { id: "hash-generator", name: "Hash Generator", description: "Generate MD5, SHA-1, SHA-256 hashes", category: "Generators", icon: Hash },
+  { id: "hash-generator", name: "Hash Generator", description: "Generate SHA-1, SHA-256, SHA-384 and SHA-512 hashes", category: "Generators", icon: Hash },
   { id: "qr-code", name: "QR Code Generator", description: "Create QR codes from text/URLs", category: "Generators", icon: QrCode },
   { id: "slug-generator", name: "Slug Generator", description: "Convert text to URL-friendly slugs", category: "Generators", icon: Link },
   { id: "color-palette", name: "Color Palette Generator", description: "Generate color palettes", category: "Generators", icon: Palette },
@@ -89,7 +90,7 @@ export const tools: Tool[] = [
   { id: "json-csv", name: "JSON ↔ CSV", description: "Convert between JSON and CSV", category: "Converters", icon: ArrowLeftRight },
   { id: "json-xml", name: "JSON ↔ XML", description: "Convert between JSON and XML", category: "Converters", icon: ArrowLeftRight },
   { id: "hex-rgb", name: "Hex ↔ RGB Color", description: "Convert hex colors to RGB and back", category: "Converters", icon: Palette },
-  { id: "unix-timestamp", name: "Unix Timestamp ↔ Date", description: "Convert Unix timestamps to dates", category: "Converters", icon: Clock },
+  { id: "unix-timestamp", name: "Unix Timestamp ↔ Date", description: "Convert Unix timestamps to dates and back", category: "Converters", icon: Clock },
   { id: "number-base", name: "Number Base Converter", description: "Convert between binary, octal, decimal, hex", category: "Converters", icon: Hash },
   { id: "markdown-html", name: "Markdown ↔ HTML", description: "Convert Markdown to HTML and back", category: "Converters", icon: FileCode },
   { id: "px-rem", name: "PX ↔ REM Converter", description: "Convert between pixels and rem units", category: "Converters", icon: Ruler },

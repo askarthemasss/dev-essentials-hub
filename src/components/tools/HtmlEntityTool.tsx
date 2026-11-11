@@ -8,7 +8,7 @@ const HtmlEntityTool = () => {
   const [mode, setMode] = useState<"encode" | "decode">("encode");
 
   const encode = (s: string) => s.replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c] || c));
-  const decode = (s: string) => { const d = document.createElement("div"); d.innerHTML = s; return d.textContent || ""; };
+  const decode = (s: string) => new DOMParser().parseFromString(s, "text/html").documentElement.textContent || "";
 
   const process = (text: string, m: string) => setOutput(m === "encode" ? encode(text) : decode(text));
 

@@ -2,7 +2,11 @@ import { useState } from "react";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 
-function diffJson(a: any, b: any, path = ""): string[] {
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+
+function diffJson(a: unknown, b: unknown, path = ""): string[] {
   const lines: string[] = [];
   if (typeof a !== typeof b) {
     lines.push(`~ ${path || "root"}: ${JSON.stringify(a)} → ${JSON.stringify(b)}`);
@@ -15,7 +19,7 @@ function diffJson(a: any, b: any, path = ""): string[] {
       else if (i >= b.length) lines.push(`- ${path}[${i}]: ${JSON.stringify(a[i])}`);
       else lines.push(...diffJson(a[i], b[i], `${path}[${i}]`));
     }
-  } else if (typeof a === "object" && a !== null && b !== null) {
+  } else if (isRecord(a) && isRecord(b)) {
     const keys = new Set([...Object.keys(a), ...Object.keys(b)]);
     for (const k of keys) {
       const p = path ? `${path}.${k}` : k;
@@ -40,8 +44,8 @@ const JsonDiffTool = () => {
       const b = JSON.parse(right);
       const diffs = diffJson(a, b);
       setResult(diffs.length === 0 ? "✓ Objects are identical" : diffs.join("\n"));
-    } catch (e: any) {
-      setResult("Error: " + e.message);
+    } catch (caught) {
+      setResult("Error: " + (caught instanceof Error ? caught.message : "Invalid JSON"));
     }
   };
 

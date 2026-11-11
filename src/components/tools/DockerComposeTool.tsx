@@ -13,7 +13,7 @@ const DockerComposeTool = () => {
   const [services, setServices] = useState<Service[]>([{ ...defaultService }]);
   const [version, setVersion] = useState("3.8");
 
-  const updateService = (idx: number, key: keyof Service, val: any) => {
+  const updateService = <K extends keyof Service,>(idx: number, key: K, val: Service[K]) => {
     setServices((prev) => prev.map((s, i) => i === idx ? { ...s, [key]: val } : s));
   };
 

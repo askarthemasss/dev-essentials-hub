@@ -1,29 +1,68 @@
 import { useState } from "react";
+import Papa from "papaparse";
 import DualPane from "./DualPane";
 import { Button } from "@/components/ui/button";
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+
 const JsonCsvTool = () => {
   const [input, setInput] = useState("");
-  const [output, setOutput] = useState("");
   const [mode, setMode] = useState<"toCsv" | "toJson">("toCsv");
-  const jsonToCsv = (text: string) => {
-    const arr = JSON.parse(text);
-    if (!Array.isArray(arr) || !arr.length) return "Input must be array of objects";
-    const keys = Object.keys(arr[0]);
-    return [keys.join(","), ...arr.map((r: any) => keys.map(k => JSON.stringify(r[k] ?? "")).join(","))].join("\n");
+
+  const output = (() => {
+    if (!input.trim()) return "";
+    try {
+      if (mode === "toCsv") {
+        const parsed: unknown = JSON.parse(input);
+        if (!Array.isArray(parsed) || parsed.length === 0) {
+          return "Input must be a non-empty array of objects";
+        }
+        const rows = parsed.map((row) => (isRecord(row) ? row : { value: row }));
+        return Papa.unparse(rows);
+      }
+
+      const parsed = Papa.parse<Record<string, string>>(input, {
+        header: true,
+        skipEmptyLines: "greedy",
+      });
+      if (parsed.errors.length > 0) {
+        return `Invalid CSV: ${parsed.errors[0].message}`;
+      }
+      return JSON.stringify(parsed.data, null, 2);
+    } catch (caught) {
+      return `Invalid input: ${caught instanceof Error ? caught.message : "could not parse document"}`;
+    }
+  })();
+
+  const switchMode = (nextMode: "toCsv" | "toJson") => {
+    setMode(nextMode);
+    if (output && !output.startsWith("Invalid") && !output.startsWith("Input must")) {
+      setInput(output);
+    }
   };
-  const csvToJson = (text: string) => {
-    const lines = text.split("\n").filter(Boolean);
-    const headers = lines[0].split(",").map(h => h.trim());
-    return JSON.stringify(lines.slice(1).map(l => { const vals = l.split(","); return Object.fromEntries(headers.map((h, i) => [h, vals[i]?.trim()])); }), null, 2);
-  };
-  const process = (text: string, m: string) => { try { setOutput(m === "toCsv" ? jsonToCsv(text) : csvToJson(text)); } catch { setOutput(text ? "Invalid input" : ""); } };
+
   return (
-    <DualPane input={input} output={output} onInputChange={(v) => { setInput(v); process(v, mode); }}
-      actions={<>
-        <Button size="sm" variant={mode === "toCsv" ? "default" : "secondary"} onClick={() => { setMode("toCsv"); process(input, "toCsv"); }}>JSON → CSV</Button>
-        <Button size="sm" variant={mode === "toJson" ? "default" : "secondary"} onClick={() => { setMode("toJson"); process(input, "toJson"); }}>CSV → JSON</Button>
-      </>}
+    <DualPane
+      input={input}
+      output={output}
+      onInputChange={setInput}
+      inputLabel={mode === "toCsv" ? "JSON" : "CSV"}
+      outputLabel={mode === "toCsv" ? "CSV" : "JSON"}
+      inputPlaceholder={mode === "toCsv" ? "Paste a JSON array here…" : "Paste CSV here…"}
+      actions={
+        <>
+          <Button size="sm" variant={mode === "toCsv" ? "default" : "secondary"} onClick={() => switchMode("toCsv")}>
+            JSON → CSV
+          </Button>
+          <Button size="sm" variant={mode === "toJson" ? "default" : "secondary"} onClick={() => switchMode("toJson")}>
+            CSV → JSON
+          </Button>
+        </>
+      }
     />
   );
 };
+
 export default JsonCsvTool;

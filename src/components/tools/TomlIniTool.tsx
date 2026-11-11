@@ -39,7 +39,7 @@ function iniToToml(ini: string): string {
     if (trimmed.startsWith("[")) { result.push(trimmed); continue; }
     const m = trimmed.match(/^(\S+)\s*=\s*(.*)$/);
     if (m) {
-      let val = m[2].trim();
+      const val = m[2].trim();
       // Try to detect type
       if (val === "true" || val === "false") {
         result.push(`${m[1]} = ${val}`);
