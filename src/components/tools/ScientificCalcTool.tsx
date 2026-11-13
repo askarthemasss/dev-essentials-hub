@@ -9,8 +9,9 @@ const buttons = [
   "7", "8", "9", "÷",
   "4", "5", "6", "×",
   "1", "2", "3", "-",
-  "0", ".", "π", "e",
-  "√", "ln", "log", "!",
+  "0", ".", "π", "+",
+  "√", "ln", "log", "%",
+  "e", "!", "=",
 ];
 
 const ScientificCalcTool = () => {
@@ -78,22 +79,16 @@ const ScientificCalcTool = () => {
         {buttons.map((button) => (
           <Button
             key={button}
-            variant="secondary"
-            className={cn("h-12 font-mono", button === "=" && "col-span-4")}
+            variant={button === "=" ? "default" : "secondary"}
+            className={cn("h-12 font-mono", button === "=" && "col-span-2")}
             onClick={() => press(button)}
-            aria-label={button === "⌫" ? "Backspace" : undefined}
+            aria-label={
+              button === "⌫" ? "Backspace" : button === "=" ? "Evaluate expression" : undefined
+            }
           >
             {button}
           </Button>
         ))}
-        <Button
-          variant="default"
-          className="col-span-4 h-12 font-mono"
-          onClick={() => press("=")}
-          aria-label="Evaluate expression"
-        >
-          =
-        </Button>
       </div>
     </div>
   );

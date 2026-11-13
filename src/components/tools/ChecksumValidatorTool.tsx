@@ -3,19 +3,12 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Check, Copy, FileUp } from "lucide-react";
-
-type HashAlgorithm = "SHA-1" | "SHA-256" | "SHA-512";
+import { parseExpectedChecksum, type HashAlgorithm } from "@/lib/checksum";
 
 function toHex(buffer: ArrayBuffer): string {
   return Array.from(new Uint8Array(buffer))
     .map((byte) => byte.toString(16).padStart(2, "0"))
     .join("");
-}
-
-function normalizeChecksum(value: string): string {
-  const withoutPrefix = value.trim().replace(/^sha-?(?:1|256|512)[:=]?\s*/i, "");
-  const firstToken = withoutPrefix.split(/\s+/)[0] ?? "";
-  return firstToken.replace(/[^a-f0-9]/gi, "").toLowerCase();
 }
 
 const ChecksumValidatorTool = () => {
@@ -57,7 +50,8 @@ const ChecksumValidatorTool = () => {
     };
   }, [file, algorithm]);
 
-  const expectedNormalized = normalizeChecksum(expected);
+  const parsedExpected = parseExpectedChecksum(expected, algorithm);
+  const expectedNormalized = parsedExpected.value;
   const matches = Boolean(computed && expectedNormalized && computed === expectedNormalized);
 
   const copy = async () => {
@@ -112,8 +106,15 @@ const ChecksumValidatorTool = () => {
           onChange={(event) => setExpected(event.target.value)}
           placeholder="Paste the published checksum (sha256: prefix is optional)"
           spellCheck={false}
+          aria-invalid={Boolean(parsedExpected.error)}
+          aria-describedby={parsedExpected.error ? "checksum-expected-error" : undefined}
           className="border-border bg-secondary font-mono text-sm"
         />
+        {parsedExpected.error && (
+          <p id="checksum-expected-error" role="alert" className="mt-1 font-mono text-xs text-destructive">
+            {parsedExpected.error}
+          </p>
+        )}
       </div>
 
       {hashing && <p className="font-mono text-sm text-muted-foreground">Hashing {file?.name}…</p>}
