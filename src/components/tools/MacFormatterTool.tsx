@@ -9,11 +9,17 @@ const MacFormatterTool = () => {
     clean.match(/.{4}/g)?.join(".") || "",
     clean,
   ];
+  const controls: Array<{ label: string; value: string }> = [
+    { label: "Colon", value: formats[0] },
+    { label: "Dash", value: formats[1] },
+    { label: "Dot", value: formats[2] },
+    { label: "Raw", value: formats[3] },
+  ];
   return (
     <div className="space-y-3 max-w-md">
       <Input value={input} onChange={(e) => setInput(e.target.value)} placeholder="Enter MAC address" className="font-mono bg-secondary border-border" />
-      {[["Colon", 0], ["Dash", 1], ["Dot", 2], ["Raw", 3]].map(([l, i]: any) => (
-        <div key={l} className="flex justify-between rounded bg-secondary p-2 font-mono text-sm"><span className="text-muted-foreground">{l}</span><span>{formats[i]}</span></div>
+      {controls.map((control) => (
+        <div key={control.label} className="flex justify-between rounded bg-secondary p-2 font-mono text-sm"><span className="text-muted-foreground">{control.label}</span><span>{control.value}</span></div>
       ))}
     </div>
   );

@@ -3,18 +3,23 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Copy } from "lucide-react";
 
-function jsonToTs(obj: any, name = "Root", indent = ""): string {
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+
+function jsonToTs(obj: unknown, name = "Root", indent = ""): string {
   if (obj === null) return "null";
   if (Array.isArray(obj)) {
-    if (obj.length === 0) return "any[]";
+    if (obj.length === 0) return "unknown[]";
     return jsonToTs(obj[0], name, indent) + "[]";
   }
   if (typeof obj !== "object") {
     if (typeof obj === "string") return "string";
-    if (typeof obj === "number") return Number.isInteger(obj) ? "number" : "number";
+    if (typeof obj === "number") return "number";
     if (typeof obj === "boolean") return "boolean";
-    return "any";
+    return "unknown";
   }
+  if (!isRecord(obj)) return "unknown";
 
   const lines: string[] = [];
   const nested: string[] = [];
@@ -45,8 +50,8 @@ const JsonToTsTool = () => {
     try {
       const parsed = JSON.parse(input);
       setOutput(jsonToTs(parsed));
-    } catch (e: any) {
-      setOutput("Error: " + e.message);
+    } catch (caught) {
+      setOutput("Error: " + (caught instanceof Error ? caught.message : "Invalid JSON"));
     }
   };
 

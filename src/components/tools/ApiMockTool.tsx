@@ -10,7 +10,7 @@ interface Field { name: string; type: FieldType }
 
 const fieldTypes: FieldType[] = ["string", "number", "boolean", "uuid", "email", "date", "url", "name", "sentence"];
 
-function randomValue(type: FieldType): any {
+function randomValue(type: FieldType): string | number | boolean {
   const r = (max: number) => Math.floor(Math.random() * max);
   const names = ["Alice", "Bob", "Charlie", "Diana", "Eve", "Frank", "Grace"];
   const domains = ["example.com", "test.org", "demo.io", "sample.net"];
@@ -25,6 +25,7 @@ function randomValue(type: FieldType): any {
     case "url": return `https://${domains[r(domains.length)]}/${words[r(words.length)]}`;
     case "name": return names[r(names.length)];
     case "sentence": return words.slice(0, r(5) + 3).join(" ") + ".";
+    default: return "";
   }
 }
 
@@ -45,7 +46,7 @@ const ApiMockTool = () => {
 
   const generate = () => {
     const data = Array.from({ length: count }, () => {
-      const obj: any = {};
+      const obj: Record<string, unknown> = {};
       for (const f of fields) obj[f.name] = randomValue(f.type);
       return obj;
     });

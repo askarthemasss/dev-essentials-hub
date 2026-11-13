@@ -7,7 +7,7 @@ const beautifyCss = (css: string): string => {
     .replace(/\s*}\s*/g, "\n}\n")
     .replace(/;\s*/g, ";\n  ")
     .replace(/\n\s*\n/g, "\n")
-    .replace(/  }/g, "}")
+    .replace(/ {2}}/g, "}")
     .trim();
 };
 

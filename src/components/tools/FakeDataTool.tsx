@@ -4,9 +4,16 @@ import { Input } from "@/components/ui/input";
 const firstNames = ["Alice","Bob","Charlie","Diana","Eve","Frank","Grace","Henry","Iris","Jack"];
 const lastNames = ["Smith","Johnson","Brown","Taylor","Anderson","Thomas","Jackson","White","Harris","Martin"];
 const domains = ["gmail.com","yahoo.com","outlook.com","example.com"];
+interface FakePerson {
+  name: string;
+  email: string;
+  age: number;
+  phone: string;
+}
+
 const FakeDataTool = () => {
   const [count, setCount] = useState(5);
-  const [data, setData] = useState<any[]>([]);
+  const [data, setData] = useState<FakePerson[]>([]);
   const gen = () => setData(Array.from({ length: count }, () => {
     const fn = firstNames[Math.floor(Math.random() * firstNames.length)];
     const ln = lastNames[Math.floor(Math.random() * lastNames.length)];

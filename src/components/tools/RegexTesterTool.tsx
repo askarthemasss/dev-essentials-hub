@@ -6,7 +6,7 @@ const RegexTesterTool = () => {
   const [flags, setFlags] = useState("g");
   const [text, setText] = useState("Hello World 123");
   let matches: string[] = [], error = "";
-  try { matches = text.match(new RegExp(pattern, flags)) || []; } catch (e: any) { error = e.message; }
+  try { matches = text.match(new RegExp(pattern, flags)) || []; } catch (caught) { error = caught instanceof Error ? caught.message : "Invalid regular expression"; }
   return (
     <div className="space-y-4">
       <div className="flex gap-2"><Input value={pattern} onChange={(e) => setPattern(e.target.value)} placeholder="Pattern" className="font-mono bg-secondary border-border" /><Input value={flags} onChange={(e) => setFlags(e.target.value)} className="w-20 font-mono bg-secondary border-border" /></div>

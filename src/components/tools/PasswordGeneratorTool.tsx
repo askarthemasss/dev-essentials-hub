@@ -28,6 +28,12 @@ const PasswordGeneratorTool = () => {
 
   const copy = () => { navigator.clipboard.writeText(password); setCopied(true); setTimeout(() => setCopied(false), 1500); };
 
+  const toggles: Array<{ label: string; checked: boolean; onChange: (checked: boolean) => void }> = [
+    { label: "Uppercase", checked: upper, onChange: setUpper },
+    { label: "Lowercase", checked: lower, onChange: setLower },
+    { label: "Numbers", checked: numbers, onChange: setNumbers },
+    { label: "Symbols", checked: symbols, onChange: setSymbols },
+  ];
   return (
     <div className="space-y-4 max-w-md">
       <div className="space-y-2">
@@ -35,8 +41,8 @@ const PasswordGeneratorTool = () => {
         <Slider value={[length]} onValueChange={([v]) => setLength(v)} min={4} max={128} step={1} />
       </div>
       <div className="flex flex-wrap gap-4">
-        {[["Uppercase", upper, setUpper], ["Lowercase", lower, setLower], ["Numbers", numbers, setNumbers], ["Symbols", symbols, setSymbols]].map(([label, val, setter]: any) => (
-          <label key={label} className="flex items-center gap-2 text-sm"><Checkbox checked={val} onCheckedChange={setter} />{label}</label>
+        {toggles.map((toggle) => (
+          <label key={toggle.label} className="flex items-center gap-2 text-sm"><Checkbox checked={toggle.checked} onCheckedChange={(checked) => toggle.onChange(checked === true)} />{toggle.label}</label>
         ))}
       </div>
       <Button onClick={generate}><RefreshCw className="h-4 w-4 mr-1" /> Generate</Button>

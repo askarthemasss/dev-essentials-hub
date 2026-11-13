@@ -1,12 +1,18 @@
 import { useState } from "react";
 import { Textarea } from "@/components/ui/textarea";
+type DiffLine =
+  | { type: "same"; text: string }
+  | { type: "add"; text: string }
+  | { type: "remove"; text: string }
+  | { type: "change"; old: string; new: string };
+
 const TextDiffTool = () => {
   const [a, setA] = useState("");
   const [b, setB] = useState("");
-  const diff = () => {
+  const diff = (): DiffLine[] => {
     const la = a.split("\n"), lb = b.split("\n");
     const max = Math.max(la.length, lb.length);
-    return Array.from({ length: max }, (_, i) => {
+    return Array.from({ length: max }, (_, i): DiffLine => {
       if (la[i] === lb[i]) return { type: "same", text: la[i] || "" };
       if (i >= la.length) return { type: "add", text: lb[i] };
       if (i >= lb.length) return { type: "remove", text: la[i] };
@@ -25,7 +31,7 @@ const TextDiffTool = () => {
             {d.type === "same" && <div className="text-muted-foreground">  {d.text}</div>}
             {d.type === "add" && <div className="text-green-400">+ {d.text}</div>}
             {d.type === "remove" && <div className="text-red-400">- {d.text}</div>}
-            {d.type === "change" && <><div className="text-red-400">- {(d as any).old}</div><div className="text-green-400">+ {(d as any).new}</div></>}
+            {d.type === "change" && <><div className="text-red-400">- {d.old}</div><div className="text-green-400">+ {d.new}</div></>}
           </div>
         ))}
       </div>

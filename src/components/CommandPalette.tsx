@@ -44,7 +44,7 @@ const CommandPalette = () => {
             return (
               <CommandItem
                 key={tool.id}
-                value={`${tool.name} ${tool.category}`}
+                value={`${tool.name} ${tool.description} ${tool.category}`}
                 onSelect={() => handleSelect(tool.id)}
                 className="cursor-pointer"
               >

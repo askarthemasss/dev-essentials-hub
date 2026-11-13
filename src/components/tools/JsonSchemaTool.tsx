@@ -3,24 +3,37 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Copy } from "lucide-react";
 
-function jsonToSchema(val: any): any {
-  if (val === null) return { type: "null" };
-  if (Array.isArray(val)) {
-    if (val.length === 0) return { type: "array", items: {} };
-    return { type: "array", items: jsonToSchema(val[0]) };
+interface JsonSchema {
+  type?: string;
+  items?: JsonSchema;
+  properties?: Record<string, JsonSchema>;
+  required?: string[];
+  [key: string]: unknown;
+}
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+
+function jsonToSchema(value: unknown): JsonSchema {
+  if (value === null) return { type: "null" };
+  if (Array.isArray(value)) {
+    if (value.length === 0) return { type: "array", items: {} };
+    return { type: "array", items: jsonToSchema(value[0]) };
   }
-  switch (typeof val) {
+  switch (typeof value) {
     case "string": return { type: "string" };
-    case "number": return Number.isInteger(val) ? { type: "integer" } : { type: "number" };
+    case "number": return Number.isInteger(value) ? { type: "integer" } : { type: "number" };
     case "boolean": return { type: "boolean" };
     case "object": {
-      const props: any = {};
+      if (!isRecord(value)) return {};
+      const properties: Record<string, JsonSchema> = {};
       const required: string[] = [];
-      for (const [k, v] of Object.entries(val)) {
-        props[k] = jsonToSchema(v);
-        required.push(k);
+      for (const [key, child] of Object.entries(value)) {
+        properties[key] = jsonToSchema(child);
+        required.push(key);
       }
-      return { type: "object", properties: props, required };
+      return { type: "object", properties, required };
     }
     default: return {};
   }
@@ -35,8 +48,8 @@ const JsonSchemaTool = () => {
       const parsed = JSON.parse(input);
       const schema = { $schema: "https://json-schema.org/draft/2020-12/schema", ...jsonToSchema(parsed) };
       setOutput(JSON.stringify(schema, null, 2));
-    } catch (e: any) {
-      setOutput("Error: " + e.message);
+    } catch (caught) {
+      setOutput("Error: " + (caught instanceof Error ? caught.message : "Invalid JSON"));
     }
   };
 

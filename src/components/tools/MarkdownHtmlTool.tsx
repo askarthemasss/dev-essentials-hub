@@ -1,8 +1,49 @@
 import { useState } from "react";
 import DualPane from "./DualPane";
-const mdToHtml = (md: string) => md.replace(/^### (.+)$/gm,"<h3>$1</h3>").replace(/^## (.+)$/gm,"<h2>$1</h2>").replace(/^# (.+)$/gm,"<h1>$1</h1>").replace(/\*\*(.+?)\*\*/g,"<strong>$1</strong>").replace(/\*(.+?)\*/g,"<em>$1</em>").replace(/`(.+?)`/g,"<code>$1</code>").replace(/\n/g,"<br>");
+import { Button } from "@/components/ui/button";
+import { htmlToMarkdown, markdownToHtml } from "@/lib/markdown";
+
+type Mode = "markdown-to-html" | "html-to-markdown";
+
 const MarkdownHtmlTool = () => {
   const [input, setInput] = useState("");
-  return <DualPane input={input} output={mdToHtml(input)} onInputChange={setInput} inputPlaceholder="Paste Markdown here…" outputLabel="HTML" />;
+  const [mode, setMode] = useState<Mode>("markdown-to-html");
+
+  const output = mode === "markdown-to-html" ? markdownToHtml(input) : htmlToMarkdown(input);
+
+  const switchMode = (nextMode: Mode) => {
+    if (output.trim()) setInput(output);
+    setMode(nextMode);
+  };
+
+  return (
+    <DualPane
+      input={input}
+      output={output}
+      onInputChange={setInput}
+      inputLabel={mode === "markdown-to-html" ? "Markdown" : "HTML"}
+      outputLabel={mode === "markdown-to-html" ? "HTML" : "Markdown"}
+      inputPlaceholder={mode === "markdown-to-html" ? "Paste Markdown here…" : "Paste HTML here…"}
+      actions={
+        <>
+          <Button
+            size="sm"
+            variant={mode === "markdown-to-html" ? "default" : "secondary"}
+            onClick={() => switchMode("markdown-to-html")}
+          >
+            Markdown → HTML
+          </Button>
+          <Button
+            size="sm"
+            variant={mode === "html-to-markdown" ? "default" : "secondary"}
+            onClick={() => switchMode("html-to-markdown")}
+          >
+            HTML → Markdown
+          </Button>
+        </>
+      }
+    />
+  );
 };
+
 export default MarkdownHtmlTool;

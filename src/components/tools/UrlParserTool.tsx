@@ -5,7 +5,7 @@ const UrlParserTool = () => {
   const [url, setUrl] = useState("https://user:pass@example.com:8080/path/to/page?q=search&lang=en#section1");
 
   let parsed: URL | null = null;
-  try { parsed = new URL(url); } catch {}
+  try { parsed = new URL(url); } catch { parsed = null; }
 
   const rows = parsed ? [
     ["Protocol", parsed.protocol],
