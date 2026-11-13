@@ -5,7 +5,15 @@ import { loadEnv } from "vite";
 const root = process.cwd();
 const distDir = path.join(root, "dist");
 const fileEnv = loadEnv(process.env.NODE_ENV || "production", root, "");
-const siteUrl = (process.env.VITE_SITE_URL || fileEnv.VITE_SITE_URL || "https://devtoolbox.app").replace(/\/+$/, "");
+const vercelProductionUrl = process.env.VERCEL_PROJECT_PRODUCTION_URL
+  ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+  : "";
+const siteUrl = (
+  process.env.VITE_SITE_URL ||
+  fileEnv.VITE_SITE_URL ||
+  vercelProductionUrl ||
+  "https://dev-essentials-hub.vercel.app"
+).replace(/\/+$/, "");
 const today = new Date().toISOString().slice(0, 10);
 
 const source = await fs.readFile(path.join(root, "src/data/tools.ts"), "utf8");
@@ -57,7 +65,28 @@ function withMetadata(html, { title, description, url, jsonLd }) {
   return output;
 }
 
-const homeHtml = await fs.readFile(path.join(distDir, "index.html"), "utf8");
+const baseHtml = await fs.readFile(path.join(distDir, "index.html"), "utf8");
+
+const homeTitle = `DevToolbox — ${tools.length} Free Online Developer Tools`;
+const homeDescription = `Free collection of ${tools.length} browser-based developer tools. JSON formatter, Base64, UUID, regex tester, color picker, JWT decoder, and more.`;
+const homeJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  name: "DevToolbox",
+  url: `${siteUrl}/`,
+  description: `A free collection of ${tools.length} online developer tools including encoders, formatters, generators, converters, and more.`,
+  applicationCategory: "DeveloperApplication",
+  operatingSystem: "Any",
+  offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+};
+
+const homeHtml = withMetadata(baseHtml, {
+  title: homeTitle,
+  description: homeDescription,
+  url: `${siteUrl}/`,
+  jsonLd: homeJsonLd,
+});
+await fs.writeFile(path.join(distDir, "index.html"), homeHtml);
 
 await fs.mkdir(path.join(distDir, "tool"), { recursive: true });
 

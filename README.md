@@ -38,7 +38,7 @@ The dev server runs at http://localhost:8080.
 
 ## SEO and deployment
 
-Set the canonical origin before building:
+Set the canonical origin before building when deploying to a custom domain:
 
 ```sh
 cp .env.example .env
@@ -46,7 +46,7 @@ cp .env.example .env
 npm run build
 ```
 
-`VITE_SITE_URL` is used for canonical links, Open Graph URLs, the sitemap and robots.txt. The build produces `dist/tool/<id>/index.html` for every tool, so static hosts can serve real HTML to crawlers and social scrapers. Configure the host to serve those files before falling back to `index.html` for client-side routes.
+`VITE_SITE_URL` is used for canonical links, Open Graph URLs, the sitemap and robots.txt. When it is unset, the build falls back to `VERCEL_PROJECT_PRODUCTION_URL` on Vercel and then to `https://dev-essentials-hub.vercel.app`. Set it in the host's environment variables whenever the site moves to a custom domain. The build also rewrites the home page metadata, so the canonical origin is consistent across the home page, every tool page and the 404 page. It produces `dist/tool/<id>/index.html` for every tool, so static hosts can serve real HTML to crawlers and social scrapers. Configure the host to serve those files before falling back to `index.html` for client-side routes.
 
 ## Privacy
 

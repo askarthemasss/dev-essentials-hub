@@ -13,4 +13,4 @@ Allow: /
 User-agent: *
 Allow: /
 
-Sitemap: https://devtoolbox.app/sitemap.xml
+Sitemap: https://dev-essentials-hub.vercel.app/sitemap.xml
