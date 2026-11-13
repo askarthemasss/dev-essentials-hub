@@ -1,0 +1,54 @@
+name: Tool or feature request
+description: Suggest a new tool or an improvement to an existing one.
+title: "[Request]: "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for the suggestion. DevToolbox tools must run fully in the browser, with no backend or external API calls.
+  - type: dropdown
+    id: type
+    attributes:
+      label: Request type
+      options:
+        - New tool
+        - Improvement to an existing tool
+        - Accessibility or UX improvement
+        - Documentation
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem does this solve?
+      description: Describe the use case, not just the implementation.
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed behavior
+      description: What should the tool do? Include example inputs and outputs if possible.
+    validations:
+      required: true
+  - type: input
+    id: tool
+    attributes:
+      label: Existing tool or page
+      description: If this is an improvement, which tool is it?
+      placeholder: e.g. CSS Gradient Generator
+    validations:
+      required: false
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Checklist
+      options:
+        - label: I searched existing issues and this is not a duplicate.
+          required: true
+        - label: This can be implemented entirely in the browser without a server.
+          required: true
+        - label: I am willing to work on this if a maintainer approves the approach.
+          required: false
