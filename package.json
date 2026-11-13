@@ -2,10 +2,31 @@
   "name": "dev-essentials-hub",
   "private": true,
   "version": "0.1.0",
+  "description": "129 private, browser-based developer tools: formatters, converters, encoders, generators, CSS helpers and more.",
+  "license": "MIT",
   "type": "module",
   "engines": {
     "node": ">=20.19.0"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/askarthemasss/dev-essentials-hub.git"
+  },
+  "homepage": "https://dev-essentials-hub.vercel.app",
+  "bugs": {
+    "url": "https://github.com/askarthemasss/dev-essentials-hub/issues"
+  },
+  "keywords": [
+    "developer-tools",
+    "devtools",
+    "react",
+    "typescript",
+    "tailwindcss",
+    "privacy",
+    "json-formatter",
+    "base64",
+    "css-tools"
+  ],
   "scripts": {
     "dev": "vite",
     "build": "vite build && node scripts/generate-seo.mjs",

@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Live site
+    url: https://dev-essentials-hub.vercel.app
+    about: Try the tool before opening an issue.
+  - name: Security report
+    url: https://github.com/askarthemasss/dev-essentials-hub/security/advisories/new
+    about: Report vulnerabilities privately. Do not open a public issue.
+  - name: Contributing guide
+    url: https://github.com/askarthemasss/dev-essentials-hub/blob/main/CONTRIBUTING.md
+    about: Setup, tool-authoring conventions and pull request expectations.
