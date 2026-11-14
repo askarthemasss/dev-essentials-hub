@@ -17,7 +17,7 @@ For anything larger than a bug fix, open an issue first so we can agree on the a
 
 ## Development setup
 
-Requirements: Node.js 20.19+ (Node 22 recommended) and npm.
+Requirements: Node.js 22.12+ (Node 22 LTS) and npm.
 
 ```sh
 git clone https://github.com/askarthemasss/dev-essentials-hub.git

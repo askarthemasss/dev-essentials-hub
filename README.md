@@ -10,7 +10,7 @@ JSON, YAML, Base64, JWTs, regex, colors, CSS, cron, subnets, hashes and more. Ev
 [![Live site](https://img.shields.io/badge/live-dev--essentials--hub.vercel.app-3ECF8E?style=flat)](https://dev-essentials-hub.vercel.app)
 [![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![PRs welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
-[![Node](https://img.shields.io/badge/node-%E2%89%A520.19-339933?logo=node.js&logoColor=white)](.nvmrc)
+[![Node](https://img.shields.io/badge/node-%E2%89%A522.12-339933?logo=node.js&logoColor=white)](.nvmrc)
 
 [**Open the app**](https://dev-essentials-hub.vercel.app) · [Report a bug](https://github.com/askarthemasss/dev-essentials-hub/issues/new?template=bug_report.yml) · [Request a tool](https://github.com/askarthemasss/dev-essentials-hub/issues/new?template=feature_request.yml)
 
@@ -54,13 +54,13 @@ JSON, YAML, Base64, JWTs, regex, colors, CSS, cron, subnets, hashes and more. Ev
 | Layer | Technology |
 | --- | --- |
 | UI | [React 18](https://react.dev) + [TypeScript 5](https://www.typescriptlang.org) |
-| Build | [Vite 5](https://vite.dev) with SWC |
+| Build | [Vite 8](https://vite.dev) with Rolldown |
 | Styling | [Tailwind CSS 3](https://tailwindcss.com) + CSS variables |
 | Components | [shadcn/ui](https://ui.shadcn.com) + [Radix UI](https://www.radix-ui.com) primitives |
 | Icons | [Lucide](https://lucide.dev) |
-| Routing | [React Router 6](https://reactrouter.com) |
+| Routing | [React Router 7](https://reactrouter.com) |
 | Editors & data | `marked`, `turndown`, `yaml`, `papaparse`, `sql-formatter`, `dompurify`, `qrcode` |
-| Testing | [Vitest 3](https://vitest.dev) + Testing Library + jsdom |
+| Testing | [Vitest 5](https://vitest.dev) + Testing Library + jsdom |
 | Quality | ESLint 9 + TypeScript strict mode |
 | CI/CD | GitHub Actions + Vercel |
 | Fonts | Inter + JetBrains Mono |
@@ -69,7 +69,7 @@ No state-management library, database or API server — just React, local storag
 
 ## Quick start
 
-Requirements: **Node.js 20.19+** (Node 22 recommended, pinned in `.nvmrc`) and npm.
+Requirements: **Node.js 22.12+** (Node 22 LTS, pinned in `.nvmrc`) and npm.
 
 ```sh
 git clone https://github.com/askarthemasss/dev-essentials-hub.git
