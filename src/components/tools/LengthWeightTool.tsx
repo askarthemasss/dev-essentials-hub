@@ -11,7 +11,11 @@ const LengthWeightTool = () => {
   const [val, setVal] = useState("1");
   const [from, setFrom] = useState("m");
   const u = units[cat];
-  const results = Object.entries(u).map(([k, factor]) => ({ unit: k, value: (parseFloat(val) * u[from] / factor).toFixed(6) }));
+  const numeric = Number.parseFloat(val);
+  const results = Object.entries(u).map(([k, factor]) => ({
+    unit: k,
+    value: Number.isFinite(numeric) ? ((numeric * u[from]) / factor).toFixed(6) : "—",
+  }));
   return (
     <div className="space-y-4 max-w-md">
       <Select value={cat} onValueChange={(v) => { setCat(v); setFrom(Object.keys(units[v])[0]); }}>
@@ -19,7 +23,7 @@ const LengthWeightTool = () => {
         <SelectContent>{Object.keys(units).map(k => <SelectItem key={k} value={k}>{k}</SelectItem>)}</SelectContent>
       </Select>
       <div className="flex gap-2">
-        <Input value={val} onChange={(e) => setVal(e.target.value)} className="font-mono bg-secondary border-border" />
+        <Input value={val} onChange={(e) => setVal(e.target.value)} aria-invalid={!Number.isFinite(numeric)} className="font-mono bg-secondary border-border" />
         <Select value={from} onValueChange={setFrom}>
           <SelectTrigger className="w-24 bg-secondary border-border"><SelectValue /></SelectTrigger>
           <SelectContent>{Object.keys(u).map(k => <SelectItem key={k} value={k}>{k}</SelectItem>)}</SelectContent>

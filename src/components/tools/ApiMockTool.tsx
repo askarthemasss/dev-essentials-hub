@@ -45,7 +45,8 @@ const ApiMockTool = () => {
   const removeField = (i: number) => setFields((p) => p.filter((_, j) => j !== i));
 
   const generate = () => {
-    const data = Array.from({ length: count }, () => {
+    const safeCount = Math.min(100, Math.max(1, Number.isFinite(count) ? Math.round(count) : 1));
+    const data = Array.from({ length: safeCount }, () => {
       const obj: Record<string, unknown> = {};
       for (const f of fields) obj[f.name] = randomValue(f.type);
       return obj;

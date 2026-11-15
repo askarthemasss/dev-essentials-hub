@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { Textarea } from "@/components/ui/textarea";
+import { countGraphemes, countParagraphs, countSentences, countWords } from "@/lib/textStats";
 const WordCounterTool = () => {
   const [input, setInput] = useState("");
-  const words = input.trim() ? input.trim().split(/\s+/).length : 0;
-  const chars = input.length;
-  const sentences = input.trim() ? input.split(/[.!?]+/).filter(Boolean).length : 0;
-  const paragraphs = input.trim() ? input.split(/\n\n+/).filter(Boolean).length : 0;
+  const words = countWords(input);
+  const chars = countGraphemes(input);
+  const sentences = countSentences(input);
+  const paragraphs = countParagraphs(input);
   return (
     <div className="space-y-4">
       <Textarea value={input} onChange={(e) => setInput(e.target.value)} placeholder="Paste text here…" className="min-h-[200px] font-mono text-sm bg-secondary border-border" />

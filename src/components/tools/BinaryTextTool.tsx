@@ -1,6 +1,7 @@
 import { useState } from "react";
 import DualPane from "./DualPane";
 import { Button } from "@/components/ui/button";
+import { isConversionResult } from "@/lib/conversion";
 import { decodeBinary, encodeBinary } from "@/lib/encoding";
 
 const BinaryTextTool = () => {
@@ -16,11 +17,20 @@ const BinaryTextTool = () => {
     }
   };
 
+  const output = process(input, mode);
+
+  const switchMode = (nextMode: "toBin" | "toText") => {
+    if (nextMode === mode) return;
+    const nextInput = isConversionResult(output) ? output : input;
+    setMode(nextMode);
+    setInput(nextInput);
+  };
+
   return (
-    <DualPane input={input} output={process(input, mode)} onInputChange={setInput}
+    <DualPane input={input} output={output} onInputChange={setInput}
       actions={<>
-        <Button size="sm" variant={mode === "toBin" ? "default" : "secondary"} onClick={() => setMode("toBin")}>Text → Binary</Button>
-        <Button size="sm" variant={mode === "toText" ? "default" : "secondary"} onClick={() => setMode("toText")}>Binary → Text</Button>
+        <Button size="sm" variant={mode === "toBin" ? "default" : "secondary"} onClick={() => switchMode("toBin")}>Text → Binary</Button>
+        <Button size="sm" variant={mode === "toText" ? "default" : "secondary"} onClick={() => switchMode("toText")}>Binary → Text</Button>
       </>}
     />
   );

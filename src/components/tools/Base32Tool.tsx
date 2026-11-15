@@ -1,6 +1,7 @@
 import { useState } from "react";
 import DualPane from "./DualPane";
 import { Button } from "@/components/ui/button";
+import { isConversionResult } from "@/lib/conversion";
 import { decodeBase32, encodeBase32 } from "@/lib/encoding";
 
 const Base32Tool = () => {
@@ -16,11 +17,19 @@ const Base32Tool = () => {
     }
   };
 
+  const switchMode = (nextMode: "encode" | "decode") => {
+    if (nextMode === mode) return;
+    const nextInput = isConversionResult(output) ? output : input;
+    setMode(nextMode);
+    setInput(nextInput);
+    process(nextInput, nextMode);
+  };
+
   return (
     <DualPane input={input} output={output} onInputChange={(value) => { setInput(value); process(value, mode); }}
       actions={<>
-        <Button size="sm" variant={mode === "encode" ? "default" : "secondary"} onClick={() => { setMode("encode"); process(input, "encode"); }}>Encode</Button>
-        <Button size="sm" variant={mode === "decode" ? "default" : "secondary"} onClick={() => { setMode("decode"); process(input, "decode"); }}>Decode</Button>
+        <Button size="sm" variant={mode === "encode" ? "default" : "secondary"} onClick={() => switchMode("encode")}>Encode</Button>
+        <Button size="sm" variant={mode === "decode" ? "default" : "secondary"} onClick={() => switchMode("decode")}>Decode</Button>
       </>}
     />
   );

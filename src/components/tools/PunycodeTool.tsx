@@ -1,6 +1,7 @@
 import { useState } from "react";
 import DualPane from "./DualPane";
 import { Button } from "@/components/ui/button";
+import { isConversionResult } from "@/lib/conversion";
 import { decodePunycodeDomain, encodePunycodeDomain } from "@/lib/punycode";
 
 const PunycodeTool = () => {
@@ -16,12 +17,20 @@ const PunycodeTool = () => {
     setOutput(nextMode === "encode" ? encodePunycodeDomain(text) : decodePunycodeDomain(text));
   };
 
+  const switchMode = (nextMode: "encode" | "decode") => {
+    if (nextMode === mode) return;
+    const nextInput = isConversionResult(output) ? output : input;
+    setMode(nextMode);
+    setInput(nextInput);
+    process(nextInput, nextMode);
+  };
+
   return (
     <DualPane input={input} output={output} onInputChange={(value) => { setInput(value); process(value, mode); }}
       inputPlaceholder="Enter domain name…"
       actions={<>
-        <Button size="sm" variant={mode === "encode" ? "default" : "secondary"} onClick={() => { setMode("encode"); process(input, "encode"); }}>To Punycode</Button>
-        <Button size="sm" variant={mode === "decode" ? "default" : "secondary"} onClick={() => { setMode("decode"); process(input, "decode"); }}>To Unicode</Button>
+        <Button size="sm" variant={mode === "encode" ? "default" : "secondary"} onClick={() => switchMode("encode")}>To Punycode</Button>
+        <Button size="sm" variant={mode === "decode" ? "default" : "secondary"} onClick={() => switchMode("decode")}>To Unicode</Button>
       </>}
     />
   );
