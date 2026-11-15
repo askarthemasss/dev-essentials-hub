@@ -1,6 +1,7 @@
 import { useState } from "react";
 import DualPane from "./DualPane";
 import { Button } from "@/components/ui/button";
+import { isConversionResult } from "@/lib/conversion";
 
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null && !Array.isArray(value);
@@ -101,6 +102,12 @@ const JsonXmlTool = () => {
     }
   }
 
+  const switchMode = (nextMode: "json-to-xml" | "xml-to-json") => {
+    if (nextMode === mode) return;
+    if (isConversionResult(output)) setInput(output);
+    setMode(nextMode);
+  };
+
   return (
     <DualPane
       input={input}
@@ -114,14 +121,14 @@ const JsonXmlTool = () => {
           <Button
             size="sm"
             variant={mode === "json-to-xml" ? "default" : "secondary"}
-            onClick={() => setMode("json-to-xml")}
+            onClick={() => switchMode("json-to-xml")}
           >
             JSON → XML
           </Button>
           <Button
             size="sm"
             variant={mode === "xml-to-json" ? "default" : "secondary"}
-            onClick={() => setMode("xml-to-json")}
+            onClick={() => switchMode("xml-to-json")}
           >
             XML → JSON
           </Button>

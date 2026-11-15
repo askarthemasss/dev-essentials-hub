@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Copy } from "lucide-react";
+import { isConversionResult } from "@/lib/conversion";
 import { iniToToml, tomlToIni } from "@/lib/toml";
 
 const TomlIniTool = () => {
@@ -19,11 +20,17 @@ allowed_origins = ["http://localhost", "https://example.com"]`);
 
   const output = mode === "toml-to-ini" ? tomlToIni(input) : iniToToml(input);
 
+  const switchMode = (nextMode: "toml-to-ini" | "ini-to-toml") => {
+    if (nextMode === mode) return;
+    if (isConversionResult(output)) setInput(output);
+    setMode(nextMode);
+  };
+
   return (
     <div className="space-y-4">
       <div className="flex gap-2">
-        <button onClick={() => setMode("toml-to-ini")} className={`px-3 py-1 rounded text-sm font-mono ${mode === "toml-to-ini" ? "bg-primary text-primary-foreground" : "bg-secondary text-secondary-foreground"}`}>TOML → INI</button>
-        <button onClick={() => setMode("ini-to-toml")} className={`px-3 py-1 rounded text-sm font-mono ${mode === "ini-to-toml" ? "bg-primary text-primary-foreground" : "bg-secondary text-secondary-foreground"}`}>INI → TOML</button>
+        <button onClick={() => switchMode("toml-to-ini")} className={`px-3 py-1 rounded text-sm font-mono ${mode === "toml-to-ini" ? "bg-primary text-primary-foreground" : "bg-secondary text-secondary-foreground"}`}>TOML → INI</button>
+        <button onClick={() => switchMode("ini-to-toml")} className={`px-3 py-1 rounded text-sm font-mono ${mode === "ini-to-toml" ? "bg-primary text-primary-foreground" : "bg-secondary text-secondary-foreground"}`}>INI → TOML</button>
       </div>
       <div className="grid grid-cols-2 gap-4">
         <div>

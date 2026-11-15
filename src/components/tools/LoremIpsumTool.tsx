@@ -17,12 +17,13 @@ const LoremIpsumTool = () => {
     return words.join(" ") + ".";
   };
   const genParagraph = () => Array.from({ length: 4 + Math.floor(Math.random() * 4) }, genSentence).join(" ");
+  const safeCount = Math.min(100, Math.max(1, Number.isFinite(count) ? Math.round(count) : 1));
 
   const output = type === "paragraphs"
-    ? Array.from({ length: count }, genParagraph).join("\n\n")
+    ? Array.from({ length: safeCount }, genParagraph).join("\n\n")
     : type === "sentences"
-    ? Array.from({ length: count }, genSentence).join(" ")
-    : Array.from({ length: count }, () => WORDS[Math.floor(Math.random() * WORDS.length)]).join(" ");
+    ? Array.from({ length: safeCount }, genSentence).join(" ")
+    : Array.from({ length: safeCount }, () => WORDS[Math.floor(Math.random() * WORDS.length)]).join(" ");
 
   return (
     <div className="space-y-4">

@@ -2,13 +2,7 @@ import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Clock } from "lucide-react";
-
-function toDateTimeLocal(date: Date): string {
-  const pad = (value: number) => String(value).padStart(2, "0");
-  return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}T${pad(date.getHours())}:${pad(
-    date.getMinutes()
-  )}:${pad(date.getSeconds())}`;
-}
+import { toDateTimeLocalValue } from "@/lib/datetime";
 
 function parseTimestamp(raw: string): Date | null {
   const trimmed = raw.trim();
@@ -25,7 +19,7 @@ const UnixTimestampTool = () => {
   const initialDate = new Date();
   const initialSeconds = Math.floor(initialDate.getTime() / 1000);
   const [timestamp, setTimestamp] = useState(String(initialSeconds));
-  const [dateInput, setDateInput] = useState(toDateTimeLocal(initialDate));
+  const [dateInput, setDateInput] = useState(toDateTimeLocalValue(initialDate, true));
   const [error, setError] = useState("");
 
   const date = parseTimestamp(timestamp);
@@ -43,7 +37,7 @@ const UnixTimestampTool = () => {
       setError("Enter a whole-number Unix timestamp in seconds or milliseconds.");
       return;
     }
-    setDateInput(toDateTimeLocal(parsed));
+    setDateInput(toDateTimeLocalValue(parsed, true));
     setError("");
   };
 
@@ -67,7 +61,7 @@ const UnixTimestampTool = () => {
   const useNow = () => {
     const now = new Date();
     setTimestamp(String(Math.floor(now.getTime() / 1000)));
-    setDateInput(toDateTimeLocal(now));
+    setDateInput(toDateTimeLocalValue(now, true));
     setError("");
   };
 

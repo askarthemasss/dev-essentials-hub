@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { toDateTimeLocalValue } from "@/lib/datetime";
 
 const TimestampDiffTool = () => {
-  const [d1, setD1] = useState(new Date().toISOString().slice(0, 16));
-  const [d2, setD2] = useState(new Date(Date.now() + 86400000 * 7).toISOString().slice(0, 16));
+  const [d1, setD1] = useState(() => toDateTimeLocalValue(new Date()));
+  const [d2, setD2] = useState(() => toDateTimeLocalValue(new Date(Date.now() + 86400000 * 7)));
   const [result, setResult] = useState("");
 
   const calc = () => {

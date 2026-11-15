@@ -2,6 +2,7 @@ import { useState } from "react";
 import { parse as parseYaml, stringify as stringifyYaml } from "yaml";
 import DualPane from "./DualPane";
 import { Button } from "@/components/ui/button";
+import { isConversionResult } from "@/lib/conversion";
 
 const JsonYamlTool = () => {
   const [input, setInput] = useState("");
@@ -26,8 +27,11 @@ const JsonYamlTool = () => {
   };
 
   const switchMode = (nextMode: "toYaml" | "toJson") => {
+    if (nextMode === mode) return;
+    const nextInput = isConversionResult(output) ? output : input;
     setMode(nextMode);
-    process(input, nextMode);
+    setInput(nextInput);
+    process(nextInput, nextMode);
   };
 
   return (

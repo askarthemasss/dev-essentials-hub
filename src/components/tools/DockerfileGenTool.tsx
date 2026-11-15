@@ -7,15 +7,55 @@ import { Switch } from "@/components/ui/switch";
 import { Copy } from "lucide-react";
 
 type BaseImage = "node" | "python" | "go" | "rust" | "java" | "ruby" | "nginx" | "alpine";
-const baseImages: Record<BaseImage, { from: string; install: string; cmd: string }> = {
-  node: { from: "node:20-alpine", install: "npm ci", cmd: 'CMD ["node", "dist/index.js"]' },
-  python: { from: "python:3.12-slim", install: "pip install --no-cache-dir -r requirements.txt", cmd: 'CMD ["python", "app.py"]' },
-  go: { from: "golang:1.22-alpine AS builder", install: "go mod download", cmd: 'CMD ["/app"]' },
-  rust: { from: "rust:1.77-slim AS builder", install: "cargo build --release", cmd: 'CMD ["./target/release/app"]' },
-  java: { from: "eclipse-temurin:21-jdk-alpine AS builder", install: "./gradlew build", cmd: 'CMD ["java", "-jar", "app.jar"]' },
-  ruby: { from: "ruby:3.3-alpine", install: "bundle install", cmd: 'CMD ["ruby", "app.rb"]' },
-  nginx: { from: "nginx:alpine", install: "", cmd: 'CMD ["nginx", "-g", "daemon off;"]' },
-  alpine: { from: "alpine:3.19", install: "", cmd: 'CMD ["/bin/sh"]' },
+const baseImages: Record<BaseImage, { from: string; install: string; cmd: string; user: string }> = {
+  node: {
+    from: "node:20-alpine",
+    install: "npm ci",
+    cmd: 'CMD ["node", "dist/index.js"]',
+    user: "RUN addgroup -S appgroup && adduser -S appuser -G appgroup",
+  },
+  python: {
+    from: "python:3.12-slim",
+    install: "pip install --no-cache-dir -r requirements.txt",
+    cmd: 'CMD ["python", "app.py"]',
+    user: "RUN groupadd --system appgroup && useradd --system --gid appgroup --create-home appuser",
+  },
+  go: {
+    from: "golang:1.22-alpine AS builder",
+    install: "go mod download",
+    cmd: 'CMD ["/app"]',
+    user: "RUN addgroup -S appgroup && adduser -S appuser -G appgroup",
+  },
+  rust: {
+    from: "rust:1.77-slim AS builder",
+    install: "cargo build --release",
+    cmd: 'CMD ["./target/release/app"]',
+    user: "RUN groupadd --system appgroup && useradd --system --gid appgroup --create-home appuser",
+  },
+  java: {
+    from: "eclipse-temurin:21-jdk-alpine AS builder",
+    install: "./gradlew build",
+    cmd: 'CMD ["java", "-jar", "app.jar"]',
+    user: "RUN addgroup -S appgroup && adduser -S appuser -G appgroup",
+  },
+  ruby: {
+    from: "ruby:3.3-alpine",
+    install: "bundle install",
+    cmd: 'CMD ["ruby", "app.rb"]',
+    user: "RUN addgroup -S appgroup && adduser -S appuser -G appgroup",
+  },
+  nginx: {
+    from: "nginx:alpine",
+    install: "",
+    cmd: 'CMD ["nginx", "-g", "daemon off;"]',
+    user: "",
+  },
+  alpine: {
+    from: "alpine:3.19",
+    install: "",
+    cmd: 'CMD ["/bin/sh"]',
+    user: "RUN addgroup -S appgroup && adduser -S appuser -G appgroup",
+  },
 };
 
 const DockerfileTool = () => {
@@ -45,7 +85,7 @@ const DockerfileTool = () => {
   }
 
   if (nonRoot && base !== "nginx") {
-    dockerfile += `\nRUN addgroup -S appgroup && adduser -S appuser -G appgroup\nUSER appuser\n`;
+    dockerfile += `\n${img.user}\nUSER appuser\n`;
   }
 
   if (port) dockerfile += `\nEXPOSE ${port}\n`;

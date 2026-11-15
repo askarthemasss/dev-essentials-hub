@@ -2,6 +2,7 @@ import { useState } from "react";
 import Papa from "papaparse";
 import DualPane from "./DualPane";
 import { Button } from "@/components/ui/button";
+import { isConversionResult } from "@/lib/conversion";
 
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null && !Array.isArray(value);
@@ -38,10 +39,8 @@ const JsonCsvTool = () => {
 
   const switchMode = (nextMode: "toCsv" | "toJson") => {
     if (nextMode === mode) return;
+    if (isConversionResult(output)) setInput(output);
     setMode(nextMode);
-    if (output && !output.startsWith("Invalid") && !output.startsWith("Input must")) {
-      setInput(output);
-    }
   };
 
   return (
