@@ -76,13 +76,16 @@ Run the full suite before opening a pull request:
 
 ```sh
 npm run typecheck
+npm run typecheck:e2e
 npm run lint
 npm test
-npm run build
+npm run test:e2e
 ```
 
 - Add tests for parsing, conversion and edge cases (empty input, invalid input, Unicode, very large values).
 - Tests use Vitest and Testing Library; files live next to the code as `*.test.ts(x)`.
+- Playwright tests live in `e2e/`. `routes.spec.ts` renders every catalogue entry and fails on uncaught errors; add interaction coverage to `tool-behaviour.spec.ts` when changing tool controls.
+- Install the browser once with `npx playwright install chromium`; `npm run test:e2e` builds the app and starts the preview server automatically.
 - `npm run lint` currently reports six known `react-refresh` warnings from generated shadcn/ui files. Do not add new warnings or errors.
 - `npm run build` must finish with the SEO generation step and produce tool pages.
 
