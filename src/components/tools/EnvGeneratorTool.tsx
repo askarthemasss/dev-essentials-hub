@@ -36,20 +36,20 @@ const EnvGeneratorTool = () => {
           <Input value={v.key} onChange={(e) => update(i, "key", e.target.value)} placeholder="KEY" className="font-mono text-sm bg-secondary border-border w-40" />
           <Input value={v.value} onChange={(e) => update(i, "value", e.target.value)} placeholder="value" className="font-mono text-sm bg-secondary border-border flex-1" />
           <Input value={v.comment} onChange={(e) => update(i, "comment", e.target.value)} placeholder="comment" className="font-mono text-sm bg-secondary border-border w-40" />
-          <Button size="icon" variant="ghost" onClick={() => remove(i)}><Trash2 className="h-4 w-4" /></Button>
+          <Button size="icon" variant="ghost" onClick={() => remove(i)} aria-label={`Remove variable ${v.key || i + 1}`}><Trash2 className="h-4 w-4" /></Button>
         </div>
       ))}
       <Button variant="outline" onClick={add}><Plus className="h-4 w-4 mr-1" />Add Variable</Button>
       <div className="grid grid-cols-2 gap-4">
         <div className="relative">
           <label className="text-sm font-mono text-muted-foreground mb-1 block">.env</label>
-          <Textarea value={output} readOnly rows={10} className="font-mono text-sm bg-secondary border-border" />
-          <Button size="icon" variant="ghost" className="absolute top-8 right-2" onClick={() => navigator.clipboard.writeText(output)}><Copy className="h-4 w-4" /></Button>
+          <Textarea value={output} readOnly rows={10} aria-label=".env output" className="font-mono text-sm bg-secondary border-border" />
+          <Button size="icon" variant="ghost" className="absolute top-8 right-2" onClick={() => navigator.clipboard.writeText(output)} aria-label="Copy .env contents"><Copy className="h-4 w-4" /></Button>
         </div>
         <div className="relative">
           <label className="text-sm font-mono text-muted-foreground mb-1 block">.env.example</label>
-          <Textarea value={exampleOutput} readOnly rows={10} className="font-mono text-sm bg-secondary border-border" />
-          <Button size="icon" variant="ghost" className="absolute top-8 right-2" onClick={() => navigator.clipboard.writeText(exampleOutput)}><Copy className="h-4 w-4" /></Button>
+          <Textarea value={exampleOutput} readOnly rows={10} aria-label=".env.example output" className="font-mono text-sm bg-secondary border-border" />
+          <Button size="icon" variant="ghost" className="absolute top-8 right-2" onClick={() => navigator.clipboard.writeText(exampleOutput)} aria-label="Copy .env.example contents"><Copy className="h-4 w-4" /></Button>
         </div>
       </div>
     </div>

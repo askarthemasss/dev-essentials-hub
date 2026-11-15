@@ -8,7 +8,7 @@ const SitemapTool = () => {
   const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.split("\n").filter((url) => url.trim()).map((url) => `  <url>\n    <loc>${escapeXml(url.trim())}</loc>\n    <lastmod>${new Date().toISOString().split("T")[0]}</lastmod>\n  </url>`).join("\n")}\n</urlset>`;
   return (
     <div className="space-y-4">
-      <div><label className="text-xs text-muted-foreground font-mono">URLs (one per line)</label><Textarea value={urls} onChange={(e) => setUrls(e.target.value)} className="min-h-[100px] font-mono text-sm bg-secondary border-border" /></div>
+      <div><label className="text-xs text-muted-foreground font-mono">URLs (one per line)</label><Textarea value={urls} onChange={(e) => setUrls(e.target.value)} aria-label="URLs, one per line" className="min-h-[100px] font-mono text-sm bg-secondary border-border" /></div>
       <Textarea value={xml} readOnly className="min-h-[200px] font-mono text-sm bg-secondary border-border" />
     </div>
   );

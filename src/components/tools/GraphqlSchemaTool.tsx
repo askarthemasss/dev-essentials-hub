@@ -60,14 +60,14 @@ const GraphqlSchemaTool = () => {
         <div key={ti} className="rounded-lg border border-border bg-secondary/50 p-4 space-y-3">
           <div className="flex items-center gap-2">
             <span className="text-xs font-mono text-muted-foreground">type</span>
-            <Input value={t.name} onChange={(e) => updateType(ti, e.target.value)} className="font-mono text-sm bg-secondary border-border w-40" />
-            {types.length > 1 && <Button size="icon" variant="ghost" onClick={() => removeType(ti)} className="ml-auto"><Trash2 className="h-4 w-4" /></Button>}
+            <Input value={t.name} onChange={(e) => updateType(ti, e.target.value)} aria-label="Type name" className="font-mono text-sm bg-secondary border-border w-40" />
+            {types.length > 1 && <Button size="icon" variant="ghost" onClick={() => removeType(ti)} aria-label={`Remove ${t.name} type`} className="ml-auto"><Trash2 className="h-4 w-4" /></Button>}
           </div>
           {t.fields.map((f, fi) => (
             <div key={fi} className="flex items-center gap-2">
-              <Input value={f.name} onChange={(e) => updateField(ti, fi, { name: e.target.value })} className="font-mono text-sm bg-secondary border-border w-32" placeholder="field" />
+              <Input value={f.name} onChange={(e) => updateField(ti, fi, { name: e.target.value })} aria-label={`Field name for ${t.name}`} className="font-mono text-sm bg-secondary border-border w-32" placeholder="field" />
               <Select value={f.type} onValueChange={(v) => updateField(ti, fi, { type: v as FieldType })}>
-                <SelectTrigger className="w-28 font-mono text-sm bg-secondary border-border"><SelectValue /></SelectTrigger>
+                <SelectTrigger aria-label={`Type of ${f.name}`} className="w-28 font-mono text-sm bg-secondary border-border"><SelectValue /></SelectTrigger>
                 <SelectContent>{fieldTypes.map((ft) => <SelectItem key={ft} value={ft}>{ft}</SelectItem>)}</SelectContent>
               </Select>
               <label className="flex items-center gap-1 text-xs font-mono text-muted-foreground">
@@ -76,7 +76,7 @@ const GraphqlSchemaTool = () => {
               <label className="flex items-center gap-1 text-xs font-mono text-muted-foreground">
                 <input type="checkbox" checked={f.isList} onChange={(e) => updateField(ti, fi, { isList: e.target.checked })} />[]
               </label>
-              <Button size="icon" variant="ghost" onClick={() => removeField(ti, fi)}><Trash2 className="h-3 w-3" /></Button>
+              <Button size="icon" variant="ghost" onClick={() => removeField(ti, fi)} aria-label={`Remove field ${f.name}`}><Trash2 className="h-3 w-3" /></Button>
             </div>
           ))}
           <Button size="sm" variant="outline" onClick={() => addField(ti)}><Plus className="h-3 w-3 mr-1" />Field</Button>
@@ -85,7 +85,7 @@ const GraphqlSchemaTool = () => {
       <Button variant="outline" onClick={addType}><Plus className="h-4 w-4 mr-1" />Add Type</Button>
       <div className="relative">
         <Textarea value={output} readOnly rows={16} className="font-mono text-sm bg-secondary border-border" />
-        <Button size="icon" variant="ghost" className="absolute top-2 right-2" onClick={() => navigator.clipboard.writeText(output)}><Copy className="h-4 w-4" /></Button>
+        <Button size="icon" variant="ghost" className="absolute top-2 right-2" onClick={() => navigator.clipboard.writeText(output)} aria-label="Copy schema"><Copy className="h-4 w-4" /></Button>
       </div>
     </div>
   );

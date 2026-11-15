@@ -15,15 +15,15 @@ describe("JavaScript formatting", () => {
     expect(output).toContain("function add(a, b)");
   });
 
-  it("minifies without removing comments inside strings", () => {
-    const output = minifyJavaScript('const url = "https://example.com//path"; // comment\nconst n = 1 + 2;');
+  it("minifies without removing comments inside strings", async () => {
+    const output = await minifyJavaScript('const url = "https://example.com//path"; // comment\nconst n = 1 + 2;');
     expect(output).toContain("https://example.com//path");
     expect(output).not.toContain("// comment");
     expect(output).not.toContain("1 + 2");
   });
 
-  it("reports invalid JavaScript", () => {
-    expect(() => minifyJavaScript("function {")).toThrow();
+  it("reports invalid JavaScript", async () => {
+    await expect(minifyJavaScript("function {")).rejects.toThrow();
   });
 });
 
@@ -35,8 +35,8 @@ describe("CSS formatting", () => {
     expect(output).toContain("a {");
   });
 
-  it("minifies while preserving string content", () => {
-    const output = minifyCss('/* note */ .a { background: url("a b.png"); content: "x ; y"; }');
+  it("minifies while preserving string content", async () => {
+    const output = await minifyCss('/* note */ .a { background: url("a b.png"); content: "x ; y"; }');
     expect(output).not.toContain("note");
     expect(output).toContain("url(a\\ b.png)");
     expect(output).toContain('"x ; y"');

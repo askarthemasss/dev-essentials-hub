@@ -26,7 +26,7 @@ const FakeDataTool = () => {
   };
   return (
     <div className="space-y-4">
-      <div className="flex gap-2"><Input type="number" min={1} max={100} value={count} onChange={(e) => setCount(Number(e.target.value))} className="w-24 font-mono bg-secondary border-border" /><Button onClick={gen}>Generate</Button></div>
+      <div className="flex gap-2"><Input type="number" min={1} max={100} value={count} onChange={(e) => setCount(Number(e.target.value))} aria-label="Number of people" className="w-24 font-mono bg-secondary border-border" /><Button onClick={gen}>Generate</Button></div>
       {data.length > 0 && <pre className="rounded bg-secondary p-3 font-mono text-sm overflow-auto max-h-[400px]">{JSON.stringify(data, null, 2)}</pre>}
     </div>
   );

@@ -33,7 +33,7 @@ const GitignoreGenTool = () => {
       </div>
       <div className="relative">
         <Textarea value={output} readOnly rows={16} className="font-mono text-sm bg-secondary border-border" />
-        <Button size="icon" variant="ghost" className="absolute top-2 right-2" onClick={() => navigator.clipboard.writeText(output)}><Copy className="h-4 w-4" /></Button>
+        <Button size="icon" variant="ghost" className="absolute top-2 right-2" onClick={() => navigator.clipboard.writeText(output)} aria-label="Copy .gitignore"><Copy className="h-4 w-4" /></Button>
       </div>
     </div>
   );

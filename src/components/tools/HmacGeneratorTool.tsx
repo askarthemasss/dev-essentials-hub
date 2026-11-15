@@ -50,7 +50,7 @@ const HmacGeneratorTool = () => {
   return (
     <div className="space-y-4">
       <Select value={algo} onValueChange={setAlgo}>
-        <SelectTrigger className="w-32 bg-secondary border-border"><SelectValue /></SelectTrigger>
+        <SelectTrigger aria-label="HMAC algorithm" className="w-32 bg-secondary border-border"><SelectValue /></SelectTrigger>
         <SelectContent>
           <SelectItem value="SHA-256">SHA-256</SelectItem>
           <SelectItem value="SHA-384">SHA-384</SelectItem>

@@ -19,13 +19,13 @@ const LengthWeightTool = () => {
   return (
     <div className="space-y-4 max-w-md">
       <Select value={cat} onValueChange={(v) => { setCat(v); setFrom(Object.keys(units[v])[0]); }}>
-        <SelectTrigger className="bg-secondary border-border"><SelectValue /></SelectTrigger>
+        <SelectTrigger aria-label="Measurement type" className="bg-secondary border-border"><SelectValue /></SelectTrigger>
         <SelectContent>{Object.keys(units).map(k => <SelectItem key={k} value={k}>{k}</SelectItem>)}</SelectContent>
       </Select>
       <div className="flex gap-2">
-        <Input value={val} onChange={(e) => setVal(e.target.value)} aria-invalid={!Number.isFinite(numeric)} className="font-mono bg-secondary border-border" />
+        <Input value={val} onChange={(e) => setVal(e.target.value)} aria-label="Value to convert" aria-invalid={!Number.isFinite(numeric)} className="font-mono bg-secondary border-border" />
         <Select value={from} onValueChange={setFrom}>
-          <SelectTrigger className="w-24 bg-secondary border-border"><SelectValue /></SelectTrigger>
+          <SelectTrigger aria-label="From unit" className="w-24 bg-secondary border-border"><SelectValue /></SelectTrigger>
           <SelectContent>{Object.keys(u).map(k => <SelectItem key={k} value={k}>{k}</SelectItem>)}</SelectContent>
         </Select>
       </div>

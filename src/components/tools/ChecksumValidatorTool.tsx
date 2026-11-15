@@ -84,7 +84,7 @@ const ChecksumValidatorTool = () => {
         <div>
           <label className="mb-1 block font-mono text-xs text-muted-foreground">Algorithm</label>
           <Select value={algorithm} onValueChange={(value) => setAlgorithm(value as HashAlgorithm)}>
-            <SelectTrigger className="w-36 border-border bg-secondary font-mono">
+            <SelectTrigger aria-label="Checksum algorithm" className="w-36 border-border bg-secondary font-mono">
               <SelectValue />
             </SelectTrigger>
             <SelectContent>

@@ -60,7 +60,7 @@ JSON, YAML, Base64, JWTs, regex, colors, CSS, cron, subnets, hashes and more. Ev
 | Icons | [Lucide](https://lucide.dev) |
 | Routing | [React Router 7](https://reactrouter.com) |
 | Editors & data | `marked`, `turndown`, `yaml`, `papaparse`, `sql-formatter`, `dompurify`, `qrcode` |
-| Testing | [Vitest 5](https://vitest.dev) + Testing Library (jsdom) + [Playwright](https://playwright.dev) browser E2E |
+| Testing | [Vitest 5](https://vitest.dev) + Testing Library (jsdom) + [Playwright](https://playwright.dev) browser E2E with axe accessibility checks |
 | Quality | ESLint 9 + TypeScript strict mode |
 | CI/CD | GitHub Actions + Vercel |
 | Fonts | Inter + JetBrains Mono |

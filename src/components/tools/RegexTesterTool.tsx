@@ -9,8 +9,8 @@ const RegexTesterTool = () => {
   try { matches = text.match(new RegExp(pattern, flags)) || []; } catch (caught) { error = caught instanceof Error ? caught.message : "Invalid regular expression"; }
   return (
     <div className="space-y-4">
-      <div className="flex gap-2"><Input value={pattern} onChange={(e) => setPattern(e.target.value)} placeholder="Pattern" className="font-mono bg-secondary border-border" /><Input value={flags} onChange={(e) => setFlags(e.target.value)} className="w-20 font-mono bg-secondary border-border" /></div>
-      <Textarea value={text} onChange={(e) => setText(e.target.value)} className="min-h-[100px] font-mono text-sm bg-secondary border-border" />
+      <div className="flex gap-2"><Input value={pattern} onChange={(e) => setPattern(e.target.value)} aria-label="Regex pattern" placeholder="Pattern" className="font-mono bg-secondary border-border" /><Input value={flags} onChange={(e) => setFlags(e.target.value)} aria-label="Regex flags" className="w-20 font-mono bg-secondary border-border" /></div>
+      <Textarea value={text} onChange={(e) => setText(e.target.value)} aria-label="Test string" className="min-h-[100px] font-mono text-sm bg-secondary border-border" />
       {error ? <div className="text-destructive font-mono text-sm">{error}</div> : <div className="rounded bg-secondary p-3 font-mono text-sm">{matches.length} match(es): {matches.join(", ")}</div>}
     </div>
   );

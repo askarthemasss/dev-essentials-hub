@@ -25,9 +25,9 @@ const ToolLayout: React.FC<ToolLayoutProps> = ({ title, description, children })
           </div>
         </div>
       </div>
-      <div className="mx-auto max-w-5xl px-4 py-6">
+      <main className="mx-auto max-w-5xl px-4 py-6">
         {children}
-      </div>
+      </main>
     </div>
   );
 };

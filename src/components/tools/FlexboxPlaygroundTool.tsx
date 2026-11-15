@@ -23,7 +23,7 @@ const FlexboxPlaygroundTool = () => {
       <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
         {controls.map((control) => (
           <div key={control.label}><label className="text-xs text-muted-foreground font-mono">{control.label}</label>
-            <Select value={control.value} onValueChange={control.set}><SelectTrigger className="bg-secondary border-border text-xs"><SelectValue /></SelectTrigger><SelectContent>{control.options.map((option) => <SelectItem key={option} value={option}>{option}</SelectItem>)}</SelectContent></Select>
+            <Select value={control.value} onValueChange={control.set}><SelectTrigger aria-label={control.label} className="bg-secondary border-border text-xs"><SelectValue /></SelectTrigger><SelectContent>{control.options.map((option) => <SelectItem key={option} value={option}>{option}</SelectItem>)}</SelectContent></Select>
           </div>
         ))}
       </div>

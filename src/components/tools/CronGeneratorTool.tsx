@@ -11,7 +11,7 @@ const CronGeneratorTool = () => {
         {fields.map((f, i) => (
           <div key={f}>
             <label className="text-xs text-muted-foreground font-mono capitalize">{f}</label>
-            <Input value={parts[i]} onChange={(e) => update(i, e.target.value)} className="font-mono bg-secondary border-border text-center" />
+            <Input value={parts[i]} onChange={(e) => update(i, e.target.value)} aria-label={`${f} field`} className="font-mono bg-secondary border-border text-center" />
           </div>
         ))}
       </div>

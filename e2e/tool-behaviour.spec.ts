@@ -88,6 +88,16 @@ test.describe("converter direction switches", () => {
 });
 
 test.describe("formatting and text tools", () => {
+  test("async formatters load their dependencies on demand", async ({ page }) => {
+    await openTool(page, "js-beautifier");
+    await firstTextarea(page).fill("const value={a:1};");
+    await expect(outputTextarea(page)).toHaveValue(/const value = \{ a: 1 \};/);
+
+    await openTool(page, "js-minifier");
+    await firstTextarea(page).fill("const total = 1 + 2;");
+    await expect(outputTextarea(page)).toHaveValue("const total=3;");
+  });
+
   test("XML formatter keeps > inside quoted attributes", async ({ page }) => {
     await openTool(page, "xml-formatter");
 

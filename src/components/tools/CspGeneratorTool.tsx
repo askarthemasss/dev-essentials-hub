@@ -9,7 +9,7 @@ const CspGeneratorTool = () => {
   return (
     <div className="space-y-3">
       {directives.map(d => (
-        <div key={d} className="flex gap-2 items-center"><span className="w-28 text-xs font-mono text-muted-foreground shrink-0">{d}</span><input value={values[d]} onChange={(e) => update(d, e.target.value)} className="flex-1 rounded border border-border bg-secondary px-2 py-1 font-mono text-sm" /></div>
+        <div key={d} className="flex gap-2 items-center"><span className="w-28 text-xs font-mono text-muted-foreground shrink-0">{d}</span><input value={values[d]} onChange={(e) => update(d, e.target.value)} aria-label={`${d} directive`} className="flex-1 rounded border border-border bg-secondary px-2 py-1 font-mono text-sm" /></div>
       ))}
       <Textarea value={csp} readOnly className="min-h-[80px] font-mono text-sm bg-secondary border-border" />
     </div>

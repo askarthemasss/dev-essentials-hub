@@ -19,9 +19,9 @@ const BoxShadowTool = () => {
     <div className="space-y-4 max-w-lg">
       <div className="flex items-center justify-center h-40"><div className="h-24 w-24 rounded-lg bg-card" style={{ boxShadow: shadow }} /></div>
       {controls.map((control) => (
-        <div key={control.label}><label className="text-xs text-muted-foreground font-mono">{control.label}: {control.value}</label><Slider value={[control.value]} onValueChange={([value]) => control.set(value)} min={control.min} max={control.max} /></div>
+        <div key={control.label}><label className="text-xs text-muted-foreground font-mono">{control.label}: {control.value}</label><Slider value={[control.value]} onValueChange={([value]) => control.set(value)} aria-label={control.label} min={control.min} max={control.max} /></div>
       ))}
-      <div><label className="text-xs text-muted-foreground font-mono">Color</label><input type="color" value={color} onChange={(e) => setColor(e.target.value)} className="block h-8 w-16" /></div>
+      <div><label className="text-xs text-muted-foreground font-mono">Color</label><input type="color" value={color} onChange={(e) => setColor(e.target.value)} aria-label="Shadow color" className="block h-8 w-16" /></div>
       <div className="rounded bg-secondary p-3 font-mono text-sm">box-shadow: {shadow};</div>
     </div>
   );

@@ -97,13 +97,13 @@ const DockerfileTool = () => {
         <div>
           <label className="text-sm font-mono text-muted-foreground mb-1 block">Base Image</label>
           <Select value={base} onValueChange={(v) => setBase(v as BaseImage)}>
-            <SelectTrigger className="font-mono text-sm bg-secondary border-border"><SelectValue /></SelectTrigger>
+            <SelectTrigger aria-label="Base image" className="font-mono text-sm bg-secondary border-border"><SelectValue /></SelectTrigger>
             <SelectContent>{Object.keys(baseImages).map((k) => <SelectItem key={k} value={k}>{k}</SelectItem>)}</SelectContent>
           </Select>
         </div>
         <div>
           <label className="text-sm font-mono text-muted-foreground mb-1 block">Port</label>
-          <Input value={port} onChange={(e) => setPort(e.target.value)} className="font-mono text-sm bg-secondary border-border" />
+          <Input value={port} onChange={(e) => setPort(e.target.value)} aria-label="Application port" className="font-mono text-sm bg-secondary border-border" />
         </div>
       </div>
       <Input value={workdir} onChange={(e) => setWorkdir(e.target.value)} className="font-mono text-sm bg-secondary border-border" placeholder="WORKDIR" />
@@ -113,7 +113,7 @@ const DockerfileTool = () => {
       </div>
       <div className="relative">
         <Textarea value={dockerfile} readOnly rows={18} className="font-mono text-sm bg-secondary border-border" />
-        <Button size="icon" variant="ghost" className="absolute top-2 right-2" onClick={() => navigator.clipboard.writeText(dockerfile)}><Copy className="h-4 w-4" /></Button>
+        <Button size="icon" variant="ghost" className="absolute top-2 right-2" onClick={() => navigator.clipboard.writeText(dockerfile)} aria-label="Copy Dockerfile"><Copy className="h-4 w-4" /></Button>
       </div>
     </div>
   );

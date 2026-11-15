@@ -36,11 +36,11 @@ const TimestampDiffTool = () => {
       <div className="grid grid-cols-2 gap-4">
         <div>
           <label className="text-sm font-mono text-muted-foreground mb-1 block">Start</label>
-          <Input type="datetime-local" value={d1} onChange={(e) => setD1(e.target.value)} className="font-mono bg-secondary border-border" />
+          <Input type="datetime-local" value={d1} onChange={(e) => setD1(e.target.value)} aria-label="Start date and time" className="font-mono bg-secondary border-border" />
         </div>
         <div>
           <label className="text-sm font-mono text-muted-foreground mb-1 block">End</label>
-          <Input type="datetime-local" value={d2} onChange={(e) => setD2(e.target.value)} className="font-mono bg-secondary border-border" />
+          <Input type="datetime-local" value={d2} onChange={(e) => setD2(e.target.value)} aria-label="End date and time" className="font-mono bg-secondary border-border" />
         </div>
       </div>
       <Button onClick={calc} className="bg-primary text-primary-foreground">Calculate Difference</Button>
