@@ -60,7 +60,7 @@ JSON, YAML, Base64, JWTs, regex, colors, CSS, cron, subnets, hashes and more. Ev
 | Icons | [Lucide](https://lucide.dev) |
 | Routing | [React Router 7](https://reactrouter.com) |
 | Editors & data | `marked`, `turndown`, `yaml`, `papaparse`, `sql-formatter`, `dompurify`, `qrcode` |
-| Testing | [Vitest 5](https://vitest.dev) + Testing Library + jsdom |
+| Testing | [Vitest 5](https://vitest.dev) + Testing Library (jsdom) + [Playwright](https://playwright.dev) browser E2E |
 | Quality | ESLint 9 + TypeScript strict mode |
 | CI/CD | GitHub Actions + Vercel |
 | Fonts | Inter + JetBrains Mono |
@@ -92,6 +92,9 @@ Open [http://localhost:8080](http://localhost:8080).
 | `npm run typecheck` | Type-check the app |
 | `npm test` | Run the Vitest suite once |
 | `npm run test:watch` | Run Vitest in watch mode |
+| `npm run test:e2e` | Build the app and run the Playwright browser suite |
+| `npm run test:e2e:ui` | Build the app and open Playwright's interactive UI |
+| `npm run typecheck:e2e` | Type-check the Playwright config and tests |
 
 ## Project structure
 
@@ -108,6 +111,7 @@ src/
 ├── hooks/                    # SEO, favorites, recents, most-used
 ├── lib/                      # pure logic + unit tests
 └── pages/                    # home, tool page, 404
+e2e/                          # Playwright route and interaction tests
 scripts/generate-seo.mjs      # static metadata, sitemap, robots.txt, 404.html
 docs/screenshots/             # README screenshots
 ```
@@ -117,7 +121,7 @@ docs/screenshots/             # README screenshots
 1. Add an entry to `src/data/tools.ts` with a unique `id`, `name`, `description`, `category` and Lucide `icon`.
 2. Create `src/components/tools/<Name>Tool.tsx` exporting a default component. The filename is derived from the tool `id` by `src/data/toolRegistry.ts`.
 3. Put non-trivial logic in `src/lib/` and add a Vitest test next to it.
-4. Run `npm run typecheck`, `npm run lint`, `npm test` and `npm run build`.
+4. Run `npm run typecheck`, `npm run typecheck:e2e`, `npm run lint`, `npm test` and `npm run build`. Add a Playwright check for new interactions and run `npm run test:e2e`.
 
 Tool components only render their controls and output. `src/pages/ToolPage.tsx` wraps every component in `ToolLayout` and handles the title, description, lazy loading and SEO.
 
@@ -324,7 +328,7 @@ Contributions are welcome — new tools, bug fixes, accessibility improvements, 
 - Read [CONTRIBUTING.md](CONTRIBUTING.md) for setup, tool-authoring and PR guidelines.
 - Follow the [Code of Conduct](CODE_OF_CONDUCT.md).
 - Browse [good first issues](https://github.com/askarthemasss/dev-essentials-hub/labels/good%20first%20issue) or open a [tool request](https://github.com/askarthemasss/dev-essentials-hub/issues/new?template=feature_request.yml).
-- Before opening a PR, run `npm run typecheck && npm run lint && npm test && npm run build`.
+- Before opening a PR, run `npm run typecheck && npm run typecheck:e2e && npm run lint && npm test && npm run test:e2e`.
 
 Please report security issues privately rather than in a public issue. See [CONTRIBUTING.md#reporting-security-issues](CONTRIBUTING.md#reporting-security-issues).
 
