@@ -1,18 +1,12 @@
 import { useState } from "react";
 import DualPane from "./DualPane";
-
-function minifyJs(code: string): string {
-  return code
-    .replace(/\/\/.*$/gm, "")
-    .replace(/\/\*[\s\S]*?\*\//g, "")
-    .replace(/\s*\n\s*/g, "")
-    .replace(/\s{2,}/g, " ")
-    .trim();
-}
+import { useAsyncOutput } from "@/hooks/useAsyncOutput";
+import { minifyJavaScript } from "@/lib/codeFormat";
 
 const JsMinifierTool = () => {
   const [input, setInput] = useState("");
-  return <DualPane inputLabel="JavaScript" outputLabel="Minified" input={input} output={minifyJs(input)} onInputChange={setInput} inputPlaceholder="Paste JavaScript code…" />;
+  const output = useAsyncOutput(input, minifyJavaScript);
+  return <DualPane inputLabel="JavaScript" outputLabel="Minified" input={input} output={output} onInputChange={setInput} inputPlaceholder="Paste JavaScript code…" />;
 };
 
 export default JsMinifierTool;

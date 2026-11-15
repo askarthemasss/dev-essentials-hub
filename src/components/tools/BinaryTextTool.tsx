@@ -1,12 +1,21 @@
 import { useState } from "react";
 import DualPane from "./DualPane";
 import { Button } from "@/components/ui/button";
+import { decodeBinary, encodeBinary } from "@/lib/encoding";
+
 const BinaryTextTool = () => {
   const [input, setInput] = useState("");
   const [mode, setMode] = useState<"toBin" | "toText">("toBin");
-  const toBin = (s: string) => [...s].map(c => c.charCodeAt(0).toString(2).padStart(8, "0")).join(" ");
-  const toText = (s: string) => s.split(/\s+/).map(b => String.fromCharCode(parseInt(b, 2))).join("");
-  const process = (text: string, m: string) => { try { return m === "toBin" ? toBin(text) : toText(text); } catch { return "Error"; } };
+
+  const process = (text: string, nextMode: "toBin" | "toText") => {
+    if (!text) return "";
+    try {
+      return nextMode === "toBin" ? encodeBinary(text) : decodeBinary(text);
+    } catch {
+      return "Error: Binary input must contain 8-bit groups";
+    }
+  };
+
   return (
     <DualPane input={input} output={process(input, mode)} onInputChange={setInput}
       actions={<>

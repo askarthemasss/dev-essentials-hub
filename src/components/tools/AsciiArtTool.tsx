@@ -1,18 +1,17 @@
 import { useState } from "react";
 import DualPane from "./DualPane";
+import { textToAsciiArt } from "@/lib/asciiArt";
+
 const AsciiArtTool = () => {
   const [input, setInput] = useState("Hi");
-  const toAscii = (s: string) => {
-    const big: Record<string, string[]> = {
-      " ": ["   ","   ","   ","   ","   "],
-      "H": ["H   H","H   H","HHHHH","H   H","H   H"],
-      "i": ["  i  ","     ","  i  ","  i  ","  i  "],
-      "!": ["  !  ","  !  ","  !  ","     ","  !  "],
-    };
-    const def = ["?????","?   ?","  ?  "," ?   ","?????"];
-    const chars = [...s].map(c => big[c] || big[c.toUpperCase()] || def);
-    return Array.from({ length: 5 }, (_, row) => chars.map(c => c[row]).join("  ")).join("\n");
-  };
-  return <DualPane input={input} output={toAscii(input)} onInputChange={setInput} inputPlaceholder="Enter short text…" />;
+  return (
+    <DualPane
+      input={input}
+      output={textToAsciiArt(input)}
+      onInputChange={setInput}
+      inputPlaceholder="Enter text using letters, digits and common punctuation…"
+    />
+  );
 };
+
 export default AsciiArtTool;

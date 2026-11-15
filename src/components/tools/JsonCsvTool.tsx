@@ -37,6 +37,7 @@ const JsonCsvTool = () => {
   })();
 
   const switchMode = (nextMode: "toCsv" | "toJson") => {
+    if (nextMode === mode) return;
     setMode(nextMode);
     if (output && !output.startsWith("Invalid") && !output.startsWith("Input must")) {
       setInput(output);

@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { escapeHtml } from "@/lib/markup";
+
 const MetaTagTool = () => {
   const [title, setTitle] = useState("My Website");
   const [desc, setDesc] = useState("A great website");
   const [keywords, setKeywords] = useState("web, developer");
-  const output = `<meta charset="UTF-8">\n<meta name="viewport" content="width=device-width, initial-scale=1.0">\n<title>${title}</title>\n<meta name="description" content="${desc}">\n<meta name="keywords" content="${keywords}">`;
+  const output = `<meta charset="UTF-8">\n<meta name="viewport" content="width=device-width, initial-scale=1.0">\n<title>${escapeHtml(title)}</title>\n<meta name="description" content="${escapeHtml(desc)}">\n<meta name="keywords" content="${escapeHtml(keywords)}">`;
   return (
     <div className="space-y-4 max-w-lg">
       <div><label className="text-xs text-muted-foreground font-mono">Title</label><Input value={title} onChange={(e) => setTitle(e.target.value)} className="font-mono bg-secondary border-border" /></div>

@@ -1,18 +1,11 @@
 import { useState } from "react";
 import DualPane from "./DualPane";
-
-const beautifyCss = (css: string): string => {
-  return css
-    .replace(/\s*{\s*/g, " {\n  ")
-    .replace(/\s*}\s*/g, "\n}\n")
-    .replace(/;\s*/g, ";\n  ")
-    .replace(/\n\s*\n/g, "\n")
-    .replace(/ {2}}/g, "}")
-    .trim();
-};
+import { useAsyncOutput } from "@/hooks/useAsyncOutput";
+import { beautifyCss } from "@/lib/codeFormat";
 
 const CssBeautifierTool = () => {
   const [input, setInput] = useState("");
-  return <DualPane input={input} output={input ? beautifyCss(input) : ""} onInputChange={setInput} inputPlaceholder="Paste CSS here…" />;
+  const output = useAsyncOutput(input, beautifyCss);
+  return <DualPane input={input} output={output} onInputChange={setInput} inputPlaceholder="Paste CSS here…" />;
 };
 export default CssBeautifierTool;

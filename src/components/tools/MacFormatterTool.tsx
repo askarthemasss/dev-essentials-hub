@@ -1,27 +1,49 @@
 import { useState } from "react";
 import { Input } from "@/components/ui/input";
+import { formatMacAddress } from "@/lib/mac";
+
 const MacFormatterTool = () => {
   const [input, setInput] = useState("AA:BB:CC:DD:EE:FF");
-  const clean = input.replace(/[^a-fA-F0-9]/g, "").toUpperCase();
-  const formats = [
-    clean.match(/.{2}/g)?.join(":") || "",
-    clean.match(/.{2}/g)?.join("-") || "",
-    clean.match(/.{4}/g)?.join(".") || "",
-    clean,
-  ];
-  const controls: Array<{ label: string; value: string }> = [
-    { label: "Colon", value: formats[0] },
-    { label: "Dash", value: formats[1] },
-    { label: "Dot", value: formats[2] },
-    { label: "Raw", value: formats[3] },
-  ];
+  const formats = formatMacAddress(input);
+
+  const controls = formats
+    ? [
+        { label: "Colon", value: formats.colon },
+        { label: "Dash", value: formats.dash },
+        { label: "Dot", value: formats.dot },
+        { label: "Raw", value: formats.raw },
+      ]
+    : [];
+
   return (
     <div className="space-y-3 max-w-md">
-      <Input value={input} onChange={(e) => setInput(e.target.value)} placeholder="Enter MAC address" className="font-mono bg-secondary border-border" />
-      {controls.map((control) => (
-        <div key={control.label} className="flex justify-between rounded bg-secondary p-2 font-mono text-sm"><span className="text-muted-foreground">{control.label}</span><span>{control.value}</span></div>
-      ))}
+      <Input
+        value={input}
+        onChange={(event) => setInput(event.target.value)}
+        placeholder="Enter MAC address"
+        spellCheck={false}
+        aria-invalid={!formats}
+        className="font-mono bg-secondary border-border"
+      />
+      {formats ? (
+        controls.map((control) => (
+          <div
+            key={control.label}
+            className="flex justify-between rounded bg-secondary p-2 font-mono text-sm"
+          >
+            <span className="text-muted-foreground">{control.label}</span>
+            <span>{control.value}</span>
+          </div>
+        ))
+      ) : (
+        input.trim() && (
+          <p role="alert" className="rounded bg-secondary p-3 font-mono text-sm text-destructive">
+            Enter exactly 12 hexadecimal digits, for example AA:BB:CC:DD:EE:FF.
+          </p>
+        )
+      )}
     </div>
   );
 };
+
 export default MacFormatterTool;
