@@ -16,6 +16,7 @@ const AspectRatioTool = () => {
             value={width}
             onChange={(event) => setWidth(event.target.value)}
             inputMode="numeric"
+            aria-label="Width"
             aria-invalid={!ratio}
             className="font-mono bg-secondary border-border"
           />
@@ -26,6 +27,7 @@ const AspectRatioTool = () => {
             value={height}
             onChange={(event) => setHeight(event.target.value)}
             inputMode="numeric"
+            aria-label="Height"
             aria-invalid={!ratio}
             className="font-mono bg-secondary border-border"
           />

@@ -42,6 +42,7 @@ const JsonToTsTool = () => {
           variant="ghost"
           className="absolute top-2 right-2"
           onClick={() => navigator.clipboard.writeText(output)}
+          aria-label="Copy TypeScript types"
         >
           <Copy className="h-4 w-4" />
         </Button>

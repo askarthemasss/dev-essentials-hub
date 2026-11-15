@@ -56,7 +56,7 @@ server {
       </div>
       <div className="relative">
         <Textarea value={config} readOnly rows={20} className="font-mono text-sm bg-secondary border-border" />
-        <Button size="icon" variant="ghost" className="absolute top-2 right-2" onClick={() => navigator.clipboard.writeText(config)}><Copy className="h-4 w-4" /></Button>
+        <Button size="icon" variant="ghost" className="absolute top-2 right-2" onClick={() => navigator.clipboard.writeText(config)} aria-label="Copy nginx configuration"><Copy className="h-4 w-4" /></Button>
       </div>
     </div>
   );

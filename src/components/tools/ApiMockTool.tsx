@@ -58,23 +58,23 @@ const ApiMockTool = () => {
     <div className="space-y-4">
       {fields.map((f, i) => (
         <div key={i} className="flex items-center gap-2">
-          <Input value={f.name} onChange={(e) => updateField(i, { name: e.target.value })} className="font-mono text-sm bg-secondary border-border w-40" placeholder="field name" />
+          <Input value={f.name} onChange={(e) => updateField(i, { name: e.target.value })} aria-label={`Field ${i + 1} name`} className="font-mono text-sm bg-secondary border-border w-40" placeholder="field name" />
           <Select value={f.type} onValueChange={(v) => updateField(i, { type: v as FieldType })}>
-            <SelectTrigger className="w-32 font-mono text-sm bg-secondary border-border"><SelectValue /></SelectTrigger>
+            <SelectTrigger aria-label={`Field ${i + 1} type`} className="w-32 font-mono text-sm bg-secondary border-border"><SelectValue /></SelectTrigger>
             <SelectContent>{fieldTypes.map((ft) => <SelectItem key={ft} value={ft}>{ft}</SelectItem>)}</SelectContent>
           </Select>
-          <Button size="icon" variant="ghost" onClick={() => removeField(i)}><Trash2 className="h-4 w-4" /></Button>
+          <Button size="icon" variant="ghost" onClick={() => removeField(i)} aria-label={`Remove field ${f.name}`}><Trash2 className="h-4 w-4" /></Button>
         </div>
       ))}
       <div className="flex gap-2 items-center">
         <Button size="sm" variant="outline" onClick={addField}><Plus className="h-3 w-3 mr-1" />Field</Button>
         <label className="text-sm font-mono text-muted-foreground">Count:</label>
-        <Input type="number" value={count} onChange={(e) => setCount(Number(e.target.value))} className="w-20 font-mono text-sm bg-secondary border-border" min={1} max={100} />
+        <Input type="number" value={count} onChange={(e) => setCount(Number(e.target.value))} aria-label="Number of records" className="w-20 font-mono text-sm bg-secondary border-border" min={1} max={100} />
       </div>
       <Button onClick={generate} className="bg-primary text-primary-foreground"><RefreshCw className="h-4 w-4 mr-2" />Generate Mock Data</Button>
       <div className="relative">
         <Textarea value={output} readOnly rows={14} className="font-mono text-sm bg-secondary border-border" placeholder="Click Generate to create mock data" />
-        {output && <Button size="icon" variant="ghost" className="absolute top-2 right-2" onClick={() => navigator.clipboard.writeText(output)}><Copy className="h-4 w-4" /></Button>}
+        {output && <Button size="icon" variant="ghost" className="absolute top-2 right-2" onClick={() => navigator.clipboard.writeText(output)} aria-label="Copy mock data"><Copy className="h-4 w-4" /></Button>}
       </div>
     </div>
   );

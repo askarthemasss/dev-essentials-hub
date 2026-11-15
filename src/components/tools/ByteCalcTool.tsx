@@ -10,8 +10,8 @@ const ByteCalcTool = () => {
   return (
     <div className="space-y-3 max-w-md">
       <div className="flex gap-2">
-        <Input value={val} onChange={(e) => setVal(e.target.value)} aria-invalid={bytes === null} className="font-mono bg-secondary border-border" />
-        <Select value={unit} onValueChange={setUnit}><SelectTrigger className="w-24 bg-secondary border-border"><SelectValue /></SelectTrigger><SelectContent>{units.map(u => <SelectItem key={u} value={u}>{u}</SelectItem>)}</SelectContent></Select>
+        <Input value={val} onChange={(e) => setVal(e.target.value)} aria-label="Value to convert" aria-invalid={bytes === null} className="font-mono bg-secondary border-border" />
+        <Select value={unit} onValueChange={setUnit}><SelectTrigger aria-label="Unit" className="w-24 bg-secondary border-border"><SelectValue /></SelectTrigger><SelectContent>{units.map(u => <SelectItem key={u} value={u}>{u}</SelectItem>)}</SelectContent></Select>
       </div>
       <div className="space-y-1">{units.map(u => <div key={u} className="flex justify-between rounded bg-secondary p-2 font-mono text-sm"><span>{u}</span><span>{bytes === null ? "—" : (bytes / Math.pow(1024, units.indexOf(u))).toFixed(4)}</span></div>)}</div>
       <div className="rounded bg-secondary p-2 font-mono text-sm">Bits: {bytes === null ? "—" : (bytes * 8).toLocaleString()}</div>

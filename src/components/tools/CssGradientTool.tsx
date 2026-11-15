@@ -8,10 +8,10 @@ const CssGradientTool = () => {
   return (
     <div className="space-y-4 max-w-lg">
       <div className="h-40 rounded-md" style={{ background: `linear-gradient(${angle}deg, ${c1}, ${c2})` }} />
-      <div><label className="text-xs text-muted-foreground font-mono">Angle: {angle}°</label><Slider value={[angle]} onValueChange={([v]) => setAngle(v)} min={0} max={360} /></div>
+      <div><label className="text-xs text-muted-foreground font-mono">Angle: {angle}°</label><Slider value={[angle]} onValueChange={([v]) => setAngle(v)} aria-label="Gradient angle" min={0} max={360} /></div>
       <div className="flex gap-4">
-        <div><label className="text-xs text-muted-foreground font-mono">Color 1</label><input type="color" value={c1} onChange={(e) => setC1(e.target.value)} className="block h-10 w-16" /></div>
-        <div><label className="text-xs text-muted-foreground font-mono">Color 2</label><input type="color" value={c2} onChange={(e) => setC2(e.target.value)} className="block h-10 w-16" /></div>
+        <div><label className="text-xs text-muted-foreground font-mono">Color 1</label><input type="color" value={c1} onChange={(e) => setC1(e.target.value)} aria-label="First color" className="block h-10 w-16" /></div>
+        <div><label className="text-xs text-muted-foreground font-mono">Color 2</label><input type="color" value={c2} onChange={(e) => setC2(e.target.value)} aria-label="Second color" className="block h-10 w-16" /></div>
       </div>
       <div className="rounded bg-secondary p-3 font-mono text-sm">{css}</div>
     </div>

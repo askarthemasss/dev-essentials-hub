@@ -59,7 +59,7 @@ const JsonSchemaTool = () => {
       <Button onClick={generate} className="bg-primary text-primary-foreground">Generate Schema</Button>
       <div className="relative">
         <Textarea value={output} readOnly rows={12} className="font-mono text-sm bg-secondary border-border" />
-        <Button size="icon" variant="ghost" className="absolute top-2 right-2" onClick={() => navigator.clipboard.writeText(output)}><Copy className="h-4 w-4" /></Button>
+        <Button size="icon" variant="ghost" className="absolute top-2 right-2" onClick={() => navigator.clipboard.writeText(output)} aria-label="Copy JSON schema"><Copy className="h-4 w-4" /></Button>
       </div>
     </div>
   );

@@ -40,7 +40,7 @@ const SqlFormatterTool = () => {
         <div className="flex items-center gap-2">
           <span className="font-mono text-xs text-muted-foreground">Dialect</span>
           <Select value={dialect} onValueChange={(value) => setDialect(value as SqlLanguage)}>
-            <SelectTrigger className="w-48 border-border bg-secondary font-mono text-xs">
+            <SelectTrigger aria-label="SQL dialect" className="w-48 border-border bg-secondary font-mono text-xs">
               <SelectValue />
             </SelectTrigger>
             <SelectContent>

@@ -67,7 +67,7 @@ const Index = () => {
           </kbd>
           <button
             onClick={() => setActiveCategory(activeCategory === "Favorites" ? "All" : "Favorites")}
-            aria-label={`Show favorites (${count})`}
+            aria-label={`Favorites (${count})`}
             aria-pressed={activeCategory === "Favorites"}
             className={cn(
               "flex items-center gap-1 rounded px-2 py-1 text-xs font-medium transition-colors",
@@ -76,8 +76,8 @@ const Index = () => {
                 : "text-muted-foreground hover:text-foreground"
             )}
           >
-            <Star className="h-3.5 w-3.5" fill={activeCategory === "Favorites" ? "currentColor" : "none"} />
-            <span className="hidden sm:inline">{count}</span>
+            <Star className="h-3.5 w-3.5" fill={activeCategory === "Favorites" ? "currentColor" : "none"} aria-hidden="true" />
+            <span className="hidden sm:inline">Favorites ({count})</span>
           </button>
         </div>
       </header>

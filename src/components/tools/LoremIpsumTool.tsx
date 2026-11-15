@@ -28,9 +28,9 @@ const LoremIpsumTool = () => {
   return (
     <div className="space-y-4">
       <div className="flex gap-2 items-center">
-        <Input type="number" min={1} max={100} value={count} onChange={(e) => setCount(Number(e.target.value))} className="w-24 font-mono bg-secondary border-border" />
+        <Input type="number" min={1} max={100} value={count} onChange={(e) => setCount(Number(e.target.value))} aria-label="Number of items" className="w-24 font-mono bg-secondary border-border" />
         <Select value={type} onValueChange={setType}>
-          <SelectTrigger className="w-40 bg-secondary border-border"><SelectValue /></SelectTrigger>
+          <SelectTrigger aria-label="Output type" className="w-40 bg-secondary border-border"><SelectValue /></SelectTrigger>
           <SelectContent>
             <SelectItem value="paragraphs">Paragraphs</SelectItem>
             <SelectItem value="sentences">Sentences</SelectItem>

@@ -31,14 +31,14 @@ const CssClipPathTool = () => {
       </div>
       <div>
         <label className="text-sm font-mono text-muted-foreground mb-1 block">{shape === "inset" ? "Inset" : "Size"}: {shape === "inset" ? inset : radius}%</label>
-        <Slider value={[shape === "inset" ? inset : radius]} onValueChange={([v]) => shape === "inset" ? setInset(v) : setRadius(v)} min={5} max={95} step={1} />
+        <Slider value={[shape === "inset" ? inset : radius]} onValueChange={([v]) => shape === "inset" ? setInset(v) : setRadius(v)} aria-label={shape === "inset" ? "Inset radius" : "Border radius"} min={5} max={95} step={1} />
       </div>
       <div className="flex justify-center p-8 bg-secondary rounded-lg border border-border">
         <div className="w-48 h-48 bg-primary" style={{ clipPath: getClipPath() }} />
       </div>
       <div className="relative rounded-lg border border-border bg-secondary p-4">
         <code className="font-mono text-sm text-foreground">{css}</code>
-        <Button size="icon" variant="ghost" className="absolute top-2 right-2" onClick={() => navigator.clipboard.writeText(css)}><Copy className="h-4 w-4" /></Button>
+        <Button size="icon" variant="ghost" className="absolute top-2 right-2" onClick={() => navigator.clipboard.writeText(css)} aria-label="Copy CSS"><Copy className="h-4 w-4" /></Button>
       </div>
     </div>
   );

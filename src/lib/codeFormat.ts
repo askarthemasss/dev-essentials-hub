@@ -1,15 +1,12 @@
-import { format as prettierFormat } from "prettier/standalone";
-import * as babelPlugin from "prettier/plugins/babel";
-import * as estreePlugin from "prettier/plugins/estree";
-import * as postcssPlugin from "prettier/plugins/postcss";
-import * as htmlPlugin from "prettier/plugins/html";
-import { minify as minifyCssSource } from "csso";
-import { minify_sync as terserMinify } from "terser";
-
 const RAW_TEXT_ELEMENTS = new Set(["script", "style", "pre", "textarea"]);
 
 export async function beautifyJavaScript(source: string): Promise<string> {
-  return prettierFormat(source, {
+  const [{ format }, babelPlugin, estreePlugin] = await Promise.all([
+    import("prettier/standalone"),
+    import("prettier/plugins/babel"),
+    import("prettier/plugins/estree"),
+  ]);
+  return format(source, {
     parser: "babel",
     plugins: [babelPlugin, estreePlugin],
     semi: true,
@@ -19,7 +16,11 @@ export async function beautifyJavaScript(source: string): Promise<string> {
 }
 
 export async function beautifyCss(source: string): Promise<string> {
-  return prettierFormat(source, {
+  const [{ format }, postcssPlugin] = await Promise.all([
+    import("prettier/standalone"),
+    import("prettier/plugins/postcss"),
+  ]);
+  return format(source, {
     parser: "css",
     plugins: [postcssPlugin],
     tabWidth: 2,
@@ -27,7 +28,11 @@ export async function beautifyCss(source: string): Promise<string> {
 }
 
 export async function beautifyHtml(source: string): Promise<string> {
-  return prettierFormat(source, {
+  const [{ format }, htmlPlugin] = await Promise.all([
+    import("prettier/standalone"),
+    import("prettier/plugins/html"),
+  ]);
+  return format(source, {
     parser: "html",
     plugins: [htmlPlugin],
     tabWidth: 2,
@@ -35,8 +40,9 @@ export async function beautifyHtml(source: string): Promise<string> {
   });
 }
 
-export function minifyJavaScript(source: string): string {
-  const result = terserMinify(source, {
+export async function minifyJavaScript(source: string): Promise<string> {
+  const { minify_sync } = await import("terser");
+  const result = minify_sync(source, {
     compress: true,
     mangle: true,
     format: { comments: false },
@@ -45,8 +51,9 @@ export function minifyJavaScript(source: string): string {
   return result.code;
 }
 
-export function minifyCss(source: string): string {
-  return minifyCssSource(source, { restructure: true, comments: false }).css;
+export async function minifyCss(source: string): Promise<string> {
+  const { minify } = await import("csso");
+  return minify(source, { restructure: true, comments: false }).css;
 }
 
 /**

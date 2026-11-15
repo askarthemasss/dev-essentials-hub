@@ -35,6 +35,7 @@ const RandomNumberTool = () => {
             type="number"
             value={min}
             onChange={(event) => setMin(event.target.value)}
+            aria-label="Minimum"
             className="font-mono bg-secondary border-border"
           />
         </div>
@@ -44,6 +45,7 @@ const RandomNumberTool = () => {
             type="number"
             value={max}
             onChange={(event) => setMax(event.target.value)}
+            aria-label="Maximum"
             className="font-mono bg-secondary border-border"
           />
         </div>
@@ -53,6 +55,7 @@ const RandomNumberTool = () => {
             type="number"
             value={count}
             onChange={(event) => setCount(event.target.value)}
+            aria-label="Count"
             className="font-mono bg-secondary border-border"
           />
         </div>

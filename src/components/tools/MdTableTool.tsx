@@ -41,7 +41,7 @@ const MdTableTool = () => {
               <tr key={row}>
                 {cells.map((cell, column) => (
                   <td key={column} className="p-1">
-                    <Input value={cell} onChange={(event) => updateCell(row, column, event.target.value)} className={`w-32 font-mono text-sm bg-secondary border-border ${row === 0 ? "font-bold" : ""}`} />
+                    <Input value={cell} onChange={(event) => updateCell(row, column, event.target.value)} aria-label={row === 0 ? `Column ${column + 1} header` : `Row ${row}, column ${column + 1}`} className={`w-32 font-mono text-sm bg-secondary border-border ${row === 0 ? "font-bold" : ""}`} />
                   </td>
                 ))}
               </tr>
@@ -55,7 +55,7 @@ const MdTableTool = () => {
       </div>
       <div className="relative">
         <Textarea value={markdown} readOnly rows={8} className="font-mono text-sm bg-secondary border-border" />
-        <Button size="icon" variant="ghost" className="absolute top-2 right-2" onClick={() => navigator.clipboard.writeText(markdown)}><Copy className="h-4 w-4" /></Button>
+        <Button size="icon" variant="ghost" className="absolute top-2 right-2" onClick={() => navigator.clipboard.writeText(markdown)} aria-label="Copy Markdown table"><Copy className="h-4 w-4" /></Button>
       </div>
     </div>
   );

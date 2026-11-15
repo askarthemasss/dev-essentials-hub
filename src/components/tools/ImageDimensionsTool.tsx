@@ -10,7 +10,7 @@ const ImageDimensionsTool = () => {
   };
   return (
     <div className="space-y-4">
-      <input type="file" accept="image/*" onChange={handleFile} className="text-sm text-muted-foreground" />
+      <input type="file" accept="image/*" onChange={handleFile} aria-label="Choose an image" className="text-sm text-muted-foreground" />
       {dims && (
         <div className="space-y-2 max-w-md">
           <div className="rounded bg-secondary p-3 font-mono text-sm">File: {dims.name}</div>

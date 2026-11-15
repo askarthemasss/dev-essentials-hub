@@ -145,7 +145,7 @@ cursor: pointer;`);
         <div className="rounded-lg border border-border bg-secondary p-4 font-mono text-sm text-foreground break-words min-h-[60px]">
           {output || "Enter CSS to convert"}
         </div>
-        <Button size="icon" variant="ghost" className="absolute top-8 right-2" onClick={() => navigator.clipboard.writeText(output)}><Copy className="h-4 w-4" /></Button>
+        <Button size="icon" variant="ghost" className="absolute top-8 right-2" onClick={() => navigator.clipboard.writeText(output)} aria-label="Copy Tailwind config"><Copy className="h-4 w-4" /></Button>
       </div>
     </div>
   );

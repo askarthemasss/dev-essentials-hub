@@ -35,7 +35,7 @@ const HashGeneratorTool = () => {
   return (
     <div className="space-y-4">
       <Select value={algo} onValueChange={setAlgo}>
-        <SelectTrigger className="w-40 bg-secondary border-border"><SelectValue /></SelectTrigger>
+        <SelectTrigger aria-label="Hash algorithm" className="w-40 bg-secondary border-border"><SelectValue /></SelectTrigger>
         <SelectContent>
           <SelectItem value="SHA-1">SHA-1</SelectItem>
           <SelectItem value="SHA-256">SHA-256</SelectItem>
