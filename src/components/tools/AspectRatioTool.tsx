@@ -1,20 +1,50 @@
 import { useState } from "react";
 import { Input } from "@/components/ui/input";
+import { calculateAspectRatio } from "@/lib/aspectRatio";
+
 const AspectRatioTool = () => {
-  const [w, setW] = useState("1920");
-  const [h, setH] = useState("1080");
-  const gcd = (a: number, b: number): number => b === 0 ? a : gcd(b, a % b);
-  const wn = parseInt(w), hn = parseInt(h);
-  const d = gcd(wn, hn);
+  const [width, setWidth] = useState("1920");
+  const [height, setHeight] = useState("1080");
+  const ratio = calculateAspectRatio(Number(width), Number(height));
+
   return (
     <div className="space-y-4 max-w-md">
       <div className="grid grid-cols-2 gap-2">
-        <div><label className="text-xs text-muted-foreground font-mono">Width</label><Input value={w} onChange={(e) => setW(e.target.value)} className="font-mono bg-secondary border-border" /></div>
-        <div><label className="text-xs text-muted-foreground font-mono">Height</label><Input value={h} onChange={(e) => setH(e.target.value)} className="font-mono bg-secondary border-border" /></div>
+        <div>
+          <label className="text-xs text-muted-foreground font-mono">Width</label>
+          <Input
+            value={width}
+            onChange={(event) => setWidth(event.target.value)}
+            inputMode="numeric"
+            aria-invalid={!ratio}
+            className="font-mono bg-secondary border-border"
+          />
+        </div>
+        <div>
+          <label className="text-xs text-muted-foreground font-mono">Height</label>
+          <Input
+            value={height}
+            onChange={(event) => setHeight(event.target.value)}
+            inputMode="numeric"
+            aria-invalid={!ratio}
+            className="font-mono bg-secondary border-border"
+          />
+        </div>
       </div>
-      {d > 0 && <div className="rounded bg-secondary p-4 font-mono text-2xl text-center">{wn/d}:{hn/d}</div>}
-      <div className="rounded bg-secondary p-3 font-mono text-sm text-center">Decimal: {(wn/hn).toFixed(4)}</div>
+      {ratio ? (
+        <div className="rounded bg-secondary p-4 font-mono text-2xl text-center">
+          {ratio.simplifiedWidth}:{ratio.simplifiedHeight}
+        </div>
+      ) : (
+        <div role="alert" className="rounded bg-secondary p-3 font-mono text-sm text-destructive">
+          Enter positive whole-number dimensions.
+        </div>
+      )}
+      <div className="rounded bg-secondary p-3 font-mono text-sm text-center">
+        Decimal: {ratio ? ratio.decimal.toFixed(4) : "—"}
+      </div>
     </div>
   );
 };
+
 export default AspectRatioTool;

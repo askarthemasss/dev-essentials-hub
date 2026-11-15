@@ -12,6 +12,7 @@ const MarkdownHtmlTool = () => {
   const output = mode === "markdown-to-html" ? markdownToHtml(input) : htmlToMarkdown(input);
 
   const switchMode = (nextMode: Mode) => {
+    if (nextMode === mode) return;
     if (output.trim()) setInput(output);
     setMode(nextMode);
   };
