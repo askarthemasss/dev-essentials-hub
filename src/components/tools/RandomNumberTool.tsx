@@ -30,7 +30,7 @@ const RandomNumberTool = () => {
     <div className="space-y-4 max-w-md">
       <div className="grid grid-cols-3 gap-2">
         <div>
-          <label className="text-xs text-muted-foreground font-mono">Min</label>
+          <span className="text-xs text-muted-foreground font-mono">Min</span>
           <Input
             type="number"
             value={min}
@@ -40,7 +40,7 @@ const RandomNumberTool = () => {
           />
         </div>
         <div>
-          <label className="text-xs text-muted-foreground font-mono">Max</label>
+          <span className="text-xs text-muted-foreground font-mono">Max</span>
           <Input
             type="number"
             value={max}
@@ -50,7 +50,7 @@ const RandomNumberTool = () => {
           />
         </div>
         <div>
-          <label className="text-xs text-muted-foreground font-mono">Count</label>
+          <span className="text-xs text-muted-foreground font-mono">Count</span>
           <Input
             type="number"
             value={count}

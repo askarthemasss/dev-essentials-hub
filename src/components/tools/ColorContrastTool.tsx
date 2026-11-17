@@ -19,7 +19,7 @@ const ColorContrastTool = () => {
     <div className="space-y-6">
       <div className="grid grid-cols-2 gap-4">
         <div>
-          <label className="text-sm font-mono text-muted-foreground mb-1 block">Foreground</label>
+          <span className="text-sm font-mono text-muted-foreground mb-1 block">Foreground</span>
           <div className="flex gap-2">
             <input
               type="color"
@@ -33,13 +33,14 @@ const ColorContrastTool = () => {
               onChange={(event) => setFg(event.target.value)}
               placeholder="#ffffff"
               spellCheck={false}
+              aria-label="Foreground hex color"
               aria-invalid={!foreground}
               className="font-mono bg-secondary border-border"
             />
           </div>
         </div>
         <div>
-          <label className="text-sm font-mono text-muted-foreground mb-1 block">Background</label>
+          <span className="text-sm font-mono text-muted-foreground mb-1 block">Background</span>
           <div className="flex gap-2">
             <input
               type="color"
@@ -53,6 +54,7 @@ const ColorContrastTool = () => {
               onChange={(event) => setBg(event.target.value)}
               placeholder="#000000"
               spellCheck={false}
+              aria-label="Background hex color"
               aria-invalid={!background}
               className="font-mono bg-secondary border-border"
             />

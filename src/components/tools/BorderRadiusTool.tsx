@@ -16,7 +16,7 @@ const BorderRadiusTool = () => {
     <div className="space-y-4 max-w-lg">
       <div className="flex items-center justify-center h-40"><div className="h-24 w-24 bg-primary" style={{ borderRadius: `${tl}px ${tr}px ${br}px ${bl}px` }} /></div>
       {dots.map((dot) => (
-        <div key={dot.label}><label className="text-xs text-muted-foreground font-mono">{dot.label}: {dot.value}px</label><Slider value={[dot.value]} onValueChange={([value]) => dot.set(value)} aria-label={dot.label} min={0} max={100} /></div>
+        <div key={dot.label}><span className="text-xs text-muted-foreground font-mono">{dot.label}: {dot.value}px</span><Slider value={[dot.value]} onValueChange={([value]) => dot.set(value)} aria-label={dot.label} min={0} max={100} /></div>
       ))}
       <div className="rounded bg-secondary p-3 font-mono text-sm">{css}</div>
     </div>

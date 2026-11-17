@@ -41,7 +41,7 @@ const PasswordGeneratorTool = () => {
   return (
     <div className="space-y-4 max-w-md">
       <div className="space-y-2">
-        <label className="text-xs font-medium text-muted-foreground font-mono">Length: {length}</label>
+        <span className="text-xs font-medium text-muted-foreground font-mono">Length: {length}</span>
         <Slider value={[length]} onValueChange={([value]) => setLength(value)} aria-label="Password length" min={4} max={128} step={1} />
       </div>
       <div className="flex flex-wrap gap-4">

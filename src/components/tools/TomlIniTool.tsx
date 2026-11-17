@@ -34,11 +34,11 @@ allowed_origins = ["http://localhost", "https://example.com"]`);
       </div>
       <div className="grid grid-cols-2 gap-4">
         <div>
-          <label className="text-sm font-mono text-muted-foreground mb-1 block">{mode === "toml-to-ini" ? "TOML" : "INI"}</label>
+          <span className="text-sm font-mono text-muted-foreground mb-1 block">{mode === "toml-to-ini" ? "TOML" : "INI"}</span>
           <Textarea value={input} onChange={(e) => setInput(e.target.value)} aria-label={mode === "toml-to-ini" ? "TOML input" : "INI input"} rows={14} className="font-mono text-sm bg-secondary border-border" />
         </div>
         <div className="relative">
-          <label className="text-sm font-mono text-muted-foreground mb-1 block">{mode === "toml-to-ini" ? "INI" : "TOML"}</label>
+          <span className="text-sm font-mono text-muted-foreground mb-1 block">{mode === "toml-to-ini" ? "INI" : "TOML"}</span>
           <Textarea value={output} readOnly rows={14} className="font-mono text-sm bg-secondary border-border" />
           <Button size="icon" variant="ghost" className="absolute top-8 right-2" onClick={() => navigator.clipboard.writeText(output)} aria-label="Copy output"><Copy className="h-4 w-4" /></Button>
         </div>

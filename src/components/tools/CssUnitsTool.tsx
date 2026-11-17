@@ -16,7 +16,7 @@ const CssUnitsTool = () => {
   ];
   return (
     <div className="space-y-3 max-w-md">
-      <div><label className="text-xs text-muted-foreground font-mono">Pixels</label><Input value={px} onChange={(e) => setPx(e.target.value)} aria-label="Pixels" aria-invalid={!valid} className="font-mono bg-secondary border-border" /></div>
+      <div><span className="text-xs text-muted-foreground font-mono">Pixels</span><Input value={px} onChange={(e) => setPx(e.target.value)} aria-label="Pixels" aria-invalid={!valid} className="font-mono bg-secondary border-border" /></div>
       <div className="space-y-1">
         {units.map(([unit, val]) => (
           <div key={unit} className="flex justify-between rounded bg-secondary p-2 font-mono text-sm"><span className="text-muted-foreground">{unit}</span><span>{val === null ? "—" : val.toFixed(4)}</span></div>

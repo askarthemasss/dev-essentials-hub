@@ -223,6 +223,22 @@ test.describe("numeric and calculation tools", () => {
   });
 });
 
+test.describe("form control names", () => {
+  test("colour contrast hex fields expose accessible names", async ({ page }) => {
+    await openTool(page, "color-contrast");
+
+    await expect(page.getByRole("textbox", { name: "Foreground hex color" })).toBeVisible();
+    await expect(page.getByRole("textbox", { name: "Background hex color" })).toBeVisible();
+  });
+
+  test("nginx config fields expose accessible names", async ({ page }) => {
+    await openTool(page, "nginx-config");
+
+    await expect(page.getByRole("textbox", { name: "Domain" })).toBeVisible();
+    await expect(page.getByRole("textbox", { name: "Upstream port" })).toBeVisible();
+  });
+});
+
 test.describe("generator safeguards", () => {
   test("grid generator clamps invalid counts", async ({ page }) => {
     await openTool(page, "grid-generator");
