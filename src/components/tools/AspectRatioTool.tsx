@@ -11,7 +11,7 @@ const AspectRatioTool = () => {
     <div className="space-y-4 max-w-md">
       <div className="grid grid-cols-2 gap-2">
         <div>
-          <label className="text-xs text-muted-foreground font-mono">Width</label>
+          <span className="text-xs text-muted-foreground font-mono">Width</span>
           <Input
             value={width}
             onChange={(event) => setWidth(event.target.value)}
@@ -22,7 +22,7 @@ const AspectRatioTool = () => {
           />
         </div>
         <div>
-          <label className="text-xs text-muted-foreground font-mono">Height</label>
+          <span className="text-xs text-muted-foreground font-mono">Height</span>
           <Input
             value={height}
             onChange={(event) => setHeight(event.target.value)}

@@ -14,9 +14,9 @@ const GridGeneratorTool = () => {
   return (
     <div className="space-y-4 max-w-lg">
       <div className="grid grid-cols-3 gap-2">
-        <div><label className="text-xs text-muted-foreground font-mono">Columns</label><Input type="number" min={1} max={12} value={cols} onChange={(e) => setCols(Number(e.target.value))} aria-label="Columns" className="font-mono bg-secondary border-border" /></div>
-        <div><label className="text-xs text-muted-foreground font-mono">Rows</label><Input type="number" min={1} max={12} value={rows} onChange={(e) => setRows(Number(e.target.value))} aria-label="Rows" className="font-mono bg-secondary border-border" /></div>
-        <div><label className="text-xs text-muted-foreground font-mono">Gap (px)</label><Input type="number" min={0} max={50} value={gap} onChange={(e) => setGap(Number(e.target.value))} aria-label="Gap in pixels" className="font-mono bg-secondary border-border" /></div>
+        <div><span className="text-xs text-muted-foreground font-mono">Columns</span><Input type="number" min={1} max={12} value={cols} onChange={(e) => setCols(Number(e.target.value))} aria-label="Columns" className="font-mono bg-secondary border-border" /></div>
+        <div><span className="text-xs text-muted-foreground font-mono">Rows</span><Input type="number" min={1} max={12} value={rows} onChange={(e) => setRows(Number(e.target.value))} aria-label="Rows" className="font-mono bg-secondary border-border" /></div>
+        <div><span className="text-xs text-muted-foreground font-mono">Gap (px)</span><Input type="number" min={0} max={50} value={gap} onChange={(e) => setGap(Number(e.target.value))} aria-label="Gap in pixels" className="font-mono bg-secondary border-border" /></div>
       </div>
       <div className="rounded border border-border p-2" style={{ display: "grid", gridTemplateColumns: `repeat(${safeCols}, 1fr)`, gridTemplateRows: `repeat(${safeRows}, 1fr)`, gap: `${safeGap}px` }}>
         {Array.from({ length: safeCols * safeRows }, (_, i) => <div key={i} className="flex h-12 items-center justify-center rounded bg-primary/20 text-primary font-mono text-xs">{i + 1}</div>)}

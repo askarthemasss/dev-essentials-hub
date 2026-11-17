@@ -75,6 +75,7 @@ Tool ids must be unique. Prefer short, lowercase, hyphenated ids. Avoid duplicat
 Run the full suite before opening a pull request:
 
 ```sh
+npm run design:lint
 npm run typecheck
 npm run typecheck:e2e
 npm run lint
@@ -86,7 +87,9 @@ npm run test:e2e
 - Tests use Vitest and Testing Library; files live next to the code as `*.test.ts(x)`.
 - Playwright tests live in `e2e/`. `routes.spec.ts` renders every catalogue entry and checks for WCAG A/AA violations with axe; add interaction coverage to `tool-behaviour.spec.ts` when changing tool controls.
 - Install the browser once with `npx playwright install chromium`; `npm run test:e2e` builds the app and starts the preview server automatically.
-- `npm run lint` currently reports six known `react-refresh` warnings from generated shadcn/ui files. Do not add new warnings or errors.
+- `npm run design:lint` validates [DESIGN.md](DESIGN.md). Keep it at zero errors and update the contract when changing tokens or component patterns.
+- `npm run lint` currently reports nine known warnings from generated shadcn/ui files: six `react-refresh` export warnings and three `jsx-a11y` false positives. Do not add new warnings or errors outside `src/components/ui/`.
+- UI changes also go through the review gate in [docs/UI-REVIEW.md](docs/UI-REVIEW.md).
 - `npm run build` must finish with the SEO generation step and produce tool pages.
 
 ## Pull requests

@@ -53,11 +53,11 @@ const JsonDiffTool = () => {
     <div className="space-y-4">
       <div className="grid grid-cols-2 gap-4">
         <div>
-          <label className="text-sm font-mono text-muted-foreground mb-1 block">Original</label>
+          <span className="text-sm font-mono text-muted-foreground mb-1 block">Original</span>
           <Textarea value={left} onChange={(e) => setLeft(e.target.value)} aria-label="Original JSON" rows={8} className="font-mono text-sm bg-secondary border-border" />
         </div>
         <div>
-          <label className="text-sm font-mono text-muted-foreground mb-1 block">Modified</label>
+          <span className="text-sm font-mono text-muted-foreground mb-1 block">Modified</span>
           <Textarea value={right} onChange={(e) => setRight(e.target.value)} aria-label="Modified JSON" rows={8} className="font-mono text-sm bg-secondary border-border" />
         </div>
       </div>

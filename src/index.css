@@ -22,6 +22,9 @@
     --accent-foreground: 220 25% 8%;
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
+    --danger: 0 72% 42%;
+    --success: 142 72% 29%;
+    --warning: 32 95% 34%;
     --border: 220 15% 85%;
     --input: 220 15% 85%;
     --ring: 190 95% 50%;
@@ -54,6 +57,9 @@
     --accent-foreground: 225 25% 6%;
     --destructive: 0 62% 30%;
     --destructive-foreground: 210 40% 98%;
+    --danger: 0 90.6% 70.8%;
+    --success: 141.9 69.2% 58%;
+    --warning: 43.3 96.4% 56.3%;
     --border: 225 15% 16%;
     --input: 225 15% 16%;
     --ring: 190 95% 50%;
@@ -84,12 +90,6 @@
 }
 
 @layer utilities {
-  .glow-cyan {
-    box-shadow: 0 0 20px hsl(190 95% 50% / 0.15);
-  }
-  .glow-cyan-sm {
-    box-shadow: 0 0 10px hsl(190 95% 50% / 0.1);
-  }
   .scrollbar-hide {
     scrollbar-width: none;
     -ms-overflow-style: none;

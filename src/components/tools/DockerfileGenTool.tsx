@@ -95,14 +95,14 @@ const DockerfileTool = () => {
     <div className="space-y-4">
       <div className="grid grid-cols-2 gap-3">
         <div>
-          <label className="text-sm font-mono text-muted-foreground mb-1 block">Base Image</label>
+          <span className="text-sm font-mono text-muted-foreground mb-1 block">Base Image</span>
           <Select value={base} onValueChange={(v) => setBase(v as BaseImage)}>
             <SelectTrigger aria-label="Base image" className="font-mono text-sm bg-secondary border-border"><SelectValue /></SelectTrigger>
             <SelectContent>{Object.keys(baseImages).map((k) => <SelectItem key={k} value={k}>{k}</SelectItem>)}</SelectContent>
           </Select>
         </div>
         <div>
-          <label className="text-sm font-mono text-muted-foreground mb-1 block">Port</label>
+          <span className="text-sm font-mono text-muted-foreground mb-1 block">Port</span>
           <Input value={port} onChange={(e) => setPort(e.target.value)} aria-label="Application port" className="font-mono text-sm bg-secondary border-border" />
         </div>
       </div>

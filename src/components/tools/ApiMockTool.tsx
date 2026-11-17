@@ -68,7 +68,7 @@ const ApiMockTool = () => {
       ))}
       <div className="flex gap-2 items-center">
         <Button size="sm" variant="outline" onClick={addField}><Plus className="h-3 w-3 mr-1" />Field</Button>
-        <label className="text-sm font-mono text-muted-foreground">Count:</label>
+        <span className="text-sm font-mono text-muted-foreground">Count:</span>
         <Input type="number" value={count} onChange={(e) => setCount(Number(e.target.value))} aria-label="Number of records" className="w-20 font-mono text-sm bg-secondary border-border" min={1} max={100} />
       </div>
       <Button onClick={generate} className="bg-primary text-primary-foreground"><RefreshCw className="h-4 w-4 mr-2" />Generate Mock Data</Button>

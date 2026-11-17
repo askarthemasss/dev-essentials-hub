@@ -42,12 +42,12 @@ const EnvGeneratorTool = () => {
       <Button variant="outline" onClick={add}><Plus className="h-4 w-4 mr-1" />Add Variable</Button>
       <div className="grid grid-cols-2 gap-4">
         <div className="relative">
-          <label className="text-sm font-mono text-muted-foreground mb-1 block">.env</label>
+          <span className="text-sm font-mono text-muted-foreground mb-1 block">.env</span>
           <Textarea value={output} readOnly rows={10} aria-label=".env output" className="font-mono text-sm bg-secondary border-border" />
           <Button size="icon" variant="ghost" className="absolute top-8 right-2" onClick={() => navigator.clipboard.writeText(output)} aria-label="Copy .env contents"><Copy className="h-4 w-4" /></Button>
         </div>
         <div className="relative">
-          <label className="text-sm font-mono text-muted-foreground mb-1 block">.env.example</label>
+          <span className="text-sm font-mono text-muted-foreground mb-1 block">.env.example</span>
           <Textarea value={exampleOutput} readOnly rows={10} aria-label=".env.example output" className="font-mono text-sm bg-secondary border-border" />
           <Button size="icon" variant="ghost" className="absolute top-8 right-2" onClick={() => navigator.clipboard.writeText(exampleOutput)} aria-label="Copy .env.example contents"><Copy className="h-4 w-4" /></Button>
         </div>

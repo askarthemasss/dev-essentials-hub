@@ -137,11 +137,11 @@ cursor: pointer;`);
   return (
     <div className="space-y-4">
       <div>
-        <label className="text-sm font-mono text-muted-foreground mb-1 block">CSS Properties</label>
+        <span className="text-sm font-mono text-muted-foreground mb-1 block">CSS Properties</span>
         <Textarea value={input} onChange={(e) => setInput(e.target.value)} rows={10} className="font-mono text-sm bg-secondary border-border" placeholder="Paste CSS properties…" />
       </div>
       <div className="relative">
-        <label className="text-sm font-mono text-muted-foreground mb-1 block">Tailwind Classes</label>
+        <span className="text-sm font-mono text-muted-foreground mb-1 block">Tailwind Classes</span>
         <div className="rounded-lg border border-border bg-secondary p-4 font-mono text-sm text-foreground break-words min-h-[60px]">
           {output || "Enter CSS to convert"}
         </div>

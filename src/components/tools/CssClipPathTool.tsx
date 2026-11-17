@@ -30,7 +30,7 @@ const CssClipPathTool = () => {
         ))}
       </div>
       <div>
-        <label className="text-sm font-mono text-muted-foreground mb-1 block">{shape === "inset" ? "Inset" : "Size"}: {shape === "inset" ? inset : radius}%</label>
+        <span className="text-sm font-mono text-muted-foreground mb-1 block">{shape === "inset" ? "Inset" : "Size"}: {shape === "inset" ? inset : radius}%</span>
         <Slider value={[shape === "inset" ? inset : radius]} onValueChange={([v]) => shape === "inset" ? setInset(v) : setRadius(v)} aria-label={shape === "inset" ? "Inset radius" : "Border radius"} min={5} max={95} step={1} />
       </div>
       <div className="flex justify-center p-8 bg-secondary rounded-lg border border-border">

@@ -10,7 +10,7 @@ const CronGeneratorTool = () => {
       <div className="grid grid-cols-5 gap-2">
         {fields.map((f, i) => (
           <div key={f}>
-            <label className="text-xs text-muted-foreground font-mono capitalize">{f}</label>
+            <span className="text-xs text-muted-foreground font-mono capitalize">{f}</span>
             <Input value={parts[i]} onChange={(e) => update(i, e.target.value)} aria-label={`${f} field`} className="font-mono bg-secondary border-border text-center" />
           </div>
         ))}

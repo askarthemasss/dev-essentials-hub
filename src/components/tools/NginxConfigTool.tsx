@@ -46,8 +46,8 @@ server {
   return (
     <div className="space-y-4">
       <div className="grid grid-cols-2 gap-3">
-        <Input value={domain} onChange={(e) => setDomain(e.target.value)} placeholder="Domain" className="font-mono text-sm bg-secondary border-border" />
-        <Input value={port} onChange={(e) => setPort(e.target.value)} placeholder="Upstream port" className="font-mono text-sm bg-secondary border-border" />
+        <Input value={domain} onChange={(e) => setDomain(e.target.value)} placeholder="Domain" aria-label="Domain" className="font-mono text-sm bg-secondary border-border" />
+        <Input value={port} onChange={(e) => setPort(e.target.value)} placeholder="Upstream port" aria-label="Upstream port" className="font-mono text-sm bg-secondary border-border" />
       </div>
       <div className="flex flex-wrap gap-6">
         <label className="flex items-center gap-2 text-sm font-mono text-muted-foreground"><Switch checked={ssl} onCheckedChange={setSsl} />SSL/TLS</label>

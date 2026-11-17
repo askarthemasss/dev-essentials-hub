@@ -31,6 +31,7 @@
     "dev": "vite",
     "build": "vite build && node scripts/generate-seo.mjs",
     "build:dev": "vite build --mode development && node scripts/generate-seo.mjs",
+    "design:lint": "design.md lint DESIGN.md",
     "lint": "eslint .",
     "preview": "vite preview",
     "test": "vitest run",
@@ -100,6 +101,7 @@
   "devDependencies": {
     "@axe-core/playwright": "^4.14.0",
     "@eslint/js": "^9.39.5",
+    "@google/design.md": "^0.4.0",
     "@playwright/test": "^1.65.1",
     "@testing-library/jest-dom": "^6.6.0",
     "@testing-library/react": "^16.0.0",
@@ -112,6 +114,7 @@
     "@vitejs/plugin-react": "^6.3.0",
     "autoprefixer": "^10.4.21",
     "eslint": "^9.39.5",
+    "eslint-plugin-jsx-a11y": "^6.10.2",
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.20",
     "globals": "^15.15.0",
