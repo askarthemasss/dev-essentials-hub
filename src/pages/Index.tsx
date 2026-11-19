@@ -1,5 +1,5 @@
 import { useState, useMemo } from "react";
-import { Search, Star, Terminal, Clock, Flame } from "lucide-react";
+import { Search, Star, Clock, Flame } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { tools, categories, ToolCategory } from "@/data/tools";
 import { useFavorites } from "@/hooks/useFavorites";
@@ -7,6 +7,7 @@ import { useRecentTools } from "@/hooks/useRecentTools";
 import { useMostUsedTools } from "@/hooks/useMostUsedTools";
 import { useSEO } from "@/hooks/useSEO";
 import ToolCard from "@/components/ToolCard";
+import BrandMark from "@/components/BrandMark";
 import { cn } from "@/lib/utils";
 
 const Index = () => {
@@ -49,7 +50,7 @@ const Index = () => {
       <header className="sticky top-0 z-50 border-b border-border bg-card/90 backdrop-blur-md">
         <div className="mx-auto flex max-w-6xl items-center gap-3 px-4 py-2.5">
           <div className="flex items-center gap-2">
-            <Terminal className="h-5 w-5 text-primary" aria-hidden="true" />
+            <BrandMark className="h-6 w-6 shrink-0" />
             <span className="font-mono text-base font-bold text-foreground hidden sm:inline">DevToolbox</span>
           </div>
           <div className="relative flex-1 max-w-sm">

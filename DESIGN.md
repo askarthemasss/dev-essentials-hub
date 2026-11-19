@@ -344,15 +344,21 @@ Motion exists to explain a state change, not to decorate.
 - Default controls, tool cards and inputs use **6px** (`rounded-md`). Small icon tiles use **4px**. Overlays and large panels use **8px**. Chips, badges and avatars use **full**.
 - Use 1px borders. The only 2px line in the system is the focus ring; do not use 2px borders for decoration.
 - Do not mix radius families in one group. A row of buttons must share the same radius; a row of chips must all be pills.
-- No clipped corners, blobs, tilted cards, sticker shadows or decorative squiggles. Iconography is Lucide, 16px inside compact controls and 20px for standalone navigation, with a consistent stroke.
+- No clipped corners, blobs, tilted cards, sticker shadows or decorative squiggles. Product iconography is Lucide, 16px inside compact controls and 20px for standalone navigation, with a consistent stroke. The brand mark is the only custom SVG.
 
 ## Components
 
 ### Catalogue header
 
-Sticky at 52px with `bg-card/90`, `backdrop-blur-md`, a bottom `border` and a 1152px container. Left: cyan Lucide terminal icon plus the mono `wordmark`. Centre: a 32px search field on a `secondary` surface with a muted search icon and a 12px mono placeholder (`Search 129 tools…`). Right: a favourites toggle and the decorative `⌘K` keycap.
+Sticky at 52px with `bg-card/90`, `backdrop-blur-md`, a bottom `border` and a 1152px container. Left: the 24px DevToolbox brand mark — a cyan tile with a dark terminal prompt — plus the mono `wordmark`. Centre: a 32px search field on a `secondary` surface with a muted search icon and a 12px mono placeholder (`Search 129 tools…`). Right: a favourites toggle and the decorative `⌘K` keycap.
 
 The search field must have an accessible name (`aria-label` or a real label) and a visible focus ring. The favourites toggle uses `aria-pressed` and never relies on the star icon alone.
+
+### Brand mark
+
+The mark is a rounded cyan tile with a dark `>_` terminal prompt, paired with the mono wordmark. The canonical square asset is `public/logo-mark.svg`; the header renders the same geometry inline at 24px. It is the only filled cyan square in the system — do not reuse it as a control, badge or status surface. Keep `aria-hidden` on the SVG when the wordmark is visible.
+
+The favicon set lives in `public/`: `favicon.svg`, a multi-size `favicon.ico`, 16px and 32px PNGs, a 180px Apple touch icon, and 192px/512px manifest icons. All derive from the same mark and use `#06d0f9` on `#0b0d13`.
 
 ### Category filter
 
