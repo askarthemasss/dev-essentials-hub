@@ -37,7 +37,7 @@ const ColorPickerTool = () => {
         </div>
       ) : (
         value.trim() && (
-          <p role="alert" className="font-mono text-sm text-destructive">
+          <p role="alert" className="font-mono text-sm text-danger">
             Not a valid hex or rgb() color.
           </p>
         )

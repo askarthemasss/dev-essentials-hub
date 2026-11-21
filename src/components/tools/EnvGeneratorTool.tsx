@@ -2,7 +2,8 @@ import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-import { Copy, Plus, Trash2 } from "lucide-react";
+import { Plus, Trash2 } from "lucide-react";
+import CopyButton from "@/components/CopyButton";
 
 interface EnvVar { key: string; value: string; comment: string }
 
@@ -44,12 +45,12 @@ const EnvGeneratorTool = () => {
         <div className="relative">
           <span className="text-sm font-mono text-muted-foreground mb-1 block">.env</span>
           <Textarea value={output} readOnly rows={10} aria-label=".env output" className="font-mono text-sm bg-secondary border-border" />
-          <Button size="icon" variant="ghost" className="absolute top-8 right-2" onClick={() => navigator.clipboard.writeText(output)} aria-label="Copy .env contents"><Copy className="h-4 w-4" /></Button>
+          <CopyButton value={output} label="Copy .env contents" size="icon" className="absolute right-2 top-8 bg-card" />
         </div>
         <div className="relative">
           <span className="text-sm font-mono text-muted-foreground mb-1 block">.env.example</span>
           <Textarea value={exampleOutput} readOnly rows={10} aria-label=".env.example output" className="font-mono text-sm bg-secondary border-border" />
-          <Button size="icon" variant="ghost" className="absolute top-8 right-2" onClick={() => navigator.clipboard.writeText(exampleOutput)} aria-label="Copy .env.example contents"><Copy className="h-4 w-4" /></Button>
+          <CopyButton value={exampleOutput} label="Copy .env.example contents" size="icon" className="absolute right-2 top-8 bg-card" />
         </div>
       </div>
     </div>

@@ -10,7 +10,11 @@ const NotFound = () => {
   );
 
   return (
-    <main className="flex min-h-screen items-center justify-center bg-background px-4">
+    <main
+      id="main-content"
+      tabIndex={-1}
+      className="flex min-h-screen items-center justify-center bg-background px-4 focus:outline-none"
+    >
       <div className="text-center">
         <p className="mb-2 font-mono text-xs uppercase tracking-widest text-primary">404</p>
         <h1 className="mb-3 font-mono text-3xl font-bold text-foreground">Page not found</h1>

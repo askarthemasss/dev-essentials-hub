@@ -8,10 +8,19 @@ const HttpStatusTool = () => {
   const filtered = codes.filter(c => c.code.toString().includes(search) || c.text.toLowerCase().includes(search.toLowerCase()));
   return (
     <div className="space-y-4">
-      <Input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Search status codes…" className="font-mono bg-secondary border-border max-w-md" />
+      <label htmlFor="http-status-search" className="sr-only">
+        Search status codes
+      </label>
+      <Input
+        id="http-status-search"
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+        placeholder="Search status codes…"
+        className="max-w-md border-border bg-secondary font-mono"
+      />
       <div className="space-y-1">{filtered.map(c => (
         <div key={c.code} className="flex items-center gap-3 rounded bg-secondary p-2 font-mono text-sm">
-          <span className={`font-bold ${c.code < 300 ? "text-green-400" : c.code < 400 ? "text-blue-400" : c.code < 500 ? "text-yellow-400" : "text-red-400"}`}>{c.code}</span>
+          <span className={`font-bold ${c.code < 300 ? "text-success" : c.code < 400 ? "text-foreground" : c.code < 500 ? "text-warning" : "text-danger"}`}>{c.code}</span>
           <span>{c.text}</span>
         </div>
       ))}</div>

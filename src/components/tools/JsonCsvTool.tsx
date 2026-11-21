@@ -12,16 +12,16 @@ const JsonCsvTool = () => {
   const [input, setInput] = useState("");
   const [mode, setMode] = useState<"toCsv" | "toJson">("toCsv");
 
-  const output = (() => {
-    if (!input.trim()) return "";
+  const { output, error } = (() => {
+    if (!input.trim()) return { output: "", error: "" };
     try {
       if (mode === "toCsv") {
         const parsed: unknown = JSON.parse(input);
         if (!Array.isArray(parsed) || parsed.length === 0) {
-          return "Input must be a non-empty array of objects";
+          return { output: "", error: "JSON input must be a non-empty array of objects." };
         }
         const rows = parsed.map((row) => (isRecord(row) ? row : { value: row }));
-        return Papa.unparse(rows);
+        return { output: Papa.unparse(rows), error: "" };
       }
 
       const parsed = Papa.parse<Record<string, string>>(input, {
@@ -29,11 +29,16 @@ const JsonCsvTool = () => {
         skipEmptyLines: "greedy",
       });
       if (parsed.errors.length > 0) {
-        return `Invalid CSV: ${parsed.errors[0].message}`;
+        return { output: "", error: `Invalid CSV: ${parsed.errors[0].message}. Check delimiters and quoted fields.` };
       }
-      return JSON.stringify(parsed.data, null, 2);
+      return { output: JSON.stringify(parsed.data, null, 2), error: "" };
     } catch (caught) {
-      return `Invalid input: ${caught instanceof Error ? caught.message : "could not parse document"}`;
+      return {
+        output: "",
+        error: `Invalid JSON: ${
+          caught instanceof Error ? caught.message : "the document could not be parsed"
+        }. Check quotes, commas and brackets.`,
+      };
     }
   })();
 
@@ -47,6 +52,7 @@ const JsonCsvTool = () => {
     <DualPane
       input={input}
       output={output}
+      error={error || undefined}
       onInputChange={setInput}
       inputLabel={mode === "toCsv" ? "JSON" : "CSV"}
       outputLabel={mode === "toCsv" ? "CSV" : "JSON"}

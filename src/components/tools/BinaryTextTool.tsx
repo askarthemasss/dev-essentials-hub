@@ -8,31 +8,46 @@ const BinaryTextTool = () => {
   const [input, setInput] = useState("");
   const [mode, setMode] = useState<"toBin" | "toText">("toBin");
 
-  const process = (text: string, nextMode: "toBin" | "toText") => {
-    if (!text) return "";
-    try {
-      return nextMode === "toBin" ? encodeBinary(text) : decodeBinary(text);
-    } catch {
-      return "Error: Binary input must contain 8-bit groups";
-    }
-  };
+  let output = "";
+  let error = "";
 
-  const output = process(input, mode);
+  if (input) {
+    try {
+      output = mode === "toBin" ? encodeBinary(input) : decodeBinary(input);
+    } catch {
+      error = "Binary input must be 8-bit groups, for example 01001000 01101001.";
+    }
+  }
 
   const switchMode = (nextMode: "toBin" | "toText") => {
     if (nextMode === mode) return;
-    const nextInput = isConversionResult(output) ? output : input;
+    if (isConversionResult(output)) setInput(output);
     setMode(nextMode);
-    setInput(nextInput);
   };
 
   return (
-    <DualPane input={input} output={output} onInputChange={setInput}
-      actions={<>
-        <Button size="sm" variant={mode === "toBin" ? "default" : "secondary"} onClick={() => switchMode("toBin")}>Text → Binary</Button>
-        <Button size="sm" variant={mode === "toText" ? "default" : "secondary"} onClick={() => switchMode("toText")}>Binary → Text</Button>
-      </>}
+    <DualPane
+      input={input}
+      output={output}
+      error={error || undefined}
+      onInputChange={setInput}
+      inputLabel={mode === "toBin" ? "Text" : "Binary"}
+      outputLabel={mode === "toBin" ? "Binary" : "Text"}
+      inputPlaceholder={
+        mode === "toBin" ? "Type or paste text to convert…" : "Paste 8-bit binary groups to decode…"
+      }
+      actions={
+        <>
+          <Button size="sm" variant={mode === "toBin" ? "default" : "secondary"} onClick={() => switchMode("toBin")}>
+            Text → Binary
+          </Button>
+          <Button size="sm" variant={mode === "toText" ? "default" : "secondary"} onClick={() => switchMode("toText")}>
+            Binary → Text
+          </Button>
+        </>
+      }
     />
   );
 };
+
 export default BinaryTextTool;

@@ -68,13 +68,17 @@ const ScientificCalcTool = () => {
       <div
         className={cn(
           "min-h-16 overflow-x-auto rounded bg-secondary p-4 text-right font-mono text-2xl",
-          error ? "text-destructive" : "text-foreground"
+          error ? "text-danger" : "text-foreground"
         )}
         aria-live="polite"
       >
         {display}
       </div>
-      {error && <p className="font-mono text-xs text-destructive">{error}</p>}
+      {error && (
+        <p role="alert" className="font-mono text-xs text-danger">
+          {error}
+        </p>
+      )}
       <div className="grid grid-cols-4 gap-1">
         {buttons.map((button) => (
           <Button

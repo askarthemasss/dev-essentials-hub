@@ -89,7 +89,7 @@ const PxRemTool = () => {
           className="border-border bg-secondary font-mono"
         />
         {!baseValid && base.trim() !== "" && (
-          <p role="alert" className="mt-1 font-mono text-xs text-destructive">
+          <p role="alert" className="mt-1 font-mono text-xs text-danger">
             Root font size must be greater than zero.
           </p>
         )}

@@ -15,7 +15,7 @@ const TextDiffTool = () => {
       </div>
       <div className="rounded bg-secondary p-3 font-mono text-sm space-y-1">
         {diff.map((line, i) => (
-          <div key={i} className={line.type === "same" ? "text-muted-foreground" : line.type === "add" ? "text-green-400" : "text-red-400"}>
+          <div key={i} className={line.type === "same" ? "text-muted-foreground" : line.type === "add" ? "text-success" : "text-danger"}>
             {line.type === "same" ? `  ${line.text}` : line.type === "add" ? `+ ${line.text}` : `- ${line.text}`}
           </div>
         ))}

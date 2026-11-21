@@ -7,13 +7,17 @@ import ToolPage from "./pages/ToolPage";
 import NotFound from "./pages/NotFound";
 import CommandPalette from "./components/CommandPalette";
 import ErrorBoundary from "./components/ErrorBoundary";
+import RouteFocus from "./components/RouteFocus";
+import SkipLink from "./components/SkipLink";
 
 const App = () => (
   <TooltipProvider>
     <Toaster />
     <Sonner />
     <BrowserRouter>
+      <SkipLink />
       <CommandPalette />
+      <RouteFocus />
       <ErrorBoundary>
         <Routes>
           <Route path="/" element={<Index />} />
