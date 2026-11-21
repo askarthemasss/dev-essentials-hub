@@ -2,7 +2,8 @@ import { useRef, useState } from "react";
 import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Check, Copy, RefreshCw } from "lucide-react";
+import { RefreshCw } from "lucide-react";
+import CopyButton from "@/components/CopyButton";
 import { signJwt } from "@/lib/jwt";
 
 const JwtGeneratorTool = () => {
@@ -11,7 +12,6 @@ const JwtGeneratorTool = () => {
   const [secret, setSecret] = useState("");
   const [output, setOutput] = useState("");
   const [error, setError] = useState("");
-  const [copied, setCopied] = useState(false);
   const [signing, setSigning] = useState(false);
   const requestId = useRef(0);
 
@@ -20,7 +20,6 @@ const JwtGeneratorTool = () => {
     requestId.current = request;
     setSigning(true);
     setError("");
-    setCopied(false);
 
     try {
       const token = await signJwt(header, payload, secret);
@@ -35,12 +34,6 @@ const JwtGeneratorTool = () => {
     }
   };
 
-  const copy = async () => {
-    await navigator.clipboard.writeText(output);
-    setCopied(true);
-    window.setTimeout(() => setCopied(false), 1500);
-  };
-
   return (
     <div className="space-y-4">
       <div className="rounded border border-border bg-secondary/50 p-3 text-xs text-muted-foreground">
@@ -52,7 +45,7 @@ const JwtGeneratorTool = () => {
 
       <div className="grid gap-4 md:grid-cols-2">
         <div>
-          <label htmlFor="jwt-header" className="mb-1 block font-mono text-sm text-muted-foreground">
+          <label htmlFor="jwt-header" className="mb-1 block text-sm font-medium text-foreground">
             Header
           </label>
           <Textarea
@@ -65,7 +58,7 @@ const JwtGeneratorTool = () => {
           />
         </div>
         <div>
-          <label htmlFor="jwt-payload" className="mb-1 block font-mono text-sm text-muted-foreground">
+          <label htmlFor="jwt-payload" className="mb-1 block text-sm font-medium text-foreground">
             Payload
           </label>
           <Textarea
@@ -80,7 +73,7 @@ const JwtGeneratorTool = () => {
       </div>
 
       <div>
-        <label htmlFor="jwt-secret" className="mb-1 block font-mono text-sm text-muted-foreground">
+        <label htmlFor="jwt-secret" className="mb-1 block text-sm font-medium text-foreground">
           Secret key
         </label>
         <Input
@@ -100,7 +93,7 @@ const JwtGeneratorTool = () => {
       </Button>
 
       {error && (
-        <p role="alert" className="font-mono text-sm text-destructive">
+        <p id="jwt-sign-error" role="alert" className="font-mono text-sm text-danger">
           {error}
         </p>
       )}
@@ -108,13 +101,10 @@ const JwtGeneratorTool = () => {
       {output && (
         <div className="space-y-2">
           <div className="flex items-center justify-between">
-            <label htmlFor="jwt-output" className="font-mono text-sm text-muted-foreground">
+            <label htmlFor="jwt-output" className="text-sm font-medium text-foreground">
               Signed token
             </label>
-            <Button size="sm" variant="ghost" onClick={() => void copy()}>
-              {copied ? <Check className="mr-1 h-3.5 w-3.5" /> : <Copy className="mr-1 h-3.5 w-3.5" />}
-              {copied ? "Copied" : "Copy"}
-            </Button>
+            <CopyButton value={output} label="Copy JWT" showLabel />
           </div>
           <Textarea
             id="jwt-output"

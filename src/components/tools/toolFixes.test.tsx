@@ -39,12 +39,14 @@ describe("tool behaviour fixes", () => {
     fireEvent.click(screen.getByRole("button", { name: "Decode" }));
 
     fireEvent.change(textareas()[0], { target: { value: "a" } });
-    expect(textareas()[1]).toHaveValue("Error: Invalid input");
+    expect(textareas()[1]).toHaveValue("");
+    expect(screen.getByRole("alert")).toHaveTextContent("Invalid Base64");
 
     fireEvent.click(screen.getByRole("button", { name: "Encode" }));
 
     expect(textareas()[0]).toHaveValue("a");
     expect(textareas()[1]).toHaveValue("YQ==");
+    expect(screen.queryByRole("alert")).not.toBeInTheDocument();
   });
 
   it("formats XML with a greater-than sign in an attribute", () => {

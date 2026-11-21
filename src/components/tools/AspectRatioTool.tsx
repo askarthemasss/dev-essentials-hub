@@ -38,7 +38,7 @@ const AspectRatioTool = () => {
           {ratio.simplifiedWidth}:{ratio.simplifiedHeight}
         </div>
       ) : (
-        <div role="alert" className="rounded bg-secondary p-3 font-mono text-sm text-destructive">
+        <div role="alert" className="rounded bg-secondary p-3 font-mono text-sm text-danger">
           Enter positive whole-number dimensions.
         </div>
       )}

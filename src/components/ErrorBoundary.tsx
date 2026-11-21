@@ -26,7 +26,7 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
       return (
         <div className="flex min-h-screen items-center justify-center bg-background px-4">
           <div className="w-full max-w-md rounded-lg border border-border bg-card p-8 text-center">
-            <AlertTriangle className="mx-auto mb-4 h-10 w-10 text-destructive" />
+            <AlertTriangle className="mx-auto mb-4 h-10 w-10 text-danger" />
             <h1 className="mb-2 font-mono text-xl font-bold text-foreground">Something broke</h1>
             <p className="mb-6 text-sm text-muted-foreground">
               This tool hit an unexpected error. Your inputs were never sent anywhere.

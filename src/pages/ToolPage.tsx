@@ -29,7 +29,7 @@ const ToolPage: React.FC = () => {
   if (!tool || !Component) return <NotFound />;
 
   return (
-    <ToolLayout title={tool.name} description={tool.description}>
+    <ToolLayout title={tool.name} description={tool.description} category={tool.category}>
       <React.Suspense
         fallback={
           <div className="flex items-center justify-center py-20 font-mono text-sm text-muted-foreground">

@@ -4,7 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
-import { Copy } from "lucide-react";
+import CopyButton from "@/components/CopyButton";
 
 type BaseImage = "node" | "python" | "go" | "rust" | "java" | "ruby" | "nginx" | "alpine";
 const baseImages: Record<BaseImage, { from: string; install: string; cmd: string; user: string }> = {
@@ -113,7 +113,7 @@ const DockerfileTool = () => {
       </div>
       <div className="relative">
         <Textarea value={dockerfile} readOnly rows={18} className="font-mono text-sm bg-secondary border-border" />
-        <Button size="icon" variant="ghost" className="absolute top-2 right-2" onClick={() => navigator.clipboard.writeText(dockerfile)} aria-label="Copy Dockerfile"><Copy className="h-4 w-4" /></Button>
+        <CopyButton value={dockerfile} label="Copy Dockerfile" size="icon" className="absolute right-2 top-2 bg-card" />
       </div>
     </div>
   );

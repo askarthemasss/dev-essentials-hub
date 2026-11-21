@@ -49,12 +49,12 @@ const SubnetCalcTool = () => {
       </div>
 
       {!parsed && ipInput.trim() !== "" && (
-        <p role="alert" className="font-mono text-sm text-destructive">
+        <p role="alert" className="font-mono text-sm text-danger">
           Enter a valid IPv4 or IPv6 address.
         </p>
       )}
       {parsed && !prefixValid && (
-        <p role="alert" className="font-mono text-sm text-destructive">
+        <p role="alert" className="font-mono text-sm text-danger">
           Prefix must be a whole number from 0 to {maxPrefix}.
         </p>
       )}

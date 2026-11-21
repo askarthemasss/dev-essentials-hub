@@ -62,7 +62,7 @@ const RandomNumberTool = () => {
       </div>
       <Button onClick={generate}>Generate</Button>
       {error && (
-        <p role="alert" className="font-mono text-sm text-destructive">
+        <p role="alert" className="font-mono text-sm text-danger">
           {error}
         </p>
       )}

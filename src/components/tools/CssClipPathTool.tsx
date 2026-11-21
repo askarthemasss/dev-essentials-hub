@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
-import { Copy } from "lucide-react";
+import CopyButton from "@/components/CopyButton";
 
 const shapes = ["circle", "ellipse", "polygon", "inset"] as const;
 type Shape = typeof shapes[number];
@@ -38,7 +38,7 @@ const CssClipPathTool = () => {
       </div>
       <div className="relative rounded-lg border border-border bg-secondary p-4">
         <code className="font-mono text-sm text-foreground">{css}</code>
-        <Button size="icon" variant="ghost" className="absolute top-2 right-2" onClick={() => navigator.clipboard.writeText(css)} aria-label="Copy CSS"><Copy className="h-4 w-4" /></Button>
+        <CopyButton value={css} label="Copy CSS" size="icon" className="absolute right-2 top-2 bg-card" />
       </div>
     </div>
   );

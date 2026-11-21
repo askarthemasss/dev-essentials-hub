@@ -161,13 +161,11 @@ Then open the preview URL (default `http://localhost:4173`) and check the change
 
 These are known gaps in the current product, not regressions introduced by a pull request. Record them as follow-ups; do not block an unrelated change for them, and do not copy them into new code.
 
-- The tool-card favourite star is roughly 22px and appears only on hover/focus on pointer devices. It needs a 44px target and coarse-pointer visibility.
-- Several tool components still use `text-destructive` for error text. It is a fill token and fails contrast; migrate to `text-danger` when touching those files.
-- The decorative `⌘K` keycap is 9px. It is duplicated by the search field's accessible name; do not introduce new text at that size.
-- There is no skip link to the catalogue or tool content yet. Add one when the header/navigation is next reworked.
+- The decorative `⌘K` keycap is 9px. It is duplicated by the quick-open button's accessible name; do not introduce new text at that size.
 - Catalogue search and category filters live in local state, not the URL. Deep-linking those states is a future improvement.
 - The 129-card grid renders every card. Revisit virtualization if the catalogue grows substantially or interaction performance drops.
 - Some repeated-row inputs use placeholders as their only name (for example the env-var key/value/comment rows), and some visible captions differ from their accessible names. Fix these when touching the tool; keep the visible text inside the accessible name.
+- A few generator tools still render validation failures as output text (for example “Invalid YAML”) instead of an inline `danger` error. Migrate them to the shared error pattern when touching those tools.
 
 ## Severity
 
@@ -175,7 +173,7 @@ Use these levels in the review record:
 
 - **Blocker** — accessibility regression, contrast failure, broken route, horizontal page scroll at 360px, clipped content at 200% zoom, console/page error, failing test, or a direct conflict with DESIGN.md. Do not merge.
 - **Should fix** — inconsistent spacing/type, unclear copy, missing hover/focus/disabled treatment, a new touch target below 44px, or an avoidable layout shift. Fix before merge unless the author documents why it is follow-up work.
-- **Follow-up** — an existing gap the change does not introduce (for example the hover-only favourite star or `text-destructive` debt), a broader refactor, or a nice-to-have polish item. Record it; do not block an unrelated pull request.
+- **Follow-up** — an existing gap the change does not introduce (for example URL-backed filters or virtualizing the catalogue), a broader refactor, or a nice-to-have polish item. Record it; do not block an unrelated pull request.
 
 When in doubt, compare against `main` and ask: did this change make it worse? Existing debt is tracked separately from regressions.
 

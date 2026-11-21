@@ -1,9 +1,8 @@
 import { useState } from "react";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
-import { Copy } from "lucide-react";
+import CopyButton from "@/components/CopyButton";
 
 const NginxConfigTool = () => {
   const [domain, setDomain] = useState("example.com");
@@ -56,7 +55,7 @@ server {
       </div>
       <div className="relative">
         <Textarea value={config} readOnly rows={20} className="font-mono text-sm bg-secondary border-border" />
-        <Button size="icon" variant="ghost" className="absolute top-2 right-2" onClick={() => navigator.clipboard.writeText(config)} aria-label="Copy nginx configuration"><Copy className="h-4 w-4" /></Button>
+        <CopyButton value={config} label="Copy nginx configuration" size="icon" className="absolute right-2 top-2 bg-card" />
       </div>
     </div>
   );

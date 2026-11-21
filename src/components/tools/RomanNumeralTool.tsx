@@ -17,7 +17,7 @@ const RomanNumeralTool = () => {
         className="font-mono bg-secondary border-border"
       />
       {error ? (
-        <div role="alert" className="rounded bg-secondary p-3 font-mono text-sm text-destructive">
+        <div role="alert" className="rounded bg-secondary p-3 font-mono text-sm text-danger">
           {error}
         </div>
       ) : (

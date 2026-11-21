@@ -38,7 +38,7 @@ const JwtDecoderTool = () => {
       {result && (
         <div className="space-y-3">
           {result.error ? (
-            <p role="alert" className="font-mono text-sm text-destructive">
+            <p role="alert" className="font-mono text-sm text-danger">
               {result.error}
             </p>
           ) : result.token ? (
@@ -47,8 +47,8 @@ const JwtDecoderTool = () => {
                 <div
                   className={`rounded border p-3 font-mono text-xs ${
                     expiry.expired
-                      ? "border-red-500/50 bg-red-500/10 text-red-400"
-                      : "border-green-500/50 bg-green-500/10 text-green-400"
+                      ? "border-danger/40 bg-danger/10 text-danger"
+                      : "border-success/40 bg-success/10 text-success"
                   }`}
                 >
                   {expiry.expired ? "Expired" : "Expires"}: {expiry.date}

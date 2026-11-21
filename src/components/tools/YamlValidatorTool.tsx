@@ -28,12 +28,14 @@ const YamlValidatorTool = () => {
       />
       <div
         className={`rounded-lg border p-4 ${
-          result.valid ? "border-green-500 bg-green-500/10" : "border-red-500 bg-red-500/10"
+          result.valid ? "border-success/40 bg-success/10" : "border-danger/40 bg-danger/10"
         }`}
         role="status"
       >
         <p className="font-mono text-sm font-bold">{result.valid ? "✓ Valid YAML" : "✗ Invalid YAML"}</p>
-        {result.error && <p className="mt-1 whitespace-pre-wrap font-mono text-xs text-red-400">{result.error}</p>}
+        {result.error && (
+          <p className="mt-1 whitespace-pre-wrap font-mono text-xs text-danger">{result.error}</p>
+        )}
       </div>
     </div>
   );

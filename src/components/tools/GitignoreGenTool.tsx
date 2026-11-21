@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-import { Copy } from "lucide-react";
+import CopyButton from "@/components/CopyButton";
 
 const templates: Record<string, string[]> = {
   Node: ["node_modules/", "dist/", ".env", ".env.local", "npm-debug.log*", "coverage/", ".nyc_output/"],
@@ -33,7 +33,7 @@ const GitignoreGenTool = () => {
       </div>
       <div className="relative">
         <Textarea value={output} readOnly rows={16} className="font-mono text-sm bg-secondary border-border" />
-        <Button size="icon" variant="ghost" className="absolute top-2 right-2" onClick={() => navigator.clipboard.writeText(output)} aria-label="Copy .gitignore"><Copy className="h-4 w-4" /></Button>
+        <CopyButton value={output} label="Copy .gitignore" size="icon" className="absolute right-2 top-2 bg-card" />
       </div>
     </div>
   );

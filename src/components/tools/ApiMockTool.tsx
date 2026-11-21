@@ -3,7 +3,8 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Copy, Plus, Trash2, RefreshCw } from "lucide-react";
+import { Plus, Trash2, RefreshCw } from "lucide-react";
+import CopyButton from "@/components/CopyButton";
 
 type FieldType = "string" | "number" | "boolean" | "uuid" | "email" | "date" | "url" | "name" | "sentence";
 interface Field { name: string; type: FieldType }
@@ -74,7 +75,7 @@ const ApiMockTool = () => {
       <Button onClick={generate} className="bg-primary text-primary-foreground"><RefreshCw className="h-4 w-4 mr-2" />Generate Mock Data</Button>
       <div className="relative">
         <Textarea value={output} readOnly rows={14} className="font-mono text-sm bg-secondary border-border" placeholder="Click Generate to create mock data" />
-        {output && <Button size="icon" variant="ghost" className="absolute top-2 right-2" onClick={() => navigator.clipboard.writeText(output)} aria-label="Copy mock data"><Copy className="h-4 w-4" /></Button>}
+        {output && <CopyButton value={output} label="Copy mock data" size="icon" className="absolute right-2 top-2 bg-card" />}
       </div>
     </div>
   );

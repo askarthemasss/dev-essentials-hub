@@ -1,9 +1,21 @@
 import { useState } from "react";
 import DualPane from "./DualPane";
+import { formatJson } from "@/lib/jsonFormat";
 
 const JsonFormatterTool = () => {
   const [input, setInput] = useState("");
-  const format = (s: string) => { try { return JSON.stringify(JSON.parse(s), null, 2); } catch { return s ? "Invalid JSON" : ""; } };
-  return <DualPane input={input} output={format(input)} onInputChange={setInput} inputPlaceholder="Paste JSON here…" />;
+  const { output, error } = formatJson(input);
+
+  return (
+    <DualPane
+      input={input}
+      output={output}
+      onInputChange={setInput}
+      inputPlaceholder="Paste JSON here…"
+      outputPlaceholder="Formatted JSON appears here…"
+      error={error || undefined}
+    />
+  );
 };
+
 export default JsonFormatterTool;

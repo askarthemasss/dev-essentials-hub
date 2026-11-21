@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Textarea } from "@/components/ui/textarea";
-import { Button } from "@/components/ui/button";
-import { Copy } from "lucide-react";
+import CopyButton from "@/components/CopyButton";
 
 const cssToTw: Record<string, string> = {
   "display: flex": "flex",
@@ -145,7 +144,7 @@ cursor: pointer;`);
         <div className="rounded-lg border border-border bg-secondary p-4 font-mono text-sm text-foreground break-words min-h-[60px]">
           {output || "Enter CSS to convert"}
         </div>
-        <Button size="icon" variant="ghost" className="absolute top-8 right-2" onClick={() => navigator.clipboard.writeText(output)} aria-label="Copy Tailwind config"><Copy className="h-4 w-4" /></Button>
+        <CopyButton value={output} label="Copy Tailwind classes" size="icon" className="absolute right-2 top-8 bg-card" />
       </div>
     </div>
   );

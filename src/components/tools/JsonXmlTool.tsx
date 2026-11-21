@@ -94,11 +94,14 @@ const JsonXmlTool = () => {
   const [mode, setMode] = useState<"json-to-xml" | "xml-to-json">("json-to-xml");
 
   let output = "";
+  let error = "";
   if (input.trim()) {
     try {
       output = mode === "json-to-xml" ? jsonToXml(input) : xmlToJson(input);
     } catch (caught) {
-      output = `Invalid input: ${caught instanceof Error ? caught.message : "could not convert document"}`;
+      error = `Invalid ${mode === "json-to-xml" ? "JSON" : "XML"}: ${
+        caught instanceof Error ? caught.message : "the document could not be converted"
+      }. Check quotes, tags and closing brackets.`;
     }
   }
 
@@ -112,6 +115,7 @@ const JsonXmlTool = () => {
     <DualPane
       input={input}
       output={output}
+      error={error || undefined}
       onInputChange={setInput}
       inputLabel={mode === "json-to-xml" ? "JSON" : "XML"}
       outputLabel={mode === "json-to-xml" ? "XML" : "JSON"}
