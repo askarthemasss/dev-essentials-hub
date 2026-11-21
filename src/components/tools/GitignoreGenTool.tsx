@@ -32,7 +32,7 @@ const GitignoreGenTool = () => {
         ))}
       </div>
       <div className="relative">
-        <Textarea value={output} readOnly rows={16} className="font-mono text-sm bg-secondary border-border" />
+        <Textarea value={output} readOnly rows={16} aria-label=".gitignore output" className="font-mono text-sm bg-secondary border-border" />
         <CopyButton value={output} label="Copy .gitignore" size="icon" className="absolute right-2 top-2 bg-card" />
       </div>
     </div>

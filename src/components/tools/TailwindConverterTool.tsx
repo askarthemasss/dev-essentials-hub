@@ -137,7 +137,7 @@ cursor: pointer;`);
     <div className="space-y-4">
       <div>
         <span className="text-sm font-mono text-muted-foreground mb-1 block">CSS Properties</span>
-        <Textarea value={input} onChange={(e) => setInput(e.target.value)} rows={10} className="font-mono text-sm bg-secondary border-border" placeholder="Paste CSS properties…" />
+        <Textarea value={input} onChange={(e) => setInput(e.target.value)} aria-label="CSS properties" rows={10} className="font-mono text-sm bg-secondary border-border" placeholder="Paste CSS properties…" />
       </div>
       <div className="relative">
         <span className="text-sm font-mono text-muted-foreground mb-1 block">Tailwind Classes</span>

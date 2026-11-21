@@ -37,16 +37,37 @@ const JsonDiffTool = () => {
   const [left, setLeft] = useState('{\n  "name": "Alice",\n  "age": 30\n}');
   const [right, setRight] = useState('{\n  "name": "Bob",\n  "age": 30,\n  "active": true\n}');
   const [result, setResult] = useState("");
+  const [error, setError] = useState<{ side: "left" | "right"; message: string } | null>(null);
 
   const compare = () => {
+    let a: unknown;
+    let b: unknown;
+
     try {
-      const a = JSON.parse(left);
-      const b = JSON.parse(right);
-      const diffs = diffJson(a, b);
-      setResult(diffs.length === 0 ? "✓ Objects are identical" : diffs.join("\n"));
+      a = JSON.parse(left);
     } catch (caught) {
-      setResult("Error: " + (caught instanceof Error ? caught.message : "Invalid JSON"));
+      setError({
+        side: "left",
+        message: caught instanceof Error ? caught.message : "Invalid JSON",
+      });
+      setResult("");
+      return;
     }
+
+    try {
+      b = JSON.parse(right);
+    } catch (caught) {
+      setError({
+        side: "right",
+        message: caught instanceof Error ? caught.message : "Invalid JSON",
+      });
+      setResult("");
+      return;
+    }
+
+    setError(null);
+    const diffs = diffJson(a, b);
+    setResult(diffs.length === 0 ? "✓ Objects are identical" : diffs.join("\n"));
   };
 
   return (
@@ -54,15 +75,20 @@ const JsonDiffTool = () => {
       <div className="grid grid-cols-2 gap-4">
         <div>
           <span className="text-sm font-mono text-muted-foreground mb-1 block">Original</span>
-          <Textarea value={left} onChange={(e) => setLeft(e.target.value)} aria-label="Original JSON" rows={8} className="font-mono text-sm bg-secondary border-border" />
+          <Textarea value={left} onChange={(e) => setLeft(e.target.value)} aria-label="Original JSON" aria-invalid={error?.side === "left"} aria-describedby={error?.side === "left" ? "json-diff-error" : undefined} rows={8} className="font-mono text-sm bg-secondary border-border" />
         </div>
         <div>
           <span className="text-sm font-mono text-muted-foreground mb-1 block">Modified</span>
-          <Textarea value={right} onChange={(e) => setRight(e.target.value)} aria-label="Modified JSON" rows={8} className="font-mono text-sm bg-secondary border-border" />
+          <Textarea value={right} onChange={(e) => setRight(e.target.value)} aria-label="Modified JSON" aria-invalid={error?.side === "right"} aria-describedby={error?.side === "right" ? "json-diff-error" : undefined} rows={8} className="font-mono text-sm bg-secondary border-border" />
         </div>
       </div>
       <Button onClick={compare} className="bg-primary text-primary-foreground">Compare</Button>
-      <pre className="rounded-lg border border-border bg-secondary p-4 font-mono text-sm text-foreground whitespace-pre-wrap overflow-auto max-h-64">{result || "Click Compare to see differences"}</pre>
+      {error && (
+        <p id="json-diff-error" role="alert" className="font-mono text-xs text-danger">
+          {error.side === "left" ? "Original" : "Modified"} JSON is invalid: {error.message}. Fix the syntax and compare again.
+        </p>
+      )}
+      <pre className="rounded-lg border border-border bg-secondary p-4 font-mono text-sm text-foreground whitespace-pre-wrap overflow-auto max-h-64">{error ? "No diff available until both JSON documents are valid." : result || "Click Compare to see differences"}</pre>
     </div>
   );
 };

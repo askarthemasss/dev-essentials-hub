@@ -85,7 +85,7 @@ const GraphqlSchemaTool = () => {
       ))}
       <Button variant="outline" onClick={addType}><Plus className="h-4 w-4 mr-1" />Add Type</Button>
       <div className="relative">
-        <Textarea value={output} readOnly rows={16} className="font-mono text-sm bg-secondary border-border" />
+        <Textarea value={output} readOnly rows={16} aria-label="GraphQL schema output" className="font-mono text-sm bg-secondary border-border" />
         <CopyButton value={output} label="Copy schema" size="icon" className="absolute right-2 top-2 bg-card" />
       </div>
     </div>

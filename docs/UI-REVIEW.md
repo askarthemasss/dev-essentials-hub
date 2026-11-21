@@ -164,8 +164,6 @@ These are known gaps in the current product, not regressions introduced by a pul
 - The decorative `⌘K` keycap is 9px. It is duplicated by the quick-open button's accessible name; do not introduce new text at that size.
 - Catalogue search and category filters live in local state, not the URL. Deep-linking those states is a future improvement.
 - The 129-card grid renders every card. Revisit virtualization if the catalogue grows substantially or interaction performance drops.
-- Some repeated-row inputs use placeholders as their only name (for example the env-var key/value/comment rows), and some visible captions differ from their accessible names. Fix these when touching the tool; keep the visible text inside the accessible name.
-- A few generator tools still render validation failures as output text (for example “Invalid YAML”) instead of an inline `danger` error. Migrate them to the shared error pattern when touching those tools.
 
 ## Severity
 

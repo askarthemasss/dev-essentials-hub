@@ -46,6 +46,7 @@ const HashGeneratorTool = () => {
       <Textarea
         value={input}
         onChange={(event) => setInput(event.target.value)}
+        aria-label="Text to hash"
         placeholder="Enter text to hash…"
         className="min-h-[100px] font-mono text-sm bg-secondary border-border"
       />

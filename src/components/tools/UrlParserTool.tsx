@@ -23,7 +23,7 @@ const UrlParserTool = () => {
 
   return (
     <div className="space-y-4">
-      <Input value={url} onChange={(e) => setUrl(e.target.value)} className="font-mono text-sm bg-secondary border-border" placeholder="Enter URL…" />
+      <Input value={url} onChange={(e) => setUrl(e.target.value)} aria-label="URL to parse" className="font-mono text-sm bg-secondary border-border" placeholder="Enter URL…" />
       {parsed ? (
         <div className="space-y-4">
           <div className="rounded-lg border border-border overflow-hidden">

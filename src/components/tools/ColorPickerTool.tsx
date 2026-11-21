@@ -19,6 +19,7 @@ const ColorPickerTool = () => {
         <Input
           value={value}
           onChange={(event) => setValue(event.target.value)}
+          aria-label="Color value"
           placeholder="#00d4ff or rgb(0, 212, 255)"
           spellCheck={false}
           aria-invalid={!color && value.trim().length > 0}

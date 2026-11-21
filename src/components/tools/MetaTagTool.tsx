@@ -13,7 +13,7 @@ const MetaTagTool = () => {
       <div><span className="text-xs text-muted-foreground font-mono">Title</span><Input value={title} onChange={(e) => setTitle(e.target.value)} aria-label="Page title" className="font-mono bg-secondary border-border" /></div>
       <div><span className="text-xs text-muted-foreground font-mono">Description</span><Input value={desc} onChange={(e) => setDesc(e.target.value)} aria-label="Meta description" className="font-mono bg-secondary border-border" /></div>
       <div><span className="text-xs text-muted-foreground font-mono">Keywords</span><Input value={keywords} onChange={(e) => setKeywords(e.target.value)} aria-label="Meta keywords" className="font-mono bg-secondary border-border" /></div>
-      <Textarea value={output} readOnly className="min-h-[150px] font-mono text-sm bg-secondary border-border" />
+      <Textarea value={output} readOnly aria-label="Meta tags output" className="min-h-[150px] font-mono text-sm bg-secondary border-border" />
     </div>
   );
 };

@@ -14,7 +14,7 @@ const ImageBase64Tool = () => {
       <input type="file" accept="image/*" onChange={handleFile} aria-label="Choose an image" className="text-sm text-muted-foreground" />
       {base64 && <>
         <img src={base64} alt="Preview" className="max-h-48 rounded" />
-        <Textarea value={base64} readOnly className="min-h-[150px] font-mono text-xs bg-secondary border-border" />
+        <Textarea value={base64} readOnly aria-label="Base64 data URI output" className="min-h-[150px] font-mono text-xs bg-secondary border-border" />
       </>}
     </div>
   );

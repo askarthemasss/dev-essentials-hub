@@ -74,7 +74,7 @@ const ApiMockTool = () => {
       </div>
       <Button onClick={generate} className="bg-primary text-primary-foreground"><RefreshCw className="h-4 w-4 mr-2" />Generate Mock Data</Button>
       <div className="relative">
-        <Textarea value={output} readOnly rows={14} className="font-mono text-sm bg-secondary border-border" placeholder="Click Generate to create mock data" />
+        <Textarea value={output} readOnly rows={14} aria-label="Mock data output" className="font-mono text-sm bg-secondary border-border" placeholder="Click Generate to create mock data" />
         {output && <CopyButton value={output} label="Copy mock data" size="icon" className="absolute right-2 top-2 bg-card" />}
       </div>
     </div>

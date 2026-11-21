@@ -6,7 +6,7 @@ const SvgPathViewerTool = () => {
 
   return (
     <div className="space-y-4">
-      <Textarea value={path} onChange={(e) => setPath(e.target.value)} rows={3} className="font-mono text-sm bg-secondary border-border" placeholder="Enter SVG path data (d attribute)…" />
+      <Textarea value={path} onChange={(e) => setPath(e.target.value)} aria-label="SVG path data" rows={3} className="font-mono text-sm bg-secondary border-border" placeholder="Enter SVG path data (d attribute)…" />
       <div className="flex justify-center p-4 bg-secondary rounded-lg border border-border">
         <svg viewBox="0 0 200 200" width="300" height="300" className="border border-border/50 rounded bg-background">
           <defs>

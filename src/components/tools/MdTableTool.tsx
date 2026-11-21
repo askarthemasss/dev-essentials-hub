@@ -55,7 +55,7 @@ const MdTableTool = () => {
         <Button size="sm" variant="outline" onClick={addCol}><Plus className="h-3 w-3 mr-1" />Column</Button>
       </div>
       <div className="relative">
-        <Textarea value={markdown} readOnly rows={8} className="font-mono text-sm bg-secondary border-border" />
+        <Textarea value={markdown} readOnly rows={8} aria-label="Markdown table output" className="font-mono text-sm bg-secondary border-border" />
         <CopyButton value={markdown} label="Copy Markdown table" size="icon" className="absolute right-2 top-2 bg-card" />
       </div>
     </div>

@@ -106,13 +106,13 @@ const DockerfileTool = () => {
           <Input value={port} onChange={(e) => setPort(e.target.value)} aria-label="Application port" className="font-mono text-sm bg-secondary border-border" />
         </div>
       </div>
-      <Input value={workdir} onChange={(e) => setWorkdir(e.target.value)} className="font-mono text-sm bg-secondary border-border" placeholder="WORKDIR" />
+      <Input value={workdir} onChange={(e) => setWorkdir(e.target.value)} aria-label="Working directory" className="font-mono text-sm bg-secondary border-border" placeholder="WORKDIR" />
       <div className="flex gap-6">
         <label className="flex items-center gap-2 text-sm font-mono text-muted-foreground"><Switch checked={multiStage} onCheckedChange={setMultiStage} />Multi-stage</label>
         <label className="flex items-center gap-2 text-sm font-mono text-muted-foreground"><Switch checked={nonRoot} onCheckedChange={setNonRoot} />Non-root user</label>
       </div>
       <div className="relative">
-        <Textarea value={dockerfile} readOnly rows={18} className="font-mono text-sm bg-secondary border-border" />
+        <Textarea value={dockerfile} readOnly rows={18} aria-label="Dockerfile output" className="font-mono text-sm bg-secondary border-border" />
         <CopyButton value={dockerfile} label="Copy Dockerfile" size="icon" className="absolute right-2 top-2 bg-card" />
       </div>
     </div>

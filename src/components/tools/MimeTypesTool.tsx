@@ -11,7 +11,7 @@ const MimeTypesTool = () => {
   const filtered = Object.entries(mimeTypes).filter(([k, v]) => k.includes(search.toLowerCase()) || v.includes(search.toLowerCase()));
   return (
     <div className="space-y-4">
-      <Input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Search by extension or MIME type…" className="font-mono bg-secondary border-border max-w-md" />
+      <Input value={search} onChange={(e) => setSearch(e.target.value)} aria-label="Search MIME types" placeholder="Search by extension or MIME type…" className="font-mono bg-secondary border-border max-w-md" />
       <div className="space-y-1">{filtered.map(([ext, mime]) => (
         <div key={ext} className="flex justify-between rounded bg-secondary p-2 font-mono text-sm"><span>.{ext}</span><span className="text-muted-foreground">{mime}</span></div>
       ))}</div>

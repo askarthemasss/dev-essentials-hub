@@ -60,12 +60,14 @@ const HmacGeneratorTool = () => {
       <Input
         value={key}
         onChange={(event) => setKey(event.target.value)}
+        aria-label="Secret key"
         placeholder="Secret key"
         className="font-mono bg-secondary border-border"
       />
       <Textarea
         value={message}
         onChange={(event) => setMessage(event.target.value)}
+        aria-label="Message"
         placeholder="Message"
         className="min-h-[100px] font-mono text-sm bg-secondary border-border"
       />

@@ -8,7 +8,7 @@ const PortReferenceTool = () => {
   const filtered = ports.filter(p => p.port.toString().includes(search) || p.desc.toLowerCase().includes(search.toLowerCase()));
   return (
     <div className="space-y-3">
-      <Input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Search ports…" className="font-mono bg-secondary border-border max-w-md" />
+      <Input value={search} onChange={(e) => setSearch(e.target.value)} aria-label="Search ports" placeholder="Search ports…" className="font-mono bg-secondary border-border max-w-md" />
       <div className="space-y-1">{filtered.map(p => <div key={p.port} className="flex justify-between rounded bg-secondary p-2 font-mono text-sm"><span className="text-primary font-bold">{p.port}</span><span>{p.desc}</span></div>)}</div>
     </div>
   );

@@ -13,7 +13,7 @@ const CorsHelperTool = () => {
       <div><span className="text-xs text-muted-foreground font-mono">Origin</span><Input value={origin} onChange={(e) => setOrigin(e.target.value)} aria-label="Allowed origin" className="font-mono bg-secondary border-border" /></div>
       <div className="flex flex-wrap gap-3">{["GET","POST","PUT","DELETE","PATCH","OPTIONS"].map(m => <label key={m} className="flex items-center gap-1 text-sm font-mono"><Checkbox checked={methods.includes(m)} onCheckedChange={() => toggleMethod(m)} />{m}</label>)}</div>
       <div><span className="text-xs text-muted-foreground font-mono">Headers</span><Input value={headers} onChange={(e) => setHeaders(e.target.value)} aria-label="Allowed headers" className="font-mono bg-secondary border-border" /></div>
-      <Textarea value={output} readOnly className="min-h-[100px] font-mono text-sm bg-secondary border-border" />
+      <Textarea value={output} readOnly aria-label="CORS headers output" className="min-h-[100px] font-mono text-sm bg-secondary border-border" />
     </div>
   );
 };

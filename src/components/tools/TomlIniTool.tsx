@@ -38,7 +38,7 @@ allowed_origins = ["http://localhost", "https://example.com"]`);
         </div>
         <div className="relative">
           <span className="text-sm font-mono text-muted-foreground mb-1 block">{mode === "toml-to-ini" ? "INI" : "TOML"}</span>
-          <Textarea value={output} readOnly rows={14} className="font-mono text-sm bg-secondary border-border" />
+          <Textarea value={output} readOnly rows={14} aria-label="Converted TOML or INI output" className="font-mono text-sm bg-secondary border-border" />
           <CopyButton value={output} label="Copy output" size="icon" className="absolute right-2 top-8 bg-card" />
         </div>
       </div>

@@ -18,7 +18,7 @@ const CronViewerTool = () => {
   };
   return (
     <div className="space-y-4 max-w-md">
-      <Input value={cron} onChange={(e) => setCron(e.target.value)} placeholder="* * * * *" className="font-mono bg-secondary border-border text-center text-lg" />
+      <Input value={cron} onChange={(e) => setCron(e.target.value)} aria-label="Cron expression" placeholder="* * * * *" className="font-mono bg-secondary border-border text-center text-lg" />
       <div className="grid grid-cols-5 gap-1 text-center text-xs text-muted-foreground font-mono">{["min","hour","day","month","weekday"].map(l => <span key={l}>{l}</span>)}</div>
       <div className="rounded bg-secondary p-3 font-mono text-sm text-center">{describe(cron)}</div>
     </div>

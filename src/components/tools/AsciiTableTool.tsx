@@ -39,6 +39,7 @@ const AsciiTableTool = () => {
       <Input
         value={search}
         onChange={(event) => setSearch(event.target.value)}
+        aria-label="Search ASCII characters"
         placeholder="Search by character, code or hex…"
         className="font-mono bg-secondary border-border max-w-md"
       />

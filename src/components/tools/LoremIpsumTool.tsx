@@ -38,7 +38,7 @@ const LoremIpsumTool = () => {
           </SelectContent>
         </Select>
       </div>
-      <Textarea value={output} readOnly className="min-h-[300px] font-mono text-sm bg-secondary border-border" />
+      <Textarea value={output} readOnly aria-label="Lorem Ipsum output" className="min-h-[300px] font-mono text-sm bg-secondary border-border" />
     </div>
   );
 };
