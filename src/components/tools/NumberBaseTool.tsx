@@ -52,7 +52,7 @@ const NumberBaseTool = () => {
           className="border-border bg-secondary font-mono"
         />
         {invalid && (
-          <p role="alert" className="mt-1 font-mono text-xs text-destructive">
+          <p role="alert" className="mt-1 font-mono text-xs text-danger">
             “{input.trim()}” is not a valid base-{inputBase} integer.
           </p>
         )}

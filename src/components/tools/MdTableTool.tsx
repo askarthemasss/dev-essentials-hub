@@ -2,7 +2,8 @@ import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-import { Copy, Plus } from "lucide-react";
+import { Plus } from "lucide-react";
+import CopyButton from "@/components/CopyButton";
 import { escapeMarkdownTableCell } from "@/lib/markup";
 
 const MdTableTool = () => {
@@ -55,7 +56,7 @@ const MdTableTool = () => {
       </div>
       <div className="relative">
         <Textarea value={markdown} readOnly rows={8} className="font-mono text-sm bg-secondary border-border" />
-        <Button size="icon" variant="ghost" className="absolute top-2 right-2" onClick={() => navigator.clipboard.writeText(markdown)} aria-label="Copy Markdown table"><Copy className="h-4 w-4" /></Button>
+        <CopyButton value={markdown} label="Copy Markdown table" size="icon" className="absolute right-2 top-2 bg-card" />
       </div>
     </div>
   );

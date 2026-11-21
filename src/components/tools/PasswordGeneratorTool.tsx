@@ -2,7 +2,8 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Copy, Check, RefreshCw } from "lucide-react";
+import { RefreshCw } from "lucide-react";
+import CopyButton from "@/components/CopyButton";
 import { generatePassword } from "@/lib/random";
 
 const PasswordGeneratorTool = () => {
@@ -13,7 +14,6 @@ const PasswordGeneratorTool = () => {
   const [symbols, setSymbols] = useState(true);
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const [copied, setCopied] = useState(false);
 
   const generate = () => {
     try {
@@ -25,12 +25,6 @@ const PasswordGeneratorTool = () => {
     }
   };
 
-  const copy = () => {
-    navigator.clipboard.writeText(password);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 1500);
-  };
-
   const toggles: Array<{ label: string; checked: boolean; onChange: (checked: boolean) => void }> = [
     { label: "Uppercase", checked: upper, onChange: setUpper },
     { label: "Lowercase", checked: lower, onChange: setLower },
@@ -39,10 +33,17 @@ const PasswordGeneratorTool = () => {
   ];
 
   return (
-    <div className="space-y-4 max-w-md">
+    <div className="max-w-md space-y-4">
       <div className="space-y-2">
-        <span className="text-xs font-medium text-muted-foreground font-mono">Length: {length}</span>
-        <Slider value={[length]} onValueChange={([value]) => setLength(value)} aria-label="Password length" min={4} max={128} step={1} />
+        <span className="block font-mono text-sm text-secondary-foreground">Length: {length}</span>
+        <Slider
+          value={[length]}
+          onValueChange={([value]) => setLength(value)}
+          aria-label="Password length"
+          min={4}
+          max={128}
+          step={1}
+        />
       </div>
       <div className="flex flex-wrap gap-4">
         {toggles.map((toggle) => (
@@ -55,22 +56,24 @@ const PasswordGeneratorTool = () => {
           </label>
         ))}
       </div>
-      <Button onClick={generate}>
-        <RefreshCw className="h-4 w-4 mr-1" /> Generate
+      <Button type="button" onClick={generate}>
+        <RefreshCw className="h-4 w-4" aria-hidden="true" />
+        Generate
       </Button>
       {error && (
-        <p role="alert" className="font-mono text-sm text-destructive">
+        <p role="alert" className="font-mono text-xs text-danger">
           {error}
         </p>
       )}
       {password && (
-        <div className="flex items-center gap-2 rounded bg-secondary p-3">
-          <code className="flex-1 font-mono text-sm break-all">{password}</code>
-          <Button variant="ghost" size="icon" onClick={copy} aria-label="Copy password">
-            {copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
-          </Button>
+        <div className="flex items-center gap-2 rounded-md border border-border bg-secondary p-3">
+          <code className="min-w-0 flex-1 break-all font-mono text-sm text-foreground">{password}</code>
+          <CopyButton value={password} label="Copy password" showLabel />
         </div>
       )}
+      <p className="text-xs text-muted-foreground">
+        Generated locally with Web Crypto. Raise the length for anything long-lived.
+      </p>
     </div>
   );
 };

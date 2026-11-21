@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Copy, Check, RefreshCw } from "lucide-react";
+import { RefreshCw } from "lucide-react";
+import CopyButton from "@/components/CopyButton";
 
 const UuidGeneratorTool = () => {
   const [uuids, setUuids] = useState<string[]>([crypto.randomUUID()]);
   const [count, setCount] = useState("1");
   const [error, setError] = useState("");
-  const [copied, setCopied] = useState<number | null>(null);
 
   const generate = () => {
     if (!count.trim()) {
@@ -24,49 +24,64 @@ const UuidGeneratorTool = () => {
     setUuids(Array.from({ length: parsed }, () => crypto.randomUUID()));
   };
 
-  const copy = (text: string, index: number) => {
-    navigator.clipboard.writeText(text);
-    setCopied(index);
-    setTimeout(() => setCopied(null), 1500);
-  };
-
   return (
     <div className="space-y-4">
-      <div className="flex gap-2 items-center">
-        <Input
-          type="number"
-          min={1}
-          max={100}
-          value={count}
-          onChange={(event) => setCount(event.target.value)}
-          aria-label="Number of UUIDs"
-          className="w-24 font-mono bg-secondary border-border"
-        />
-        <Button onClick={generate}>
-          <RefreshCw className="h-4 w-4 mr-1" /> Generate
+      <form
+        onSubmit={(event) => {
+          event.preventDefault();
+          generate();
+        }}
+        className="flex flex-wrap items-end gap-2"
+      >
+        <div className="space-y-1.5">
+          <label htmlFor="uuid-count" className="block text-sm font-medium text-foreground">
+            How many UUIDs?
+          </label>
+          <Input
+            id="uuid-count"
+            type="number"
+            inputMode="numeric"
+            min={1}
+            max={100}
+            value={count}
+            onChange={(event) => {
+              setCount(event.target.value);
+              if (error) setError("");
+            }}
+            aria-invalid={Boolean(error)}
+            aria-describedby={error ? "uuid-count-error" : undefined}
+            className="w-28 border-border bg-secondary font-mono"
+          />
+        </div>
+        <Button type="submit">
+          <RefreshCw className="h-4 w-4" aria-hidden="true" />
+          Generate
         </Button>
-      </div>
+      </form>
+
       {error && (
-        <p role="alert" className="font-mono text-sm text-destructive">
+        <p id="uuid-count-error" role="alert" className="font-mono text-xs text-danger">
           {error}
         </p>
       )}
-      <div className="space-y-2">
+
+      <ul className="space-y-2" aria-label="Generated UUIDs">
         {uuids.map((id, index) => (
-          <div key={index} className="flex items-center gap-2 rounded bg-secondary p-2">
-            <code className="flex-1 font-mono text-sm text-foreground">{id}</code>
-            <Button
-              variant="ghost"
+          <li key={id} className="flex items-center gap-2 rounded-md border border-border bg-secondary p-2">
+            <code className="min-w-0 flex-1 break-all font-mono text-sm text-foreground">{id}</code>
+            <CopyButton
+              value={id}
+              label={`Copy UUID ${index + 1}`}
               size="icon"
-              className="h-8 w-8"
-              onClick={() => copy(id, index)}
-              aria-label={`Copy UUID ${index + 1}`}
-            >
-              {copied === index ? <Check className="h-3 w-3" /> : <Copy className="h-3 w-3" />}
-            </Button>
-          </div>
+              className="h-9 w-9 text-muted-foreground hover:text-foreground"
+            />
+          </li>
         ))}
-      </div>
+      </ul>
+
+      <p className="text-xs text-muted-foreground">
+        UUID v4 values are generated locally with Web Crypto. Nothing leaves this browser.
+      </p>
     </div>
   );
 };

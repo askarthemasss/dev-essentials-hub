@@ -3,7 +3,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
-import { Copy, Plus, Trash2 } from "lucide-react";
+import { Plus, Trash2 } from "lucide-react";
+import CopyButton from "@/components/CopyButton";
 
 interface Service { name: string; image: string; ports: string; envVars: string[]; volumes: string[]; restart: string }
 
@@ -59,7 +60,7 @@ const DockerComposeTool = () => {
       <Button variant="outline" onClick={addService}><Plus className="h-4 w-4 mr-1" />Add Service</Button>
       <div className="relative">
         <Textarea value={output} readOnly rows={16} className="font-mono text-sm bg-secondary border-border" />
-        <Button size="icon" variant="ghost" className="absolute top-2 right-2" onClick={() => navigator.clipboard.writeText(output)} aria-label="Copy docker-compose.yml"><Copy className="h-4 w-4" /></Button>
+        <CopyButton value={output} label="Copy docker-compose.yml" size="icon" className="absolute right-2 top-2 bg-card" />
       </div>
     </div>
   );

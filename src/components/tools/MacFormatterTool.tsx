@@ -37,7 +37,7 @@ const MacFormatterTool = () => {
         ))
       ) : (
         input.trim() && (
-          <p role="alert" className="rounded bg-secondary p-3 font-mono text-sm text-destructive">
+          <p role="alert" className="rounded bg-secondary p-3 font-mono text-sm text-danger">
             Enter exactly 12 hexadecimal digits, for example AA:BB:CC:DD:EE:FF.
           </p>
         )

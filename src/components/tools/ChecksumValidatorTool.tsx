@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Check, Copy, FileUp } from "lucide-react";
+import { CheckCircle2, FileUp, XCircle } from "lucide-react";
+import CopyButton from "@/components/CopyButton";
 import { parseExpectedChecksum, type HashAlgorithm } from "@/lib/checksum";
 
 function toHex(buffer: ArrayBuffer): string {
@@ -18,7 +18,6 @@ const ChecksumValidatorTool = () => {
   const [computed, setComputed] = useState("");
   const [hashing, setHashing] = useState(false);
   const [error, setError] = useState("");
-  const [copied, setCopied] = useState(false);
 
   useEffect(() => {
     if (!file) {
@@ -54,22 +53,14 @@ const ChecksumValidatorTool = () => {
   const expectedNormalized = parsedExpected.value;
   const matches = Boolean(computed && expectedNormalized && computed === expectedNormalized);
 
-  const copy = async () => {
-    await navigator.clipboard.writeText(computed);
-    setCopied(true);
-    window.setTimeout(() => setCopied(false), 1500);
-  };
-
   return (
     <div className="max-w-2xl space-y-4">
       <div className="grid gap-3 sm:grid-cols-[1fr_auto]">
         <div>
-          <label htmlFor="checksum-file" className="mb-1 block font-mono text-xs text-muted-foreground">
-            File
-          </label>
+          <span className="mb-1 block text-xs text-muted-foreground">File</span>
           <label
             htmlFor="checksum-file"
-            className="flex cursor-pointer items-center gap-2 rounded-md border border-dashed border-border bg-secondary px-3 py-2 font-mono text-sm text-muted-foreground transition-colors hover:border-primary/60 hover:text-foreground"
+            className="flex min-h-10 cursor-pointer items-center gap-2 rounded-md border border-dashed border-border bg-secondary px-3 py-2 font-mono text-sm text-muted-foreground transition-colors duration-150 hover:border-primary/60 hover:text-foreground focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2 focus-within:ring-offset-background"
           >
             <FileUp className="h-4 w-4" aria-hidden="true" />
             <span className="truncate">{file ? file.name : "Choose a file to hash…"}</span>
@@ -82,7 +73,7 @@ const ChecksumValidatorTool = () => {
           />
         </div>
         <div>
-          <span className="mb-1 block font-mono text-xs text-muted-foreground">Algorithm</span>
+          <span className="mb-1 block text-xs text-muted-foreground">Algorithm</span>
           <Select value={algorithm} onValueChange={(value) => setAlgorithm(value as HashAlgorithm)}>
             <SelectTrigger aria-label="Checksum algorithm" className="w-36 border-border bg-secondary font-mono">
               <SelectValue />
@@ -97,7 +88,7 @@ const ChecksumValidatorTool = () => {
       </div>
 
       <div>
-        <label htmlFor="checksum-expected" className="mb-1 block font-mono text-xs text-muted-foreground">
+        <label htmlFor="checksum-expected" className="mb-1 block text-sm font-medium text-foreground">
           Expected checksum
         </label>
         <Input
@@ -111,15 +102,19 @@ const ChecksumValidatorTool = () => {
           className="border-border bg-secondary font-mono text-sm"
         />
         {parsedExpected.error && (
-          <p id="checksum-expected-error" role="alert" className="mt-1 font-mono text-xs text-destructive">
+          <p id="checksum-expected-error" role="alert" className="mt-1 font-mono text-xs text-danger">
             {parsedExpected.error}
           </p>
         )}
       </div>
 
-      {hashing && <p className="font-mono text-sm text-muted-foreground">Hashing {file?.name}…</p>}
+      {hashing && (
+        <p role="status" aria-live="polite" className="font-mono text-sm text-muted-foreground">
+          Hashing {file?.name}…
+        </p>
+      )}
       {error && (
-        <p role="alert" className="font-mono text-sm text-destructive">
+        <p role="alert" className="font-mono text-sm text-danger">
           {error}
         </p>
       )}
@@ -129,10 +124,7 @@ const ChecksumValidatorTool = () => {
           <div className="rounded border border-border bg-secondary p-3">
             <div className="mb-1 flex items-center justify-between gap-2">
               <span className="font-mono text-xs text-muted-foreground">{algorithm}</span>
-              <Button size="sm" variant="ghost" onClick={() => void copy()}>
-                {copied ? <Check className="mr-1 h-3 w-3" /> : <Copy className="mr-1 h-3 w-3" />}
-                {copied ? "Copied" : "Copy"}
-              </Button>
+              <CopyButton value={computed} label="Copy checksum" showLabel className="h-8 text-xs" />
             </div>
             <p className="break-all font-mono text-sm text-foreground">{computed}</p>
           </div>
@@ -140,12 +132,17 @@ const ChecksumValidatorTool = () => {
           {expectedNormalized && (
             <div
               role="status"
-              className={`rounded border p-3 font-mono text-sm ${
+              className={`flex items-center gap-2 rounded-md border p-3 font-mono text-sm ${
                 matches
-                  ? "border-green-500/50 bg-green-500/10 text-green-400"
-                  : "border-red-500/50 bg-red-500/10 text-red-400"
+                  ? "border-success/40 bg-success/10 text-success"
+                  : "border-danger/40 bg-danger/10 text-danger"
               }`}
             >
+              {matches ? (
+                <CheckCircle2 className="h-4 w-4" aria-hidden="true" />
+              ) : (
+                <XCircle className="h-4 w-4" aria-hidden="true" />
+              )}
               {matches ? "Checksum matches" : "Checksum does not match"}
             </div>
           )}

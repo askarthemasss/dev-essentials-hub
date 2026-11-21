@@ -20,11 +20,13 @@ test.describe("converter direction switches", () => {
     await expect(outputTextarea(page)).toHaveValue("hello");
 
     await firstTextarea(page).fill("a");
-    await expect(outputTextarea(page)).toHaveValue("Error: Invalid input");
+    await expect(outputTextarea(page)).toHaveValue("");
+    await expect(page.getByRole("alert")).toContainText("Invalid Base64");
 
     await page.getByRole("button", { name: "Encode", exact: true }).click();
     await expect(firstTextarea(page)).toHaveValue("a");
     await expect(outputTextarea(page)).toHaveValue("YQ==");
+    await expect(page.getByRole("alert")).toHaveCount(0);
   });
 
   test("Morse switches direction and tolerates irregular spacing", async ({ page }) => {

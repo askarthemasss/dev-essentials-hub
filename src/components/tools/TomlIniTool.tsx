@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Textarea } from "@/components/ui/textarea";
-import { Button } from "@/components/ui/button";
-import { Copy } from "lucide-react";
+import CopyButton from "@/components/CopyButton";
 import { isConversionResult } from "@/lib/conversion";
 import { iniToToml, tomlToIni } from "@/lib/toml";
 
@@ -40,7 +39,7 @@ allowed_origins = ["http://localhost", "https://example.com"]`);
         <div className="relative">
           <span className="text-sm font-mono text-muted-foreground mb-1 block">{mode === "toml-to-ini" ? "INI" : "TOML"}</span>
           <Textarea value={output} readOnly rows={14} className="font-mono text-sm bg-secondary border-border" />
-          <Button size="icon" variant="ghost" className="absolute top-8 right-2" onClick={() => navigator.clipboard.writeText(output)} aria-label="Copy output"><Copy className="h-4 w-4" /></Button>
+          <CopyButton value={output} label="Copy output" size="icon" className="absolute right-2 top-8 bg-card" />
         </div>
       </div>
     </div>

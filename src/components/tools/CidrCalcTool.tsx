@@ -29,7 +29,7 @@ const CidrCalcTool = () => {
       </div>
 
       {!parsed && input.trim() !== "" && (
-        <p role="alert" className="font-mono text-sm text-destructive">
+        <p role="alert" className="font-mono text-sm text-danger">
           Enter a valid IPv4 or IPv6 address followed by a prefix, e.g. 192.168.1.0/24.
         </p>
       )}

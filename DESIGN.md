@@ -262,7 +262,7 @@ Cyan is a **spot colour**, not a surface colour. Do not fill a page section with
 | `destructive` | `#7c1d1d` | Filled surface only | Destructive button and badge backgrounds |
 | `destructive-foreground` | `#f8fafc` | 9.79:1 on destructive | Text on a destructive fill |
 
-**Important:** `destructive` is a fill token, not a text token. `text-destructive` (`#7c1d1d`) on `bg-secondary` is **1.59:1** and on `background` is **1.90:1**, so it is unreadable. Use `text-danger` for error copy and `bg-destructive text-destructive-foreground` only for filled destructive controls. The existing `text-destructive` usages in tool components are known debt to migrate when those files are next touched.
+**Important:** `destructive` is a fill token, not a text token. `text-destructive` (`#7c1d1d`) on `bg-secondary` is **1.59:1** and on `background` is **1.90:1**, so it is unreadable. Use `text-danger` for error copy and `bg-destructive text-destructive-foreground` only for filled destructive controls. All error text in tool components now uses `text-danger`; do not reintroduce `text-destructive` as a text colour.
 
 Never communicate status with colour alone. Pair the colour with a word, an icon and an `aria-live` announcement where the state changes asynchronously.
 
@@ -285,7 +285,7 @@ Inter carries the interface; JetBrains Mono carries anything a developer would c
 
 Rules:
 
-- Body and UI copy never go below **14px**; 12px is reserved for metadata, and 11px for filter chips. The only 9px text is the decorative `⌘K` keycap, which is duplicated by the search field's accessible name.
+- Body and UI copy never go below **14px**; 12px is reserved for metadata, and 11px for filter chips. The only 9px text is the decorative `⌘K` keycap, which is duplicated by the quick-open button's accessible name.
 - Use `font-variant-numeric: tabular-nums` for numeric columns, timers, byte counts and generated values so digits do not jump.
 - Use the ellipsis character `…`, curly quotes in prose, and non-breaking spaces in units (`10&nbsp;MB`) and key combinations (`⌘&nbsp;K`). Loading and pending labels end with `…`.
 - Do not set prose in mono. Do not use more than three font weights in one panel.
@@ -316,7 +316,7 @@ The catalogue is the first screen: header, category filter row and tool grid. Ne
 
 Tailwind defaults apply: `sm` 640px, `md` 768px, `lg` 1024px, `xl` 1280px. Design at 360px first for the catalogue, then verify 768px, 1024px and 1440px.
 
-Interactive targets should be **at least 44×44px** on coarse pointers. A dense desktop control may look 32–40px tall, but its hit area must expand to 44px on touch. Do not hide a primary action behind hover. The current tool-card star button is roughly 22px and hover-only; it is a known gap for the next UI phase and must not be copied into new components.
+Interactive targets are **at least 44×44px** on coarse pointers. A dense desktop control may look 32–40px tall, but its hit area must expand to 44px on touch. The shared `touch-target` and `touch-target-y` utilities, the `Button` primitive and the 22px category chips all expand under `@media (pointer: coarse)`. The tool-card star is a permanent 44px target and is never hover-only.
 
 ## Elevation & Depth
 
@@ -335,7 +335,7 @@ Motion exists to explain a state change, not to decorate.
 - Use 150ms `ease-out` for colour, border, background and opacity changes; 200ms for accordion or overlay entry. Nothing longer than 300ms.
 - Animate only `transform` and `opacity` where possible. Never use `transition: all`; list the properties.
 - Hover, focus and active states must remain understandable with motion disabled. Never make an action discoverable only on hover.
-- Honour `prefers-reduced-motion: reduce`: remove non-essential transforms and looping animation; keep instant state changes.
+- Honour `prefers-reduced-motion: reduce`: remove non-essential transforms and looping animation; keep instant state changes. `src/index.css` enforces this globally for every primitive and overlay, including Radix enter/exit animations.
 - No scroll-triggered reveals, parallax, autoplaying decorative loops, bouncing loaders or page transitions. Content must be present without waiting for an animation.
 
 ## Shapes
@@ -350,9 +350,9 @@ Motion exists to explain a state change, not to decorate.
 
 ### Catalogue header
 
-Sticky at 52px with `bg-card/90`, `backdrop-blur-md`, a bottom `border` and a 1152px container. Left: the 24px DevToolbox brand mark — a cyan tile with a dark terminal prompt — plus the mono `wordmark`. Centre: a 32px search field on a `secondary` surface with a muted search icon and a 12px mono placeholder (`Search 129 tools…`). Right: a favourites toggle and the decorative `⌘K` keycap.
+Sticky at 52px with `bg-card/90`, `backdrop-blur-md`, a bottom `border` and a 1152px container. Left: the 24px DevToolbox brand mark — a cyan tile with a dark terminal prompt — plus the mono `wordmark`. Centre: a 40px search field on a `secondary` surface with a muted search icon and a short `Search tools…` placeholder that fits at 360px; the accessible label carries the tool count. Right: a favourites toggle, a visible quick-open button with the decorative `⌘K` keycap, and a clear result count below the header.
 
-The search field must have an accessible name (`aria-label` or a real label) and a visible focus ring. The favourites toggle uses `aria-pressed` and never relies on the star icon alone.
+The search field uses a real `<label>` (visually hidden), a 16px font below 768px to prevent iOS zoom, and a visible focus ring. The favourites toggle uses `aria-pressed` and never relies on the star icon alone. Both controls keep a 44px hit area on coarse pointers.
 
 ### Brand mark
 
@@ -362,17 +362,17 @@ The favicon set lives in `public/`: `favicon.svg`, a multi-size `favicon.ico`, 1
 
 ### Category filter
 
-A horizontally scrollable row under the header. Each chip is 22px tall, full-radius, 11px medium Inter, with 8px horizontal padding. Inactive chips use `secondary` / `secondary-foreground`; the active chip uses `primary` / `primary-foreground`. The row must be keyboard reachable and must not cause page-level horizontal scroll. Use `aria-pressed` for the selected chip.
+A horizontally scrollable row under the header. Each chip is 22px tall on fine pointers, full-radius, 11px medium Inter, with 12px horizontal padding. Under `@media (pointer: coarse)` the same chip expands to a 44px hit area without changing the 11px label. Inactive chips use `secondary` / `secondary-foreground`; the active chip uses `primary` / `primary-foreground`. The row must be keyboard reachable, carry an `aria-label`, and must not cause page-level horizontal scroll. Use `aria-pressed` for the selected chip.
 
 ### Tool card
 
-A 52px row on `card`, 6px radius, 1px border, 12px horizontal padding and an 8px gap in the grid. Leading 32px icon tile on `primary/10` with a cyan icon; the tool name is 14px mono, single-line with `truncate`. On hover or `focus-within`, the border becomes `primary/50`; the card itself is a link with a visible focus ring.
+A 52px-minimum row on `card`, 6px radius, 1px border, 12px horizontal padding and an 8px gap in the grid. From `lg` up, a leading 32px icon tile on `primary/10` with a cyan icon; below `lg` the tile is hidden so the tool name gets the card width. The tool name is 14px mono and may wrap to three lines (`line-clamp-3`) so long names such as “CSS Specificity Calculator” stay identifiable at 1440px and 360px. The tooltip repeats the full name and description. On hover or `focus-within`, the border becomes `primary/50`; the card itself is a link with a visible focus ring.
 
-The favourite star is a separate button inside the card, with `aria-pressed`, a descriptive `aria-label` and a 44px hit area. It must remain reachable and visible on touch devices; hover-only reveal is not acceptable for the primary interaction on the card.
+The favourite star is a separate button inside the card, with `aria-pressed`, a descriptive `aria-label` and a permanent 44px hit area. It is always visible: hover may change its colour, but never its presence.
 
 ### Tool page shell
 
-A compact header band on `card` with a 1024px container, a ghost back button (`aria-label="Back to all tools"`), an 18px mono bold title and a 14px muted description. The back button needs a 44px hit area even if its visual box is 40px. Below, `main` uses the same 1024px container and 24px vertical padding.
+A compact header band on `card` with a 1024px container, a ghost back button (`aria-label="Back to all tools"`), a category caption, an 18px mono bold title, a 14px muted description and the shared quick-open button. The back button needs a 44px hit area even if its visual box is 40px. Below, `main` uses the same 1024px container and 24px vertical padding, plus `id="main-content"` and `tabIndex={-1}` so route changes can move focus there.
 
 Tool controls stack in the order: inputs, action, output. Every result region has a label or an accessible name; read-only output textareas use the shared `Output` fallback label. Copy actions are icon buttons with explicit labels such as `Copy Dockerfile`.
 
@@ -401,19 +401,25 @@ Default height is 40px; `sm` is 36px, `lg` is 44px, and icon buttons are 40×40p
 
 Output blocks use a `muted` surface, 6px radius, 12px padding and 14px mono text. The block may scroll internally for long content but must not widen the page. Validation and async feedback use `role="alert"` or `aria-live="polite"` and appear next to the control that caused them.
 
-Error copy says what happened and what to do next. Do not render a blank panel for an empty result: show a short empty state or keep the last valid output with a clear status.
+Error copy says what happened and what to do next. Do not render a blank panel for an empty result: show a short empty state or keep the last valid output with a clear status. A parse failure belongs in an inline error, not in the output pane as the string “Invalid JSON”.
+
+### Copy feedback
+
+All copy actions go through `CopyButton` or `useCopyFeedback`, which await `navigator.clipboard.writeText` and only show success after the write resolves. A rejected write is a failure: the icon changes to an alert, the accessible status says “Copy failed. Check clipboard permissions and try again.”, and the state clears after a few seconds. Copy controls keep an explicit label such as `Copy Dockerfile`; icon-only controls announce the result through `role="status"`.
 
 ### Command palette and overlays
 
-The command palette, select menus and tooltips use the `popover` surface, 1px border and a soft neutral shadow. The command palette uses an 8px radius; select menus and tooltips use 6px. The palette opens with `⌘K` / `Ctrl+K`, traps focus while open, closes on `Escape`, and returns focus to the trigger. Rows are keyboard navigable; the active row is visibly distinct, not just hovered. Tooltips are supplementary only — never put the only copy of an instruction in a tooltip.
+The command palette, select menus and tooltips use the `popover` surface, 1px border and a soft neutral shadow. The command palette uses an 8px radius; select menus and tooltips use 6px. The palette opens with `⌘K` / `Ctrl+K` or the visible quick-open button, traps focus while open, closes on `Escape`, and returns focus to the trigger. If navigation unmounted the trigger, focus moves to the new page's `main`. Rows are keyboard navigable at 44px, the active row uses `primary` / `primary-foreground` (including its category metadata), and a footer states the arrow, Enter and Escape keys. Tooltips are supplementary only — never put the only copy of an instruction in a tooltip.
 
 ### Focus
 
 Every interactive element has a visible `focus-visible` ring: 2px `ring` with a 2px offset on the page background. Never remove the outline without an equivalent replacement. Use `:focus-within` for compound controls such as a colour picker plus hex field. A sticky header must not obscure the focused element.
 
+Every page starts with a “Skip to main content” link that becomes visible on focus. Client-side route changes move focus to `#main-content` (`tabIndex={-1}`) and reset scroll, so catalogue cards and palette results do not leave keyboard users on `<body>`.
+
 ### Empty, loading and error states
 
-- Empty: one short line, optional icon, and a clear next action (“Clear filters”, “Paste JSON to begin”).
+- Empty: one short line, optional icon, and a clear next action. The catalogue empty state distinguishes “No favourites yet” from “No tools match …” and offers Clear search / Show all tools. A result count in the catalogue always states how many tools the current filters return.
 - Loading: text ending in `…` and, if longer than a second, a restrained indicator. Keep layout dimensions stable.
 - Error: semantic `danger`, inline, with an actionable sentence. Offer a retry or a link back to the input.
 - Not found: a real page with a heading, explanation and link home; never a blank screen or a raw stack trace.

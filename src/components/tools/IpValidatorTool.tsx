@@ -32,7 +32,7 @@ const IpValidatorTool = () => {
         <div
           className={`rounded border p-3 font-mono text-sm ${
             ipv4 !== null
-              ? "border-green-500/50 bg-green-500/10 text-green-400"
+              ? "border-success/40 bg-success/10 text-success"
               : "border-border bg-secondary text-muted-foreground"
           }`}
         >
@@ -41,7 +41,7 @@ const IpValidatorTool = () => {
         <div
           className={`rounded border p-3 font-mono text-sm ${
             ipv6 !== null
-              ? "border-green-500/50 bg-green-500/10 text-green-400"
+              ? "border-success/40 bg-success/10 text-success"
               : "border-border bg-secondary text-muted-foreground"
           }`}
         >

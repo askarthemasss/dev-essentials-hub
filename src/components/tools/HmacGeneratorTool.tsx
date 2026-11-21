@@ -69,7 +69,7 @@ const HmacGeneratorTool = () => {
         placeholder="Message"
         className="min-h-[100px] font-mono text-sm bg-secondary border-border"
       />
-      {error && <div role="alert" className="rounded bg-secondary p-3 font-mono text-sm text-destructive">{error}</div>}
+      {error && <div role="alert" className="rounded bg-secondary p-3 font-mono text-sm text-danger">{error}</div>}
       {result && <div className="rounded bg-secondary p-3 font-mono text-sm break-all">{result}</div>}
     </div>
   );

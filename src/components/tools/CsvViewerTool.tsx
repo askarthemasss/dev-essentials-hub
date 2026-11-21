@@ -27,7 +27,7 @@ const CsvViewerTool = () => {
       </div>
 
       {error && (
-        <p role="alert" className="font-mono text-sm text-destructive">
+        <p role="alert" className="font-mono text-sm text-danger">
           Row {error.row !== undefined ? error.row + 1 : "?"}: {error.message}
         </p>
       )}
