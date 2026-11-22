@@ -12,10 +12,10 @@ const RegexGeneratorTool = () => {
   return (
     <div className="space-y-4">
       <div className="flex gap-2">
-        <Input value={pattern} onChange={(e) => { setPattern(e.target.value); test(e.target.value, flags, testStr); }} placeholder="Regex pattern" className="font-mono bg-secondary border-border" />
-        <Input value={flags} onChange={(e) => { setFlags(e.target.value); test(pattern, e.target.value, testStr); }} placeholder="Flags" className="w-20 font-mono bg-secondary border-border" />
+        <Input value={pattern} onChange={(e) => { setPattern(e.target.value); test(e.target.value, flags, testStr); }} aria-label="Regex pattern" placeholder="Regex pattern" className="font-mono bg-secondary border-border" />
+        <Input value={flags} onChange={(e) => { setFlags(e.target.value); test(pattern, e.target.value, testStr); }} aria-label="Regex flags" placeholder="Flags" className="w-20 font-mono bg-secondary border-border" />
       </div>
-      <Textarea value={testStr} onChange={(e) => { setTestStr(e.target.value); test(pattern, flags, e.target.value); }} placeholder="Test string…" className="min-h-[100px] font-mono text-sm bg-secondary border-border" />
+      <Textarea value={testStr} onChange={(e) => { setTestStr(e.target.value); test(pattern, flags, e.target.value); }} aria-label="Test string" placeholder="Test string…" className="min-h-[100px] font-mono text-sm bg-secondary border-border" />
       <div className="rounded bg-secondary p-3 font-mono text-sm">{matches.length} match(es): {matches.join(", ")}</div>
     </div>
   );

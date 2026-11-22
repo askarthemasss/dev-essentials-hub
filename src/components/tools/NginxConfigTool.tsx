@@ -54,7 +54,7 @@ server {
         <label className="flex items-center gap-2 text-sm font-mono text-muted-foreground"><Switch checked={ws} onCheckedChange={setWs} />WebSocket</label>
       </div>
       <div className="relative">
-        <Textarea value={config} readOnly rows={20} className="font-mono text-sm bg-secondary border-border" />
+        <Textarea value={config} readOnly rows={20} aria-label="Nginx configuration output" className="font-mono text-sm bg-secondary border-border" />
         <CopyButton value={config} label="Copy nginx configuration" size="icon" className="absolute right-2 top-2 bg-card" />
       </div>
     </div>

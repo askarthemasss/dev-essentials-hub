@@ -11,6 +11,7 @@ const RomanNumeralTool = () => {
       <Input
         value={input}
         onChange={(event) => setInput(event.target.value)}
+        aria-label="Number or Roman numeral"
         placeholder="Enter a number (1–3999) or a Roman numeral"
         spellCheck={false}
         aria-invalid={Boolean(error)}

@@ -65,7 +65,7 @@ const RegexExplainerTool = () => {
 
   return (
     <div className="space-y-4">
-      <Input value={pattern} onChange={(e) => setPattern(e.target.value)} className="font-mono text-sm bg-secondary border-border" placeholder="Enter regex pattern…" />
+      <Input value={pattern} onChange={(e) => setPattern(e.target.value)} aria-label="Regex pattern" className="font-mono text-sm bg-secondary border-border" placeholder="Enter regex pattern…" />
       <div className="rounded-lg border border-border bg-secondary p-4 space-y-1">
         {tokens.map((t, i) => (
           <div key={i} className="flex items-start gap-3">

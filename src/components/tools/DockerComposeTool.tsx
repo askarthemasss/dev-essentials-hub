@@ -50,16 +50,16 @@ const DockerComposeTool = () => {
             {services.length > 1 && <Button size="icon" variant="ghost" onClick={() => removeService(idx)}><Trash2 className="h-4 w-4" /></Button>}
           </div>
           <div className="grid grid-cols-2 gap-3">
-            <Input value={s.name} onChange={(e) => updateService(idx, "name", e.target.value)} placeholder="Service name" className="font-mono text-sm bg-secondary border-border" />
-            <Input value={s.image} onChange={(e) => updateService(idx, "image", e.target.value)} placeholder="Image" className="font-mono text-sm bg-secondary border-border" />
-            <Input value={s.ports} onChange={(e) => updateService(idx, "ports", e.target.value)} placeholder="Ports (3000:3000)" className="font-mono text-sm bg-secondary border-border" />
-            <Input value={s.restart} onChange={(e) => updateService(idx, "restart", e.target.value)} placeholder="Restart policy" className="font-mono text-sm bg-secondary border-border" />
+            <Input value={s.name} onChange={(e) => updateService(idx, "name", e.target.value)} aria-label={`Service ${idx + 1} name`} placeholder="Service name" className="font-mono text-sm bg-secondary border-border" />
+            <Input value={s.image} onChange={(e) => updateService(idx, "image", e.target.value)} aria-label={`Service ${idx + 1} image`} placeholder="Image" className="font-mono text-sm bg-secondary border-border" />
+            <Input value={s.ports} onChange={(e) => updateService(idx, "ports", e.target.value)} aria-label={`Service ${idx + 1} ports`} placeholder="Ports (3000:3000)" className="font-mono text-sm bg-secondary border-border" />
+            <Input value={s.restart} onChange={(e) => updateService(idx, "restart", e.target.value)} aria-label={`Service ${idx + 1} restart policy`} placeholder="Restart policy" className="font-mono text-sm bg-secondary border-border" />
           </div>
         </div>
       ))}
       <Button variant="outline" onClick={addService}><Plus className="h-4 w-4 mr-1" />Add Service</Button>
       <div className="relative">
-        <Textarea value={output} readOnly rows={16} className="font-mono text-sm bg-secondary border-border" />
+        <Textarea value={output} readOnly rows={16} aria-label="docker-compose.yml output" className="font-mono text-sm bg-secondary border-border" />
         <CopyButton value={output} label="Copy docker-compose.yml" size="icon" className="absolute right-2 top-2 bg-card" />
       </div>
     </div>

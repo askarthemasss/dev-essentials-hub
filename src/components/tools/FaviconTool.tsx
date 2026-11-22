@@ -11,7 +11,7 @@ const FaviconTool = () => {
     <div className="space-y-4 max-w-lg">
       <div><span className="text-xs text-muted-foreground font-mono">Favicon URL</span><Input value={url} onChange={(e) => setUrl(e.target.value)} aria-label="Favicon URL" className="font-mono bg-secondary border-border" /></div>
       <div><span className="text-xs text-muted-foreground font-mono">Theme Color</span><input type="color" value={color} onChange={(e) => setColor(e.target.value)} aria-label="Theme color" className="block h-8 w-16" /></div>
-      <Textarea value={output} readOnly className="min-h-[120px] font-mono text-sm bg-secondary border-border" />
+      <Textarea value={output} readOnly aria-label="Favicon HTML output" className="min-h-[120px] font-mono text-sm bg-secondary border-border" />
     </div>
   );
 };

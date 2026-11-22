@@ -20,7 +20,7 @@ const HexDumpTool = () => {
 
   return (
     <div className="space-y-4">
-      <Textarea value={input} onChange={(e) => setInput(e.target.value)} rows={4} className="font-mono text-sm bg-secondary border-border" placeholder="Enter text…" />
+      <Textarea value={input} onChange={(e) => setInput(e.target.value)} aria-label="Text to dump" rows={4} className="font-mono text-sm bg-secondary border-border" placeholder="Enter text…" />
       <pre className="rounded-lg border border-border bg-secondary p-4 font-mono text-xs text-foreground whitespace-pre overflow-x-auto">{hexDump(input)}</pre>
     </div>
   );

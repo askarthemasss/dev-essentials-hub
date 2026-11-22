@@ -11,12 +11,12 @@ const FindReplaceTool = () => {
   return (
     <div className="space-y-4">
       <div className="flex gap-2">
-        <Input value={find} onChange={(e) => setFind(e.target.value)} placeholder="Find" className="font-mono bg-secondary border-border" />
-        <Input value={replace} onChange={(e) => setReplace(e.target.value)} placeholder="Replace" className="font-mono bg-secondary border-border" />
+        <Input value={find} onChange={(e) => setFind(e.target.value)} aria-label="Find" placeholder="Find" className="font-mono bg-secondary border-border" />
+        <Input value={replace} onChange={(e) => setReplace(e.target.value)} aria-label="Replace with" placeholder="Replace" className="font-mono bg-secondary border-border" />
         <span className="shrink-0 self-center text-xs text-muted-foreground font-mono">{count} found</span>
       </div>
-      <Textarea value={input} onChange={(e) => setInput(e.target.value)} placeholder="Input text…" className="min-h-[150px] font-mono text-sm bg-secondary border-border" />
-      <Textarea value={result} readOnly className="min-h-[150px] font-mono text-sm bg-secondary border-border" />
+      <Textarea value={input} onChange={(e) => setInput(e.target.value)} aria-label="Input text" placeholder="Input text…" className="min-h-[150px] font-mono text-sm bg-secondary border-border" />
+      <Textarea value={result} readOnly aria-label="Replaced text output" className="min-h-[150px] font-mono text-sm bg-secondary border-border" />
     </div>
   );
 };

@@ -25,6 +25,35 @@ export async function expectNoAccessibilityViolations(page: Page): Promise<void>
 }
 
 /**
+ * Fails when a form control relies on its placeholder or has no accessible
+ * name. Axe accepts placeholders, so this guard is explicit.
+ */
+export async function expectNamedControls(page: Page): Promise<void> {
+  const unnamed = await page.evaluate(() => {
+    const controls = Array.from(
+      document.querySelectorAll<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>(
+        "input:not([type='hidden']), textarea, select",
+      ),
+    );
+
+    return controls
+      .filter((control) => {
+        const ariaLabel = control.getAttribute("aria-label")?.trim();
+        const labelledBy = control.getAttribute("aria-labelledby")?.trim();
+        const title = control.getAttribute("title")?.trim();
+        return !ariaLabel && !labelledBy && !title && !control.labels?.length;
+      })
+      .map((control) => {
+        const type = control.getAttribute("type");
+        const tag = `${control.tagName.toLowerCase()}${type ? `[${type}]` : ""}`;
+        return `${tag} placeholder="${control.getAttribute("placeholder") ?? ""}"`;
+      });
+  });
+
+  expect(unnamed, "form controls need a label or aria-label").toEqual([]);
+}
+
+/**
  * Collects uncaught page errors and console errors. Failed font/resource loads
  * are ignored because they do not affect tool behaviour.
  */

@@ -1,5 +1,5 @@
 import { expect, test } from "@playwright/test";
-import { expectNoAccessibilityViolations, openTool } from "./helpers";
+import { expectNoAccessibilityViolations, expectNamedControls, openTool } from "./helpers";
 
 const searchTools = (page: import("@playwright/test").Page) =>
   page.getByRole("combobox", { name: "Search developer tools" });
@@ -116,6 +116,51 @@ test.describe("copy and validation feedback", () => {
     expect(describedBy).toBeTruthy();
     await expect(page.locator(`[id="${describedBy}"]`)).toContainText("Invalid YAML");
     await expect(page.locator("textarea").nth(1)).toHaveValue("");
+    await expectNoAccessibilityViolations(page);
+  });
+
+  test("repeated-row inputs carry row-specific names", async ({ page }) => {
+    await openTool(page, "env-generator");
+
+    await expect(page.getByRole("textbox", { name: "Variable 1 key" })).toHaveValue("DATABASE_URL");
+    await expect(page.getByRole("textbox", { name: "Variable 2 value" })).toBeVisible();
+
+    await page.getByRole("button", { name: "Add Variable" }).click();
+    await expect(page.getByRole("textbox", { name: "Variable 4 key" })).toBeVisible();
+    await expectNoAccessibilityViolations(page);
+  });
+
+  test("read-only outputs carry descriptive names", async ({ page }) => {
+    await openTool(page, "sitemap");
+
+    await expect(page.getByRole("textbox", { name: "Sitemap XML output" })).toHaveValue(/<urlset/);
+    await expectNamedControls(page);
+  });
+
+  test("invalid JSON in the diff shows an inline error, not output text", async ({ page }) => {
+    await openTool(page, "json-diff");
+
+    const original = page.getByRole("textbox", { name: "Original JSON" });
+    const modified = page.getByRole("textbox", { name: "Modified JSON" });
+    await original.fill('{"name": }');
+    await modified.fill('{"name": "Bob"}');
+    await page.getByRole("button", { name: "Compare" }).click();
+
+    const error = page.getByRole("alert");
+    await expect(error).toContainText("Original JSON is invalid");
+    await expect(error).toContainText("Fix the syntax and compare again.");
+    await expect(original).toHaveAttribute("aria-invalid", "true");
+    await expect(modified).toHaveAttribute("aria-invalid", "false");
+
+    const describedBy = await original.getAttribute("aria-describedby");
+    expect(describedBy).toBeTruthy();
+    await expect(page.locator(`[id="${describedBy}"]`)).toContainText("Original JSON is invalid");
+    await expect(page.locator("pre")).toContainText("No diff available until both JSON documents are valid.");
+
+    await original.fill('{"name": "Alice"}');
+    await page.getByRole("button", { name: "Compare" }).click();
+    await expect(page.getByRole("alert")).toHaveCount(0);
+    await expect(page.locator("pre")).toContainText('~ name: "Alice" → "Bob"');
     await expectNoAccessibilityViolations(page);
   });
 

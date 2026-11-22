@@ -19,7 +19,7 @@ const PasswordStrengthTool = () => {
   const label = score < 30 ? "Weak" : score < 60 ? "Fair" : score < 80 ? "Good" : "Strong";
   return (
     <div className="space-y-4 max-w-md">
-      <Input value={pw} onChange={(e) => setPw(e.target.value)} placeholder="Enter password" className="font-mono bg-secondary border-border" type="text" />
+      <Input value={pw} onChange={(e) => setPw(e.target.value)} aria-label="Password to check" placeholder="Enter password" className="font-mono bg-secondary border-border" type="text" />
       <Progress value={score} aria-label="Password strength" className="h-3" />
       <div className="flex justify-between font-mono text-sm"><span>{label}</span><span>{score}/100</span></div>
       <div className="space-y-1 text-xs font-mono text-muted-foreground">

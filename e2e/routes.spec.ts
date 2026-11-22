@@ -1,6 +1,6 @@
 import { expect, test } from "@playwright/test";
 import { tools } from "../src/data/tools";
-import { expectNoAccessibilityViolations, watchPageErrors } from "./helpers";
+import { expectNoAccessibilityViolations, expectNamedControls, watchPageErrors } from "./helpers";
 
 test.describe("all tool routes", () => {
   for (const tool of tools) {
@@ -9,10 +9,11 @@ test.describe("all tool routes", () => {
 
       await page.goto(`/tool/${tool.id}`);
 
-      await expect(page.getByRole("heading", { level: 1 })).toHaveText(tool.name);
+      await expect(page.locator("#tool-title")).toHaveText(tool.name);
       await expect(page.getByText("Loading tool…")).toHaveCount(0);
       await expect(page.getByText("Something broke")).toHaveCount(0);
       await expectNoAccessibilityViolations(page);
+      await expectNamedControls(page);
       expect(errors).toEqual([]);
     });
   }

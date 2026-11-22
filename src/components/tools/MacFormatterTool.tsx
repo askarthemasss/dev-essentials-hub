@@ -20,6 +20,7 @@ const MacFormatterTool = () => {
       <Input
         value={input}
         onChange={(event) => setInput(event.target.value)}
+        aria-label="MAC address"
         placeholder="Enter MAC address"
         spellCheck={false}
         aria-invalid={!formats}

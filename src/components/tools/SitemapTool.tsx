@@ -9,7 +9,7 @@ const SitemapTool = () => {
   return (
     <div className="space-y-4">
       <div><span className="text-xs text-muted-foreground font-mono">URLs (one per line)</span><Textarea value={urls} onChange={(e) => setUrls(e.target.value)} aria-label="URLs, one per line" className="min-h-[100px] font-mono text-sm bg-secondary border-border" /></div>
-      <Textarea value={xml} readOnly className="min-h-[200px] font-mono text-sm bg-secondary border-border" />
+      <Textarea value={xml} readOnly aria-label="Sitemap XML output" className="min-h-[200px] font-mono text-sm bg-secondary border-border" />
     </div>
   );
 };
