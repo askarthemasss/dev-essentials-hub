@@ -15,8 +15,10 @@ const ToolPage: React.FC = () => {
 
   useSEO(
     tool ? `${tool.name} — DevToolbox` : "Page not found — DevToolbox",
-    tool ? `${tool.description}. Free online developer tool — runs entirely in your browser.` : "",
-    toolId ? `/tool/${toolId}` : "/"
+    tool
+      ? `${tool.description}. Free browser-based developer tool that runs locally without uploads.`
+      : "",
+    toolId ? `/tool/${toolId}` : "/",
   );
 
   useEffect(() => {
@@ -29,7 +31,7 @@ const ToolPage: React.FC = () => {
   if (!tool || !Component) return <NotFound />;
 
   return (
-    <ToolLayout title={tool.name} description={tool.description} category={tool.category}>
+    <ToolLayout tool={tool}>
       <React.Suspense
         fallback={
           <div className="flex items-center justify-center py-20 font-mono text-sm text-muted-foreground">

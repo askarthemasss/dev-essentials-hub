@@ -19,13 +19,37 @@ test.describe("all tool routes", () => {
   }
 });
 
-test("home page renders the catalogue", async ({ page }) => {
+test("home page renders the workbench", async ({ page }) => {
   const errors = watchPageErrors(page);
 
   await page.goto("/");
 
-  await expect(page.getByRole("heading", { level: 1 })).toContainText("DevToolbox");
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("129 tools. One local workbench.");
   await expect(page.getByRole("textbox", { name: /Search \d+ developer tools/ })).toBeVisible();
+  await expect(page.getByRole("navigation", { name: "Primary" })).toBeVisible();
+  await expectNoAccessibilityViolations(page);
+  expect(errors).toEqual([]);
+});
+
+test("tools directory renders the catalogue", async ({ page }) => {
+  const errors = watchPageErrors(page);
+
+  await page.goto("/tools");
+
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("All 129 developer tools");
+  await expect(page.getByRole("textbox", { name: /Search \d+ developer tools/ })).toBeVisible();
+  await expect(page.getByText("129 tools", { exact: true })).toBeVisible();
+  await expectNoAccessibilityViolations(page);
+  expect(errors).toEqual([]);
+});
+
+test("usage guide renders", async ({ page }) => {
+  const errors = watchPageErrors(page);
+
+  await page.goto("/usage");
+
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("How to use DevToolbox");
+  await expect(page.getByRole("heading", { name: "Keyboard shortcuts" })).toBeVisible();
   await expectNoAccessibilityViolations(page);
   expect(errors).toEqual([]);
 });

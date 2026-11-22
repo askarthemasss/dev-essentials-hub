@@ -1,5 +1,6 @@
 import { useEffect, useState, useCallback, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { BookOpen, Home, LayoutGrid } from "lucide-react";
 import { tools } from "@/data/tools";
 import { OPEN_COMMAND_PALETTE_EVENT } from "@/lib/commandPalette";
 import {
@@ -11,10 +12,36 @@ import {
   CommandItem,
 } from "@/components/ui/command";
 
+const pages = [
+  {
+    id: "home",
+    name: "Home",
+    description: "The DevToolbox homepage",
+    to: "/",
+    icon: Home,
+  },
+  {
+    id: "tools",
+    name: "All tools",
+    description: "Browse the full catalogue",
+    to: "/tools",
+    icon: LayoutGrid,
+  },
+  {
+    id: "usage",
+    name: "Usage guide",
+    description: "Shortcuts, privacy and how the tools work",
+    to: "/usage",
+    icon: BookOpen,
+  },
+];
+
 const CommandPalette = () => {
   const [open, setOpen] = useState(false);
   const originRef = useRef<HTMLElement | null>(null);
+  const skipReturnFocusRef = useRef(false);
   const navigate = useNavigate();
+  const { pathname } = useLocation();
 
   const rememberOrigin = useCallback(() => {
     originRef.current =
@@ -55,6 +82,15 @@ const CommandPalette = () => {
 
   const handleCloseAutoFocus = useCallback((event: Event) => {
     event.preventDefault();
+
+    // A selection navigates to a new surface, so let RouteFocus move focus to
+    // the new page's main region instead of the persistent header trigger.
+    if (skipReturnFocusRef.current) {
+      skipReturnFocusRef.current = false;
+      originRef.current = null;
+      return;
+    }
+
     const origin = originRef.current;
     originRef.current = null;
 
@@ -65,12 +101,22 @@ const CommandPalette = () => {
     }
   }, []);
 
+  const handleNavigate = useCallback(
+    (path: string) => {
+      // Selecting the current page only closes the palette; focus should return
+      // to the trigger. A real path change lets RouteFocus own the focus move.
+      skipReturnFocusRef.current = path !== pathname;
+      setOpen(false);
+      if (path !== pathname) navigate(path);
+    },
+    [navigate, pathname],
+  );
+
   const handleSelect = useCallback(
     (toolId: string) => {
-      setOpen(false);
-      navigate(`/tool/${toolId}`);
+      handleNavigate(`/tool/${toolId}`);
     },
-    [navigate],
+    [handleNavigate],
   );
 
   return (
@@ -111,17 +157,39 @@ const CommandPalette = () => {
             );
           })}
         </CommandGroup>
+        <CommandGroup heading="Pages">
+          {pages.map((page) => {
+            const Icon = page.icon;
+            return (
+              <CommandItem
+                key={page.id}
+                value={`${page.name} ${page.description}`}
+                onSelect={() => handleNavigate(page.to)}
+                className="cursor-pointer gap-2"
+              >
+                <Icon
+                  className="h-4 w-4 shrink-0 text-primary group-data-[selected=true]:text-primary-foreground"
+                  aria-hidden="true"
+                />
+                <span className="min-w-0 flex-1 truncate font-mono text-sm">{page.name}</span>
+                <span className="hidden shrink-0 text-xs text-muted-foreground group-data-[selected=true]:text-primary-foreground/80 sm:inline">
+                  {page.description}
+                </span>
+              </CommandItem>
+            );
+          })}
+        </CommandGroup>
       </CommandList>
       <div className="flex items-center justify-between gap-3 border-t border-border px-3 py-2 text-[11px] text-muted-foreground">
         <span>{tools.length} tools</span>
         <span className="sm:hidden">Type to filter, tap to open</span>
         <span className="hidden items-center gap-1.5 sm:flex" aria-hidden="true">
-          <kbd className="rounded border border-border bg-secondary px-1 font-mono">↑</kbd>
-          <kbd className="rounded border border-border bg-secondary px-1 font-mono">↓</kbd>
+          <kbd className="rounded border border-border bg-secondary px-1 font-mono text-foreground">↑</kbd>
+          <kbd className="rounded border border-border bg-secondary px-1 font-mono text-foreground">↓</kbd>
           navigate
-          <kbd className="ml-1 rounded border border-border bg-secondary px-1 font-mono">↵</kbd>
+          <kbd className="ml-1 rounded border border-border bg-secondary px-1 font-mono text-foreground">↵</kbd>
           open
-          <kbd className="ml-1 rounded border border-border bg-secondary px-1 font-mono">esc</kbd>
+          <kbd className="ml-1 rounded border border-border bg-secondary px-1 font-mono text-foreground">esc</kbd>
           close
         </span>
       </div>
