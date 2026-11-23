@@ -109,6 +109,27 @@ test("usage guide anchors and troubleshooting work", async ({ page }) => {
   await expectNoAccessibilityViolations(page);
 });
 
+test("cross-route hash links land on the named guide section", async ({ page }) => {
+  await openTool(page, "json-formatter");
+  await page.getByRole("link", { name: "How to use this tool" }).click();
+
+  await expect(page).toHaveURL(/\/usage#work-with-a-tool$/);
+  const sectionHeading = page.getByRole("heading", { name: "Work with a tool", level: 2 });
+  await expect
+    .poll(async () => sectionHeading.evaluate((element) => element.getBoundingClientRect().top))
+    .toBeLessThan(160);
+  await expect(page.locator("#main-content")).toBeFocused();
+
+  await page.goto("/");
+  await page.getByRole("link", { name: /Read the privacy notes/ }).click();
+
+  await expect(page).toHaveURL(/\/usage#privacy$/);
+  const privacyHeading = page.getByRole("heading", { name: "Privacy", level: 2 });
+  await expect
+    .poll(async () => privacyHeading.evaluate((element) => element.getBoundingClientRect().top))
+    .toBeLessThan(160);
+});
+
 test.describe("mobile surfaces", () => {
   test.use({ viewport: { width: 360, height: 800 }, hasTouch: true, isMobile: true });
 

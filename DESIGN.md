@@ -501,7 +501,7 @@ The command palette, select menus and tooltips use the `popover` surface, 1px bo
 
 Every interactive element has a visible `focus-visible` ring: 2px `ring` with a 2px offset on the page background. Never remove the outline without an equivalent replacement. Use `:focus-within` for compound controls such as a colour picker plus hex field. A sticky header must not obscure the focused element.
 
-Every page starts with a “Skip to main content” link that becomes visible on focus. Client-side route changes move focus to `#main-content` (`tabIndex={-1}`) and reset scroll, so catalogue cards and palette results do not leave keyboard users on `<body>`.
+Every page starts with a “Skip to main content” link that becomes visible on focus. Client-side route changes move focus to `#main-content` (`tabIndex={-1}`) and reset scroll, so catalogue cards and palette results do not leave keyboard users on `<body>`. When the destination includes a fragment (for example `/usage#privacy`), scroll to that section instead of the top; keep the focus move on `main`.
 
 ### Empty, loading and error states
 

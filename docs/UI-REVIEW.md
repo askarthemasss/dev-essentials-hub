@@ -145,6 +145,7 @@ Then open the preview URL (default `http://localhost:4173`) and check the change
 - [ ] Hover, active and disabled states are distinguishable; disabled controls cannot be activated.
 - [ ] Actions use `<button>`, navigation uses `<a>`/`<Link>`; no clickable `<div>`.
 - [ ] Modals/palettes trap focus, close on <kbd>Escape</kbd> and restore focus.
+- [ ] Cross-route hash links (`/usage#privacy`) focus the new page and scroll to the named section, not the top.
 - [ ] Async feedback uses `role="alert"` or `aria-live` and appears next to the cause.
 - [ ] Forms allow paste, use correct `type`/`inputmode`, disable spellcheck for code and keep labels clickable.
 
