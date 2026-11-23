@@ -32,7 +32,7 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
               This tool hit an unexpected error. Your inputs were never sent anywhere.
             </p>
             <div className="flex justify-center gap-2">
-              <Button onClick={() => window.location.assign("/")}>Back to tools</Button>
+              <Button onClick={() => window.location.assign("/tools")}>Back to all tools</Button>
               <Button variant="outline" onClick={() => window.location.reload()}>
                 Reload
               </Button>

@@ -50,7 +50,7 @@ const AsciiTableTool = () => {
           {visible.map((character) => (
             <div key={character.code} className="rounded bg-secondary p-2 text-center">
               <div className="text-lg font-mono">{character.char}</div>
-              <div className="text-[10px] text-muted-foreground">
+              <div className="text-[11px] text-muted-foreground">
                 {character.code} (0x{character.hex})
               </div>
             </div>

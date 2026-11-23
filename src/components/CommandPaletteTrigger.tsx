@@ -26,7 +26,7 @@ const CommandPaletteTrigger = ({ className }: CommandPaletteTriggerProps) => (
     <Command className="h-4 w-4" aria-hidden="true" />
     <span className="hidden lg:inline">Quick open</span>
     <kbd
-      className="hidden items-center gap-0.5 rounded border border-border bg-card px-1.5 py-0.5 font-mono text-[9px] text-muted-foreground md:inline-flex"
+      className="hidden items-center gap-0.5 rounded border border-border bg-card px-1.5 py-0.5 font-mono text-[11px] text-muted-foreground md:inline-flex"
       aria-hidden="true"
     >
       ⌘&nbsp;K

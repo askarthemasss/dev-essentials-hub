@@ -67,6 +67,7 @@ Fetch the command file above and review the changed files against it. The sectio
 - **Typography** — `…`, curly quotes, tabular numerals, balanced headings.
 - **Content handling** — truncation/`min-w-0`, empty states, long and Unicode input.
 - **Navigation and state** — links for navigation, URL reflects filter/tab state where practical, destructive actions confirmed.
+- **Directory filters** — `q`, `category` and `view=favorites` round-trip through the URL and browser back.
 - **Touch and interaction** — 44px targets, intentional tap highlight, overscroll containment in overlays, no hover-only actions.
 - **Dark mode and theming** — `color-scheme: dark`, `theme-color` matches `#0b0d13`, native select colours.
 - **Hover and copy** — every interactive element has hover/active feedback; active voice, specific labels, numerals for counts.
@@ -84,13 +85,16 @@ npm run preview
 
 Then open the preview URL (default `http://localhost:4173`) and check the changed surface plus these anchor routes:
 
-- `/` — catalogue, search, filters, favourites, most-used/recent sections, grid.
-- `/tool/json-formatter` — textarea-heavy formatter with a primary action and output.
+- `/` — homepage statement, working search, category index, popular/recent tools, privacy band.
+- `/tools` — directory grid, search, category chips, favourites, most-used and empty states.
+- `/tools?category=Formatters&q=json` — URL-backed filter combination and Clear filters.
+- `/usage` — guide layout, side index, shortcuts table, troubleshooting and privacy sections.
+- `/tool/json-formatter` — textarea-heavy formatter with a primary action, output, breadcrumbs, notes and related tools.
 - `/tool/uuid-generator` — generator with buttons, counts and copy actions.
 - `/tool/css-gradient` — visual tool with colour inputs and live preview.
 - `/tool/color-contrast` — colour picker plus hex fields, contrast output and error states.
 - `/tool/not-a-real-tool` — not-found page.
-- <kbd>⌘</kbd>+<kbd>K</kbd> / <kbd>Ctrl</kbd>+<kbd>K</kbd> — command palette, keyboard navigation and focus return.
+- <kbd>⌘</kbd>+<kbd>K</kbd> / <kbd>Ctrl</kbd>+<kbd>K</kbd> — command palette, tool-before-page ranking, keyboard navigation and focus return.
 
 ### Viewports and input modes
 
@@ -106,11 +110,13 @@ Then open the preview URL (default `http://localhost:4173`) and check the change
 
 **First impression and layout**
 
-- [ ] Catalogue and search are visible immediately; no hero or decorative intro was added.
-- [ ] Catalogue max width is 1152px and tool pages are 1024px; 16px page gutters are intact.
-- [ ] Tool grid density and 8px gaps are preserved at 360, 768, 1024 and 1440px.
-- [ ] No new one-section-per-screen marketing pattern, oversized card or empty filler block.
+- [ ] The homepage reads as an index: statement, working search, three assurances and the category panel; no marketing-card soup.
+- [ ] The directory is one click away from the header and footer, with search and filters visible on arrival.
+- [ ] Homepage/directory/guide/header max width is 1152px and tool pages are 1024px; 16px page gutters are intact.
+- [ ] Directory grid density and 8px gaps are preserved at 360, 768, 1024 and 1440px.
+- [ ] No oversized marketing card, testimonial block, logo cloud or empty filler section.
 - [ ] Sticky header does not cover focused content or in-page anchors.
+- [ ] Breadcrumbs appear on `/tools`, `/usage` and tool pages, not on the homepage.
 
 **Colour and depth**
 
@@ -124,10 +130,11 @@ Then open the preview URL (default `http://localhost:4173`) and check the change
 **Typography and content**
 
 - [ ] Tool names, output, IDs, code and numbers use JetBrains Mono; prose uses Inter.
-- [ ] No new body text below 14px; 12px is metadata and 11px is chips.
+- [ ] No new body text below 14px; 12px is metadata and 11px is chips, counts and keycaps.
 - [ ] Long strings truncate, wrap or scroll inside their container; `min-w-0` is present on flex children.
 - [ ] Empty, loading and error states exist and are actionable.
 - [ ] Copy is active, specific and second person; `…`, curly quotes and `⌘&nbsp;K` follow the contract.
+- [ ] Inline prose links carry a permanent underline, not colour alone.
 - [ ] Numbers use tabular numerals where they change or align.
 
 **Interaction and accessibility**
@@ -138,6 +145,7 @@ Then open the preview URL (default `http://localhost:4173`) and check the change
 - [ ] Hover, active and disabled states are distinguishable; disabled controls cannot be activated.
 - [ ] Actions use `<button>`, navigation uses `<a>`/`<Link>`; no clickable `<div>`.
 - [ ] Modals/palettes trap focus, close on <kbd>Escape</kbd> and restore focus.
+- [ ] Cross-route hash links (`/usage#privacy`) focus the new page and scroll to the named section, not the top.
 - [ ] Async feedback uses `role="alert"` or `aria-live` and appears next to the cause.
 - [ ] Forms allow paste, use correct `type`/`inputmode`, disable spellcheck for code and keep labels clickable.
 
@@ -161,9 +169,8 @@ Then open the preview URL (default `http://localhost:4173`) and check the change
 
 These are known gaps in the current product, not regressions introduced by a pull request. Record them as follow-ups; do not block an unrelated change for them, and do not copy them into new code.
 
-- The decorative `⌘K` keycap is 9px. It is duplicated by the quick-open button's accessible name; do not introduce new text at that size.
-- Catalogue search and category filters live in local state, not the URL. Deep-linking those states is a future improvement.
-- The 129-card grid renders every card. Revisit virtualization if the catalogue grows substantially or interaction performance drops.
+- The 129-card grid renders every card in the directory. Revisit virtualization if the catalogue grows substantially or interaction performance drops.
+- The homepage recent and most-used lists read `localStorage` after mount; a first paint with empty history is expected.
 
 ## Severity
 

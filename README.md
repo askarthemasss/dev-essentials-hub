@@ -40,8 +40,9 @@ JSON, YAML, Base64, JWTs, regex, colors, CSS, cron, subnets, hashes and more. Ev
 ## Highlights
 
 - **129 tools across 12 categories** — encoding, formatting, conversion, generation, CSS, security, networking, math and reference.
-- **Instant search everywhere** — filter by name, description or category, or press <kbd>⌘</kbd>+<kbd>K</kbd> (<kbd>Ctrl</kbd>+<kbd>K</kbd>) to jump to any tool.
-- **Personal dashboard** — favorites, recently used tools and most-used tools are stored locally.
+- **Four clear surfaces** — a searchable homepage, a filterable directory, a usage guide and focused tool pages with notes and related tools.
+- **Instant search** — filter the directory by name, description or category, or press <kbd>⌘</kbd>+<kbd>K</kbd> (<kbd>Ctrl</kbd>+<kbd>K</kbd>) to jump to any tool from any page. Search, category and favourites views are URL-backed.
+- **Personal shortcuts** — favorites, recently used tools and most-used tools are stored locally.
 - **Live previews** — gradients, shadows, flexbox, grids, clip paths, color palettes and more update as you type.
 - **Private by design** — files, tokens, passwords and text never leave the page. There is no backend and no analytics.
 - **Shareable, crawlable pages** — every tool has its own URL, static HTML metadata, canonical link, Open Graph tags and JSON-LD.
@@ -107,10 +108,13 @@ src/
 │   ├── tools/                # one lazy-loaded component per tool
 │   ├── ui/                   # shadcn/ui primitives
 │   ├── ToolCard.tsx
+│   ├── ToolLayout.tsx
+│   ├── SiteHeader.tsx
+│   ├── SiteFooter.tsx
 │   └── CommandPalette.tsx
 ├── hooks/                    # SEO, favorites, recents, most-used
 ├── lib/                      # pure logic + unit tests
-└── pages/                    # home, tool page, 404
+└── pages/                    # home, directory, usage guide, tool page, 404
 e2e/                          # Playwright route and interaction tests
 scripts/generate-seo.mjs      # static metadata, sitemap, robots.txt, 404.html
 docs/screenshots/             # README screenshots
@@ -306,6 +310,7 @@ Every tool runs entirely in the browser. Inputs, uploaded files and generated se
 The app is a static Vite build and deploys to any static host. `npm run build` also runs `scripts/generate-seo.mjs`, which writes:
 
 - `dist/tool/<id>/index.html` for all 129 tools with their own title, description, canonical URL, Open Graph/Twitter tags and JSON-LD.
+- `dist/tools/index.html` and `dist/usage/index.html` with their own metadata.
 - a rewritten home page with matching metadata.
 - `dist/sitemap.xml`, `dist/robots.txt` and `dist/404.html`.
 

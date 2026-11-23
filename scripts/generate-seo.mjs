@@ -67,17 +67,19 @@ function withMetadata(html, { title, description, url, jsonLd }) {
 
 const baseHtml = await fs.readFile(path.join(distDir, "index.html"), "utf8");
 
-const homeTitle = `DevToolbox — ${tools.length} Free Online Developer Tools`;
-const homeDescription = `Free collection of ${tools.length} browser-based developer tools. JSON formatter, Base64, UUID, regex tester, color picker, JWT decoder, and more.`;
+const homeTitle = `DevToolbox — ${tools.length} Free Browser-Based Developer Tools`;
+const homeDescription = `${tools.length} developer tools that run locally in your browser. Format JSON, encode Base64, generate UUIDs, test regex, check contrast and more. No account or uploads.`;
 const homeJsonLd = {
   "@context": "https://schema.org",
   "@type": "WebApplication",
   name: "DevToolbox",
   url: `${siteUrl}/`,
-  description: `A free collection of ${tools.length} online developer tools including encoders, formatters, generators, converters, and more.`,
+  description: `A free collection of ${tools.length} browser-based developer tools including encoders, formatters, generators, converters and more.`,
   applicationCategory: "DeveloperApplication",
   operatingSystem: "Any",
   offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+  featureList:
+    "JSON Formatter, Base64 Encoder, UUID Generator, Regex Tester, Color Contrast Checker, JWT Decoder, JSON Diff, Docker Compose Generator, Nginx Config Generator, JSON to TypeScript",
 };
 
 const homeHtml = withMetadata(baseHtml, {
@@ -88,12 +90,58 @@ const homeHtml = withMetadata(baseHtml, {
 });
 await fs.writeFile(path.join(distDir, "index.html"), homeHtml);
 
+async function writeStaticRoute(route, html) {
+  const routeDir = path.join(distDir, route);
+  await fs.mkdir(routeDir, { recursive: true });
+  await fs.writeFile(path.join(routeDir, "index.html"), html);
+  // Extensionless hosts that map /route -> route.html also get a copy.
+  await fs.writeFile(path.join(distDir, `${route}.html`), html);
+}
+
+const toolsTitle = `All ${tools.length} Developer Tools — DevToolbox`;
+const toolsDescription = `Browse all ${tools.length} browser-based developer tools by category. Formatters, encoders, generators, converters and more — every tool runs locally in your browser.`;
+await writeStaticRoute(
+  "tools",
+  withMetadata(homeHtml, {
+    title: toolsTitle,
+    description: toolsDescription,
+    url: `${siteUrl}/tools`,
+    jsonLd: {
+      "@context": "https://schema.org",
+      "@type": "CollectionPage",
+      name: toolsTitle,
+      url: `${siteUrl}/tools`,
+      description: toolsDescription,
+      isPartOf: { "@type": "WebApplication", name: "DevToolbox", url: `${siteUrl}/` },
+    },
+  })
+);
+
+const usageTitle = "How to Use DevToolbox — Shortcuts, Privacy and Tips";
+const usageDescription = `Find tools, work with inputs and outputs, keep favorites, learn keyboard shortcuts and understand what stays in your browser across ${tools.length} developer tools.`;
+await writeStaticRoute(
+  "usage",
+  withMetadata(homeHtml, {
+    title: usageTitle,
+    description: usageDescription,
+    url: `${siteUrl}/usage`,
+    jsonLd: {
+      "@context": "https://schema.org",
+      "@type": "TechArticle",
+      headline: "How to Use DevToolbox",
+      url: `${siteUrl}/usage`,
+      description: usageDescription,
+      isPartOf: { "@type": "WebApplication", name: "DevToolbox", url: `${siteUrl}/` },
+    },
+  })
+);
+
 await fs.mkdir(path.join(distDir, "tool"), { recursive: true });
 
 for (const tool of tools) {
   const url = `${siteUrl}/tool/${tool.id}`;
   const title = `${tool.name} — DevToolbox`;
-  const description = `${tool.description}. Free online developer tool that runs entirely in your browser.`;
+  const description = `${tool.description}. Free browser-based developer tool that runs locally without uploads.`;
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "WebApplication",
@@ -114,6 +162,8 @@ for (const tool of tools) {
 
 const urls = [
   `<url><loc>${siteUrl}/</loc><lastmod>${today}</lastmod><changefreq>weekly</changefreq><priority>1.0</priority></url>`,
+  `<url><loc>${siteUrl}/tools</loc><lastmod>${today}</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>`,
+  `<url><loc>${siteUrl}/usage</loc><lastmod>${today}</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>`,
   ...tools.map(
     (tool) =>
       `<url><loc>${siteUrl}/tool/${tool.id}</loc><lastmod>${today}</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>`
@@ -142,4 +192,6 @@ const notFoundHtml = withMetadata(homeHtml, {
 });
 await fs.writeFile(path.join(distDir, "404.html"), notFoundHtml);
 
-console.log(`SEO: generated metadata for ${tools.length} tools, sitemap.xml, robots.txt and 404.html`);
+console.log(
+  `SEO: generated metadata for ${tools.length} tools, /tools, /usage, sitemap.xml, robots.txt and 404.html`
+);

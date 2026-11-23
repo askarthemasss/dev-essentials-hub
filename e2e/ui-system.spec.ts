@@ -182,7 +182,7 @@ test.describe("mobile controls", () => {
   test.use({ viewport: { width: 360, height: 800 }, hasTouch: true, isMobile: true });
 
   test("search and filters stay readable and tappable without overflow", async ({ page }) => {
-    await page.goto("/");
+    await page.goto("/tools");
 
     const search = page.getByRole("textbox", { name: /Search \d+ developer tools/ });
     await expect(search).toBeVisible();
