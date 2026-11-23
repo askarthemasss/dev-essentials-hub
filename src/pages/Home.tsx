@@ -88,6 +88,7 @@ const Home = () => {
                 />
                 <Input
                   id={searchId}
+                  name="q"
                   value={query}
                   onChange={(event) => setQuery(event.target.value)}
                   placeholder="Try “JWT”, “diff” or “base64”…"

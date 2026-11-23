@@ -127,6 +127,7 @@ const Tools = () => {
                 />
                 <Input
                   id={searchId}
+                  name="q"
                   value={search}
                   onChange={(event) => updateParams({ q: event.target.value || null })}
                   placeholder="Search by name, description or category…"
