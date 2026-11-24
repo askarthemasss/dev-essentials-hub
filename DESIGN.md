@@ -317,7 +317,7 @@ Never communicate status with colour alone. Pair the colour with a word, an icon
 
 ## Typography
 
-Inter carries the interface; JetBrains Mono carries anything a developer would copy, compare or scan as data. Both are loaded from Google Fonts with `display=swap` and preconnect hints in `index.html`.
+Inter carries the interface; JetBrains Mono carries anything a developer would copy, compare or scan as data. Both are self-hosted through Fontsource with `font-display: swap`, so first paint never waits on a third-party font stylesheet.
 
 | Token | Family | Size / weight / line height | Use |
 | --- | --- | --- | --- |
