@@ -65,19 +65,21 @@ const GraphqlSchemaTool = () => {
             {types.length > 1 && <Button size="icon" variant="ghost" onClick={() => removeType(ti)} aria-label={`Remove ${t.name} type`} className="ml-auto"><Trash2 className="h-4 w-4" /></Button>}
           </div>
           {t.fields.map((f, fi) => (
-            <div key={fi} className="flex items-center gap-2">
-              <Input value={f.name} onChange={(e) => updateField(ti, fi, { name: e.target.value })} aria-label={`Field name for ${t.name}`} className="font-mono text-sm bg-secondary border-border w-32" placeholder="field" />
+            <div key={fi} className="grid grid-cols-2 items-center gap-2 sm:flex">
+              <Input value={f.name} onChange={(e) => updateField(ti, fi, { name: e.target.value })} aria-label={`Field name for ${t.name}`} className="min-w-0 w-full font-mono text-sm bg-secondary border-border sm:w-32" placeholder="field" />
               <Select value={f.type} onValueChange={(v) => updateField(ti, fi, { type: v as FieldType })}>
-                <SelectTrigger aria-label={`Type of ${f.name}`} className="w-28 font-mono text-sm bg-secondary border-border"><SelectValue /></SelectTrigger>
+                <SelectTrigger aria-label={`Type of ${f.name}`} className="w-full min-w-0 font-mono text-sm bg-secondary border-border sm:w-28"><SelectValue /></SelectTrigger>
                 <SelectContent>{fieldTypes.map((ft) => <SelectItem key={ft} value={ft}>{ft}</SelectItem>)}</SelectContent>
               </Select>
-              <label className="flex items-center gap-1 text-xs font-mono text-muted-foreground">
-                <input type="checkbox" checked={f.required} onChange={(e) => updateField(ti, fi, { required: e.target.checked })} />!
-              </label>
-              <label className="flex items-center gap-1 text-xs font-mono text-muted-foreground">
-                <input type="checkbox" checked={f.isList} onChange={(e) => updateField(ti, fi, { isList: e.target.checked })} />[]
-              </label>
-              <Button size="icon" variant="ghost" onClick={() => removeField(ti, fi)} aria-label={`Remove field ${f.name}`}><Trash2 className="h-3 w-3" /></Button>
+              <div className="col-span-2 flex items-center gap-3 sm:contents">
+                <label className="flex items-center gap-1 text-xs font-mono text-muted-foreground">
+                  <input type="checkbox" checked={f.required} onChange={(e) => updateField(ti, fi, { required: e.target.checked })} />!
+                </label>
+                <label className="flex items-center gap-1 text-xs font-mono text-muted-foreground">
+                  <input type="checkbox" checked={f.isList} onChange={(e) => updateField(ti, fi, { isList: e.target.checked })} />[]
+                </label>
+                <Button size="icon" variant="ghost" onClick={() => removeField(ti, fi)} aria-label={`Remove field ${f.name}`} className="ml-auto shrink-0 sm:ml-0"><Trash2 className="h-3 w-3" /></Button>
+              </div>
             </div>
           ))}
           <Button size="sm" variant="outline" onClick={() => addField(ti)}><Plus className="h-3 w-3 mr-1" />Field</Button>

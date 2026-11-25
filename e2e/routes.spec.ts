@@ -19,6 +19,24 @@ test.describe("all tool routes", () => {
   }
 });
 
+test.describe("all tool routes on a narrow viewport", () => {
+  test.use({ viewport: { width: 360, height: 800 }, hasTouch: true, isMobile: true });
+
+  for (const tool of tools) {
+    test(`${tool.name} (${tool.id}) avoids page-level horizontal scroll`, async ({ page }) => {
+      await page.goto(`/tool/${tool.id}`);
+
+      await expect(page.locator("#tool-title")).toHaveText(tool.name);
+      await expect(page.getByText("Loading tool…")).toHaveCount(0);
+
+      const overflow = await page.evaluate(
+        () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
+      );
+      expect(overflow, tool.id).toBeLessThanOrEqual(0);
+    });
+  }
+});
+
 test("home page renders the workbench", async ({ page }) => {
   const errors = watchPageErrors(page);
 

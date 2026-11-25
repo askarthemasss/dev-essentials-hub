@@ -33,15 +33,17 @@ const EnvGeneratorTool = () => {
   return (
     <div className="space-y-4">
       {vars.map((v, i) => (
-        <div key={i} className="flex gap-2 items-start">
-          <Input value={v.key} onChange={(e) => update(i, "key", e.target.value)} aria-label={`Variable ${i + 1} key`} placeholder="KEY" className="font-mono text-sm bg-secondary border-border w-40" />
-          <Input value={v.value} onChange={(e) => update(i, "value", e.target.value)} aria-label={`Variable ${i + 1} value`} placeholder="value" className="font-mono text-sm bg-secondary border-border flex-1" />
-          <Input value={v.comment} onChange={(e) => update(i, "comment", e.target.value)} aria-label={`Variable ${i + 1} comment`} placeholder="comment" className="font-mono text-sm bg-secondary border-border w-40" />
-          <Button size="icon" variant="ghost" onClick={() => remove(i)} aria-label={`Remove variable ${v.key || i + 1}`}><Trash2 className="h-4 w-4" /></Button>
+        <div key={i} className="grid grid-cols-2 gap-2 sm:flex sm:items-start">
+          <Input value={v.key} onChange={(e) => update(i, "key", e.target.value)} aria-label={`Variable ${i + 1} key`} placeholder="KEY" className="min-w-0 w-full font-mono text-sm bg-secondary border-border sm:w-40" />
+          <Input value={v.value} onChange={(e) => update(i, "value", e.target.value)} aria-label={`Variable ${i + 1} value`} placeholder="value" className="min-w-0 w-full font-mono text-sm bg-secondary border-border sm:flex-1" />
+          <div className="col-span-2 flex items-start gap-2 sm:contents">
+            <Input value={v.comment} onChange={(e) => update(i, "comment", e.target.value)} aria-label={`Variable ${i + 1} comment`} placeholder="comment" className="min-w-0 w-full font-mono text-sm bg-secondary border-border sm:w-40" />
+            <Button size="icon" variant="ghost" onClick={() => remove(i)} aria-label={`Remove variable ${v.key || i + 1}`} className="shrink-0"><Trash2 className="h-4 w-4" /></Button>
+          </div>
         </div>
       ))}
       <Button variant="outline" onClick={add}><Plus className="h-4 w-4 mr-1" />Add Variable</Button>
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid gap-4 sm:grid-cols-2">
         <div className="relative">
           <span className="text-sm font-mono text-muted-foreground mb-1 block">.env</span>
           <Textarea value={output} readOnly rows={10} aria-label=".env output" className="font-mono text-sm bg-secondary border-border" />
